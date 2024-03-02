@@ -1,0 +1,30 @@
+#about{ 
+    .info-box {
+        align-items: center;
+        display: flex;
+
+        i {
+            font-size: 61px;
+            display: inline-block;
+            background: $brand;
+            color: $dark;
+            line-height: 1;
+            padding: 20px;
+            margin-right: 0;
+            border-radius: 50%;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            transition: 0.5s;
+            transform: scale(1);
+            &:hover{
+                transition: 0.5s;
+                transform: scale(1.2);
+            }
+        }
+    }
+    
+    .circle{
+        border-radius: 25%;
+    }
+}

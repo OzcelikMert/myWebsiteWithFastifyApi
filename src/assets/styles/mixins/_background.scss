@@ -1,0 +1,6 @@
+// Background Mixins //
+@each $color, $value in $theme-colors {
+	.bg-#{$color} {
+		background-color: theme-color($color) !important;
+	}
+}

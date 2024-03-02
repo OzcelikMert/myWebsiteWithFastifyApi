@@ -1,0 +1,14 @@
+.background{
+    background-color: $dark;
+}
+.btn-color{
+    background-color: $dark;
+    color: $brand;
+    &:hover{
+        color: $white;
+        background-color: $brand;
+    }
+}
+.brand{
+    color:$brand;
+}

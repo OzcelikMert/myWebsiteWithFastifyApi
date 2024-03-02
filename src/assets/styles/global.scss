@@ -1,0 +1,65 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* === Plugin styles === */
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons.scss";
+@import "mixins/colorVariables";
+
+@import "~react-responsive-carousel/lib/styles/carousel.min.css";
+
+@import "vendor/animate/animate.min.css";
+
+@import "~slick-carousel/slick/slick.scss";
+@import "~slick-carousel/slick/slick-theme.scss";
+
+/* === Icon fonts === */
+@import "~@fontsource/barlow";
+@import "~@mdi/font/scss/materialdesignicons";
+@import "~font-awesome/scss/font-awesome";
+
+/* === Template mixins === */
+@import "mixins/functions";
+@import "mixins/background";
+
+/* === Page === */
+@import "pages/index";
+
+/* === Components === */
+@import "components/theme/blogs";
+@import "components/index";
+@import "mixins/button";
+@import "mixins/section";
+@import "components/theme/about";
+@import "components/theme/carousel";
+@import "components/theme/clients";
+@import "components/theme/contactForm";
+@import "components/theme/contact";
+@import "components/theme/services";
+@import "components/theme/testimonials";
+@import "components/theme/whyUs";
+@import "components/theme/portfolios";
+@import "components/error/404";
+@import "~react-before-after-slider-component/dist/build.css";
+@import "components/theme/beforeAndAfters";
+@import "components/theme/widgets/index";
+
+/* === Layout === */
+@import "tools/navbar";
+@import "tools/sidebar";
+@import "tools/footer";
+@import "tools/spinner";
+@import "tools/backToTop";
+
+
+a{
+    text-decoration: none;
+}
+
+body {
+    font-family: "Barlow",sans-serif;
+    color: $body;
+    line-height: 1.7;
+}

@@ -1,0 +1,41 @@
+#clients {
+    padding: 80px 60px;
+    .project {
+        margin-right: 8px;
+        position: relative;
+        overflow: hidden;
+        z-index: 2;
+        h6 {
+            font-weight: 400;
+        }
+        h6::before {
+            content: "";
+            height: 2px;
+            width: 30px;
+            display: inline-block;
+            background: $brand;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        .overlay {
+            width: 100%;
+            height: 220px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(180deg, rgba(255, 76, 41, 0) 0%, $dark 100%);
+        }
+        .content {
+            position: absolute;
+            left: 10%;
+            bottom: 10%
+        }
+        h2,h6 {
+        color: $white;
+        }
+    }
+    .project-img{
+        width: 648px;
+        margin-right: 8px;
+    }
+}

@@ -1,0 +1,91 @@
+{
+  "name": "nextjs-template-blog-1",
+  "version": "0.1.1",
+  "description": "Website",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "export": "next export"
+  },
+  "workspaces": [
+    "src"
+  ],
+  "dependencies": {
+    "@fontsource/barlow": "^4.5.9",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.3",
+    "concurrently": "^7.0.0",
+    "cookie-parser": "^1.4.6",
+    "cookies-next": "^2.1.1",
+    "cross-fetch": "^3.1.5",
+    "font-awesome": "^4.7.0",
+    "html-react-parser": "^3.0.4",
+    "i18next": "^21.8.1",
+    "jquery": "^3.6.0",
+    "jsdom": "^19.0.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "moment": "^2.29.1",
+    "next": "^13.1.1",
+    "next-absolute-url": "^1.2.2",
+    "node-html-parser": "^6.1.1",
+    "react": "^18.2.0",
+    "react-before-after-slider-component": "^1.1.6",
+    "react-bootstrap": "^2.7.0",
+    "react-bootstrap-typeahead": "^6.0.0-alpha.9",
+    "react-color": "^2.19.3",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^11.16.9",
+    "react-lazy-load-image-component": "^1.5.4",
+    "react-refresh": "^0.11.0",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router": "^6.2.1",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "^5.0.1",
+    "react-slick": "^0.29.0",
+    "react-slider": "^2.0.4",
+    "react-tsparticles": "^2.3.3",
+    "sass": "^1.54.4",
+    "sass-loader": "^13.0.2",
+    "sharp": "^0.31.2",
+    "slick-carousel": "^1.8.1",
+    "tsparticles": "^2.3.4",
+    "typescript": "^4.9.3",
+    "wowjs": "^1.1.3",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "@mdi/font": "^6.5.95",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/jest": "^27.4.0",
+    "@types/jquery": "^3.5.14",
+    "@types/jsdom": "^16.2.14",
+    "@types/next": "^9.0.0",
+    "@types/node": "18.11.9",
+    "@types/react": "^18.0.25",
+    "@types/react-datepicker": "^4.3.4",
+    "@types/react-dom": "^18.0.9",
+    "@types/react-lazy-load-image-component": "^1.5.2",
+    "@types/react-slick": "^0.23.10",
+    "@types/react-slider": "^1.3.1",
+    "@types/xml2js": "^0.4.11"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

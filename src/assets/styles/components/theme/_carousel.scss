@@ -1,0 +1,120 @@
+#intro {
+  width: 100%;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  box-shadow: 0px 0px 12px 0px rgb(0 0 0 / 10%);
+
+  .img-size{
+    object-fit: fill;
+    height: 100%;
+  }
+
+  .masthead {
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 105vh;
+    box-shadow: inset 0px 0px 20px 5px #000000e3;
+
+    h1 {
+      span {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .masthead-filter {
+    background: #221a0a47;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 105vh;
+  }
+
+  .masthead-content-container {
+    position: absolute;
+    top: 0;
+    
+    @media (max-width: 576px) {
+      top:35px;
+    }
+    .masthead-content {
+      position: relative;
+      z-index: 1;
+
+      h1 {
+        color: $white;
+      }
+      h2{
+        color: $white;
+      }
+
+      .buttons {
+        a {
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 1px;
+          display: inline-block;
+          padding: 10px 32px;
+          border-radius: 0.25rem;
+          transition: 0.5s;
+          margin: 0 20px 20px 0;
+          color: $white;
+
+          &:first-child {
+            background: $brand;
+            border: 2px solid $brand;
+
+            &:hover {
+              background: $brand-100;
+              border-color: $brand-100;
+            }
+          }
+
+          &:last-child {
+            background: transparent;
+            border: 2px solid $white-100;
+            color: $white-100;
+            &:hover {
+              background: $white-100;
+              border-color: $white-100;
+              color: $black;
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  @media (max-width: 991px) {
+    .intro-img {
+      display: none;
+    }
+    .masthead-content {
+      padding: 0;
+    }
+    .intro-info {
+      width: 80%;
+      float: none;
+      margin: auto;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .intro-info {
+      width: 100%;
+
+      h2 {
+        font-size: 34px;
+        margin-bottom: 30px;
+      }
+    }
+  }
+}

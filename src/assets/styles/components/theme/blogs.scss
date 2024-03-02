@@ -1,0 +1,37 @@
+.blogs{
+    .blog-post {
+        position: relative;
+        background-color: #fff;
+        box-shadow: $shadow;
+        margin-top: 20px;
+    }
+
+    .blog-post .terms {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        a {
+            background-color: $brand;
+            padding: 2px 12px;
+            border-radius: 100px;
+            text-decoration: none;
+            color: #fff;
+            margin: 5px
+        }
+    }
+    
+    .blog-post .content {
+        padding: 32px;
+    }
+    
+    .blog-post h5 {
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .blog-post small {
+        text-transform: uppercase;
+        color: $brand;
+        text-decoration: underline;
+    }
+}

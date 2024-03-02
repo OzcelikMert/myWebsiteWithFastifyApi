@@ -1,0 +1,53 @@
+#footer {
+    background: linear-gradient(0deg, rgba(8, 32, 50, 0.9), rgba(8, 32, 50, 0.9)), #082032; // url ile resim eklenecek
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    .footer-top {
+        padding-top: 80px;
+        padding-bottom: 40px;
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 20px;
+        padding-top: 20px;
+        a{
+            color: $gray;
+            &:hover{
+                color: $brand;
+            }
+        }
+    }
+
+    .navbar-brand {
+        font-size: 28px;
+        font-weight: 700;
+        color: $white;
+        .dot {
+            color: $brand;
+        }
+    }
+
+    p {
+        color: $gray;
+    }
+    
+    .social-icons a {
+        width: 50px;
+        height: 50px;
+        font-size: 15px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    .conditions-section{
+        margin: 20px 0;
+    }
+    .conditions-section a{
+       color: $white;
+       margin: 0 10px;
+    }
+    
+}

@@ -1,0 +1,23 @@
+.back-to-top {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  z-index: 99;
+  &.show {
+    display: unset;
+  }
+  i{
+    color: $brand
+  }
+  .bg-color{
+    background-color: $dark;
+    border-color: $dark;
+  }
+  .bottom{
+    background-color: $brand;
+    border-color: $brand;
+    i{
+      color: $dark;
+    }
+  }
+}
