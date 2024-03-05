@@ -1,4 +1,4 @@
-enum StatusId {
+export enum StatusId {
     Active = 1,
     InProgress,
     Pending,
@@ -6,5 +6,3 @@ enum StatusId {
     Banned,
     Deleted
 }
-
-export {StatusId};

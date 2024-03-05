@@ -14,6 +14,7 @@
   ],
   "dependencies": {
     "@fontsource/barlow": "^4.5.9",
+    "@mdi/font": "^6.5.95",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "concurrently": "^7.0.0",
@@ -48,6 +49,7 @@
     "react-tsparticles": "^2.3.3",
     "sass": "^1.54.4",
     "sass-loader": "^13.0.2",
+    "lodash": "^4.17.21",
     "sharp": "^0.31.2",
     "slick-carousel": "^1.8.1",
     "tsparticles": "^2.3.4",
@@ -56,7 +58,7 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "@mdi/font": "^6.5.95",
+    "@types/lodash": "^4.14.202",
     "@types/cookie-parser": "^1.4.3",
     "@types/jest": "^27.4.0",
     "@types/jquery": "^3.5.14",

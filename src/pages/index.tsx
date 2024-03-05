@@ -1,30 +1,38 @@
-import {PagePropCommonDocument} from "types/pageProps";
 import React, {Component} from "react";
 import {GetServerSidePropsContext} from 'next'
-import "styles/pages/home.module.scss";
-import ComponentCarousel from "components/theme/carousel";
-import SelectedComponents from "components/selectedComponents";
-import postService from "services/post.service";
-import {PageTypeId, PostTypeId, StatusId} from "constants/index";
-import {PostGetManyResultDocument} from "types/services/post";
-import pageLib from "lib/page.lib";
+import {IPagePropCommon} from "types/pageProps";
+import {PageUtil} from "utils/page.util";
+import {PageTypeId} from "constants/pageTypes";
+import {PostService} from "services/post.service";
+import {PostTypeId} from "constants/postTypes";
+import {StatusId} from "constants/status";
+import {IPostGetManyResultService} from "types/services/post.service";
 
 type PageState = {};
 
 type PageProps = {
     components: any[]
-} & PagePropCommonDocument<{ sliders: PostGetManyResultDocument[] }>;
+} & IPagePropCommon<{ blogs: string[] }>;
 
 export default class PageHome extends Component<PageProps, PageState> {
     constructor(props: PageProps) {
         super(props);
     }
 
+    Blog = (props: IPostGetManyResultService) => {
+        return (
+            <div>
+                <div>{props.contents?.title}</div>
+                <div>{props.contents?.content}</div>
+            </div>
+        );
+    }
+
     render() {
+        console.log(this.props)
         return (
             <div className="page page-home">
-                <ComponentCarousel {...this.props}/>
-                <SelectedComponents {...this.props} />
+                {}
             </div>
         );
     }
@@ -33,15 +41,15 @@ export default class PageHome extends Component<PageProps, PageState> {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     let req = context.req;
 
-    await pageLib.get(req, "", PageTypeId.HomePage)
+    await PageUtil.get(req, "", PageTypeId.HomePage)
 
-    req.themeData.sliders = (await postService.getMany({
+    req.pageData.blogs = (await PostService.getMany({
         langId: req.appData.languageId,
-        typeId: [PostTypeId.Slider],
+        typeId: [PostTypeId.Blog],
         statusId: StatusId.Active
     })).data;
 
     return {
-        props: pageLib.getReturnData(req),
+        props: PageUtil.getReturnData(req),
     };
 }

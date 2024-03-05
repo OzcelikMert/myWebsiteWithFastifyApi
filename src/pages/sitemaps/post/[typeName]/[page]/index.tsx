@@ -1,12 +1,11 @@
 import {GetServerSidePropsContext} from 'next'
 import Parser from "xml2js";
-import "styles/pages/home.module.scss";
-import sitemapService from "services/sitemap.service";
-import postLib from "lib/post.lib";
 import {SitemapFileDocument} from "types/pages/sitemaps";
-import linkUtil from "utils/link.util";
-import sitemapLib from "lib/sitemap.lib";
-import pageLib from "lib/page.lib";
+import {PostUtil} from "utils/post.util";
+import {SitemapService} from "services/sitemap.service";
+import {LinkUtil} from "utils/link.util";
+import {SitemapUtil} from "utils/sitemap.util";
+import {PageUtil} from "utils/page.util";
 
 export default function PageSitemapsXML() {
     return null;
@@ -17,15 +16,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let req = context.req;
 
     let typeName = context.params?.typeName as string ?? "";
-    let typeId = postLib.getTypeId(typeName.toCapitalizeCase());
+    let typeId = PostUtil.getTypeId(typeName.toCapitalizeCase());
     let page = Number(context.params?.page ?? 1);
 
-    let resData = await sitemapService.getPost({
+    let resData = await SitemapService.getPost({
         typeId: typeId,
         page: page
     });
 
-    if (resData.status) {
+    if (resData.status && resData.data) {
         let sitemapData: SitemapFileDocument = {
             urlset: {
                 url: [],
@@ -44,17 +43,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 sitemapData.urlset.url.push({
                     "xhtml:link": post.contents.map(content => {
                         let language = req.appData.languages.findSingle("_id", content.langId);
-                        let hrefLang = language ? linkUtil.language(language) : "tr-tr";
+                        let hrefLang = language ? LinkUtil.languageCode(language) : "tr-tr";
                         return {
                             $: {
                                 rel: "alternate",
-                                href: sitemapLib.getLoc(req.appData.apiPath.website.base, hrefLang, sitemapLib.getSitemapPostLoc(post.typeId, content.url, post.pageTypeId)),
+                                href: SitemapUtil.getLoc(req.appData.apiPath.website.base, hrefLang, SitemapUtil.getSitemapPostLoc(post.typeId, content.url, post.pageTypeId)),
                                 hreflang: hrefLang
                             }
                         }
                     }),
-                    priority: sitemapLib.getSitemapPostPriority(post.typeId, post.pageTypeId),
-                    loc: sitemapLib.getLoc(req.appData.apiPath.website.base, sitemapLib.getSitemapPostLoc(post.typeId, defaultContent.url, post.pageTypeId)),
+                    priority: SitemapUtil.getSitemapPostPriority(post.typeId, post.pageTypeId),
+                    loc: SitemapUtil.getLoc(req.appData.apiPath.website.base, SitemapUtil.getSitemapPostLoc(post.typeId, defaultContent.url, post.pageTypeId)),
                     changefreq: "weekly",
                     lastmod: new Date(post.updatedAt).toISOString()
                 })
@@ -70,6 +69,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     return {
-        props: pageLib.getReturnData(req)
+        props: PageUtil.getReturnData(req)
     };
 }

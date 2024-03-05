@@ -1,12 +1,11 @@
 import {GetServerSidePropsContext} from 'next'
 import Parser from "xml2js";
-import "styles/pages/home.module.scss";
-import sitemapService from "services/sitemap.service";
 import React from "react";
-import {SitemapFileIndexDocument} from "types/pages/sitemap.xml";
-import postLib from "lib/post.lib";
-import pageLib from "lib/page.lib";
-import sitemapLib from "lib/sitemap.lib";
+import {SitemapService} from "services/sitemap.service";
+import {ISitemapFileIndex} from "types/pages/sitemap.xml";
+import {PostUtil} from "utils/post.util";
+import {SitemapUtil} from "utils/sitemap.util";
+import {PageUtil} from "utils/page.util";
 
 export default function PageSitemapXML() { return null; }
 
@@ -14,10 +13,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let res = context.res;
     let req = context.req;
 
-    let resData = await sitemapService.getMaps({});
+    let resData = await SitemapService.getMaps();
 
-    if(resData.status){
-        let sitemapData: SitemapFileIndexDocument = {
+    if(resData.status && resData.data){
+        let sitemapData: ISitemapFileIndex = {
             sitemapindex: {
                 sitemap: [],
                 $: {
@@ -30,10 +29,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
         for(const post of resData.data.post){
             let pages = Math.ceil(post.total / 500);
-            let typeName = postLib.getTypeName(post.typeId);
+            let typeName = PostUtil.getTypeName(post.typeId);
             for (let i = 0; i < pages; i++) {
                 sitemapData.sitemapindex.sitemap.push({
-                    loc: sitemapLib.getLoc(req.appData.apiPath.website.base, "sitemaps", "post", typeName, (i + 1).toString())
+                    loc: SitemapUtil.getLoc(req.appData.apiPath.website.base, "sitemaps", "post", typeName, (i + 1).toString())
                 })
             }
         }
@@ -45,6 +44,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     return {
-        props: pageLib.getReturnData(req)
+        props: PageUtil.getReturnData(req)
     };
 }

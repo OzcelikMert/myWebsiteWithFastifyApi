@@ -1,12 +1,14 @@
 import V from "library/variable";
-import pathUtil from "./path.util";
+import {PathUtil} from "./path.util";
 
-export default {
-    getUploadedImageSrc(imageName?: string, uploadPaths = pathUtil.uploads): any {
-        return imageName && !V.isEmpty(imageName)
-            ? (imageName.isUrl())
-                ? imageName
-                : uploadPaths.images + imageName
-            : uploadPaths.static + "empty.jpg"
-    },
+const getUploadedImageSrc = (imageName?: string): string => {
+    return imageName && !V.isEmpty(imageName)
+        ? (imageName.isUrl())
+            ? imageName
+            : PathUtil.getImageURL() + imageName
+        : "assets/images/empty.jpg"
+}
+
+export const ImageSourceUtil = {
+    getUploadedImageSrc: getUploadedImageSrc
 }

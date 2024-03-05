@@ -1,30 +1,37 @@
-import Api from "./api";
-import {ServicePages} from "constants/index";
+import {ApiEndPoints} from "constants/apiEndPoints";
+import {PathUtil} from "utils/path.util";
+import ApiRequest from "library/api/request";
 import {
-    SitemapGetPostTermParamDocument,
-    SitemapGetPostParamDocument,
-    SitemapPostTermDocument,
-    SitemapPostDocument,
-    SitemapMapsDocument
-} from "types/services/sitemap";
+    ISitemapGetMapsResultService,
+    ISitemapGetPostParamService,
+    ISitemapGetPostResultService, ISitemapGetPostTermParamService, ISitemapGetPostTermResultService,
+} from "types/services/sitemap.service";
 
-export default {
-    getMaps(params: {}) {
-        return Api.get<SitemapMapsDocument>({
-            url: [ServicePages.sitemap, "maps"],
-            data: params
-        });
-    },
-    getPost(params: SitemapGetPostParamDocument){
-        return Api.get<SitemapPostDocument[]>({
-            url: [ServicePages.sitemap, "post"],
-            data: params
-        });
-    },
-    getPostTerm(params: SitemapGetPostTermParamDocument) {
-        return Api.get<SitemapPostTermDocument[]>({
-            url: [ServicePages.sitemap, "postTerm"],
-            data: params
-        });
-    }
+const getMaps = () => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.SITEMAP_WITH.GET_MAPS,
+    }).get<ISitemapGetMapsResultService>();
+}
+
+const getPost = (params: ISitemapGetPostParamService) => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.SITEMAP_WITH.GET_POST,
+        data: params,
+    }).get<ISitemapGetPostResultService[]>();
+}
+
+const getPostTerm = (params: ISitemapGetPostTermParamService) => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.SITEMAP_WITH.GET_POST_TERM,
+        data: params,
+    }).get<ISitemapGetPostTermResultService[]>();
+}
+
+export const SitemapService = {
+    getMaps: getMaps,
+    getPost: getPost,
+    getPostTerm: getPostTerm
 }

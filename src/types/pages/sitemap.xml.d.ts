@@ -1,16 +1,16 @@
-export interface SitemapFileIndexAttrDocument {
+export interface ISitemapFileIndexAttr {
     "xmlns:xsi"?: string
     "xmlns:xsd"?: string
     "xmlns"?: string
 }
 
-export interface SitemapFileIndexChildrenDocument {
+export interface ISitemapFileIndexChildren {
     loc: string
 }
 
-export interface SitemapFileIndexDocument {
+export interface ISitemapFileIndex {
     sitemapindex: {
-        $: SitemapFileIndexAttrDocument
-        sitemap: SitemapFileIndexChildrenDocument[]
+        $: ISitemapFileIndexAttr
+        sitemap: ISitemapFileIndexChildren[]
     }
 }

@@ -1,7 +1,7 @@
-import {PagePropCommonDocument} from "types/pageProps";
+import {IPagePropCommon} from "types/pageProps";
 
 export interface GetServerSidePropsDocument<T> {
     props: {
-        pageData:  PagePropCommonDocument<{}>["pageData"]
+        pageData: IPagePropCommon<{}>["pageData"]
     }
 }

@@ -1,22 +1,30 @@
-import Api from "./api";
-import {ServicePages} from "constants/index";
+import {ApiEndPoints} from "constants/apiEndPoints";
 import  {
-    PostTermGetResultDocument,
-    PostTermGetManyParamDocument,
-    PostTermGetOneParamDocument,
-} from "types/services/postTerm";
+    IPostTermGetResultService,
+    IPostTermGetManyParamService,
+    IPostTermGetWithIdParamService,
+} from "types/services/postTerm.service";
+import ApiRequest from "library/api/request";
+import {PathUtil} from "utils/path.util";
+import {IPostTermModel} from "types/models/postTerm.model";
 
-export default {
-    getOne(params: PostTermGetOneParamDocument) {
-        return Api.get<PostTermGetResultDocument | null>({
-            url: [ServicePages.postTerm, "one", params.postTypeId.toString(), params.typeId.toString()],
-            data: params
-        });
-    },
-    getMany(params: PostTermGetManyParamDocument) {
-        return Api.get<PostTermGetResultDocument[]>({
-            url: [ServicePages.postTerm, "many", params.postTypeId.toString()],
-            data: params
-        });
-    }
+const getWithId = (params: IPostTermGetWithIdParamService) => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.POST_TERM_WITH.GET_WITH_ID(params._id),
+        data: params
+    }).get<IPostTermGetResultService>();
+}
+
+const getMany = (params: IPostTermGetManyParamService) => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.POST_TERM_WITH.GET,
+        data: params
+    }).get<IPostTermGetResultService[]>();
+}
+
+export const PostTermService = {
+    getWithId: getWithId,
+    getMany: getMany,
 }

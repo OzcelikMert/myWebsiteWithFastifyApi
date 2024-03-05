@@ -1,14 +1,19 @@
-import Api from "./api";
-import {ServicePages} from "constants/index";
+import {ApiEndPoints} from "constants/apiEndPoints";
 import {
-    ViewAddParamDocument,
-} from "types/services/view";
+    IViewAddParamService,
+} from "types/services/view.service";
+import ApiRequest from "library/api/request";
+import {PathUtil} from "utils/path.util";
+import {IViewModel} from "types/models/view.model";
 
-export default {
-    add(params: ViewAddParamDocument) {
-        return Api.post({
-            url: [ServicePages.view, "one"],
-            data: params
-        });
-    },
+const add = (params: IViewAddParamService) => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.VIEW_WITH.ADD,
+        data: params
+    }).post<IViewModel>();
+}
+
+export const ViewService = {
+    add: add,
 }

@@ -1,12 +1,16 @@
-import Api from "./api";
-import {ServicePages} from "constants/index";
-import {MailerSendParamDocument} from "types/services/mailer";
+import {ApiEndPoints} from "constants/apiEndPoints";
+import ApiRequest from "library/api/request";
+import {PathUtil} from "utils/path.util";
+import {IMailerSendParamService} from "types/services/mailer.service";
 
-export default {
-    send(params: MailerSendParamDocument) {
-        return Api.post({
-            url: [ServicePages.mailer],
-            data: params,
-        });
-    }
+const send = (params: IMailerSendParamService) =>{
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.MAILER_WITH.SEND,
+        data: params
+    }).post();
+}
+
+export const MailerService = {
+    send: send
 }

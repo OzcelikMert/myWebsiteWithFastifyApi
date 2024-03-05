@@ -1,36 +1,38 @@
-import Api from "./api";
-import {ServicePages} from "constants/index";
+import {ApiEndPoints} from "constants/apiEndPoints";
 import {
-    SubscriberAddDocument,
-    SubscriberGetOneParamDocument,
-    SubscriberDeleteOneParamDocument,
-    SubscriberGetResultDocument,
-    SubscriberGetManyParamDocument
-} from "types/services/subscriber";
+    ISubscriberAddParamService, ISubscriberDeleteWithEmailParamService,
+    ISubscriberGetResultService, ISubscriberGetWithEmailParamService,
+} from "types/services/subscriber.service";
+import ApiRequest from "library/api/request";
+import {PathUtil} from "utils/path.util";
+import {ISubscriberModel} from "types/models/subscriber.model";
 
-export default {
-    getOne(params: SubscriberGetOneParamDocument) {
-        return Api.get<SubscriberGetResultDocument | null>({
-            url: [ServicePages.subscriber, "one"],
-            data: params
-        });
-    },
-    getMany(params: SubscriberGetManyParamDocument) {
-        return Api.get<SubscriberGetResultDocument[]>({
-            url: [ServicePages.subscriber, "many"],
-            data: params
-        });
-    },
-    add(params: SubscriberAddDocument) {
-        return Api.post({
-            url: [ServicePages.subscriber, "one"],
-            data: params
-        });
-    },
-    deleteOne(params: SubscriberDeleteOneParamDocument) {
-        return Api.delete({
-            url: [ServicePages.subscriber, "one"],
-            data: params
-        });
-    },
+const getWithEmail = (params: ISubscriberGetWithEmailParamService) => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.SUBSCRIBER_WITH.GET_WITH_EMAIL(params.email),
+        data: params
+    }).get<ISubscriberGetResultService>();
+}
+
+const add = (params: ISubscriberAddParamService) => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.SUBSCRIBER_WITH.ADD,
+        data: params
+    }).post<ISubscriberModel>();
+}
+
+const deleteWithEmail = (params: ISubscriberDeleteWithEmailParamService) => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.SUBSCRIBER_WITH.DELETE_WITH_EMAIL(params.email),
+        data: params
+    }).delete();
+}
+
+export const SubscriberService = {
+    getWithEmail: getWithEmail,
+    add: add,
+    deleteWithEmail: deleteWithEmail,
 }

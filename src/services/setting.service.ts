@@ -1,15 +1,19 @@
-import Api from "./api";
-import {ServicePages} from "constants/index";
+import {ApiEndPoints} from "constants/apiEndPoints";
 import {
-    SettingGetParamDocument,
-    SettingGetResultDocument
-} from "types/services/setting";
+    ISettingGetParamService,
+    ISettingGetResultService
+} from "types/services/setting.service";
+import {PathUtil} from "utils/path.util";
+import ApiRequest from "library/api/request";
 
-export default {
-    get(params: SettingGetParamDocument) {
-        return Api.get<SettingGetResultDocument>({
-            url: [ServicePages.setting],
-            data: params,
-        });
-    }
+const get = (params: ISettingGetParamService) => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.SETTING_WITH.GET,
+        data: params,
+    }).get<ISettingGetResultService>();
+}
+
+export const SettingService = {
+    get: get,
 }

@@ -1,4 +1,4 @@
-import pagePathLib from "lib/pagePath.lib";
+import pagePathLib from "utils/pagePath.util";
 
 const PagePaths = {
     index() {

@@ -1,31 +1,24 @@
-import {NextRouter} from "next/dist/shared/lib/router/router";
-import {PostGetOneResultDocument} from "types/services/post";
-import {SettingGetResultDocument} from "types/services/setting";
-import {LanguageGetResultDocument} from "types/services/language";
-import {ComponentGetResultDocument} from "types/services/component";
-import { NavigationGetResultDocument } from "types/services/navigation";
+import {AppProps} from "next/app";
+import {ILanguageKeys} from "types/constants/languageKeys";
+import {INavigationGetResultService} from "types/services/navigation.service";
+import {IPostGetOneResultService} from "types/services/post.service";
+import {ISettingGetResultService} from "types/services/setting.service";
+import {ILanguageGetResultService} from "types/services/language.service";
 
-export interface PagePropCommonDocument<T> {
-    appData: AppDataDocument
-    themeData: ThemeDataDocument & T
-    pageData?: PostGetOneResultDocument | null
-    router: NextRouter,
+export type IPagePropCommon<T = {[key: string]: any}> = {
+    router: AppProps["router"],
+    t: (key: ILanguageKeys) => string
+    appData: IAppData
+    pageData: IPageData<T>
+    navigations?: INavigationGetResultService[]
+    cookies: {} & { [key: string]: any }
 }
 
-export interface ThemeDataDocument {
-    navigations: NavigationGetResultDocument[]
-    footer?: ComponentGetResultDocument
-    [key: string]: any
-}
-
-export interface AppDataDocument {
-    settings: SettingGetResultDocument,
-    languages: LanguageGetResultDocument[],
+export interface IAppData {
+    settings: ISettingGetResultService,
+    languages: ILanguageGetResultService[],
     languageId: string
     languageKeyWithLocale?: string
-    cookies: {
-        languageId: string
-    }
     apiPath: {
         website: {
             full: string,
@@ -40,3 +33,7 @@ export interface AppDataDocument {
         }
     }
 }
+
+export type IPageData<T> = {
+    page?: IPostGetOneResultService,
+} & T

@@ -1,4 +1,4 @@
-enum PostTypeId {
+export enum PostTypeId {
     Blog = 1,
     Portfolio,
     Page,
@@ -9,5 +9,3 @@ enum PostTypeId {
     Product,
     BeforeAndAfter
 }
-
-export {PostTypeId};

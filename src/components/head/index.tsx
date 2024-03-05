@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import Head from 'next/head'
-import {PagePropCommonDocument} from "types/pageProps";
 import Variable from "library/variable";
-import imageSourceUtil from "utils/imageSource.util";
-import linkUtil from "utils/link.util";
+import {IPagePropCommon} from "types/pageProps";
+import {LinkUtil} from "utils/link.util";
+import {ImageSourceUtil} from "utils/imageSource.util";
 
 type PageState = {};
 
-type PageProps = {} & PagePropCommonDocument<{}>;
+type PageProps = {} & IPagePropCommon<{}>;
 
 export default class ComponentHead extends Component<PageProps, PageState> {
     constructor(props: PageProps) {
@@ -38,7 +38,7 @@ export default class ComponentHead extends Component<PageProps, PageState> {
             let language = this.props.appData.languages.findSingle("_id", alternate.langId);
             if(language){
                 return (
-                    <link rel="alternate" hrefLang={linkUtil.language(language)} href={linkUtil.changeLanguage(this.props.appData, language)} />
+                    <link rel="alternate" hrefLang={LinkUtil.languageCode(language)} href={LinkUtil.changeLanguage(this.props.appData, language)} />
                 )
             }
         })
@@ -49,7 +49,7 @@ export default class ComponentHead extends Component<PageProps, PageState> {
             let language = this.props.appData.languages.findSingle("_id", alternate.langId);
             if(language){
                 return (
-                    <meta property="og:locale:alternate" content={linkUtil.languageUpperLocale(language)} />
+                    <meta property="og:locale:alternate" content={LinkUtil.languageUpperLocale(language)} />
                 )
             }
         })
@@ -60,7 +60,7 @@ export default class ComponentHead extends Component<PageProps, PageState> {
         let appData = this.props.appData;
         let title = `${appData.settings.seoContents?.title}${!Variable.isEmpty(pageData?.contents?.title) ? ` | ${pageData?.contents?.title}` : ""}`;
         let desc = pageData?.contents?.shortContent || appData.settings.seoContents?.content || "";
-        let logo = imageSourceUtil.getUploadedImageSrc(appData.settings.logo, appData.apiPath.uploads)
+        let logo = ImageSourceUtil.getUploadedImageSrc(appData.settings.logo)
         let language = this.props.appData.languages.findSingle("_id", this.props.appData.languageId);
 
         return (
@@ -83,7 +83,7 @@ export default class ComponentHead extends Component<PageProps, PageState> {
                 <meta property="og:description" content={desc} />
                 <meta property="og:site_name" content={title} />
                 <meta property="og:image" content={logo} />
-                <meta property="og:locale" content={language ? linkUtil.languageUpperLocale(language) : ""} />
+                <meta property="og:locale" content={language ? LinkUtil.languageUpperLocale(language) : ""} />
                 {this.getFacebookAlternates}
 
                 <meta name="twitter:card" content="summary_large_image" />

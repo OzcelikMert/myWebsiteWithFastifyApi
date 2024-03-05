@@ -9,18 +9,34 @@ import "library/variable/number"
 import "library/variable/date"
 import "library/variable/math"
 
-import cookieLib from "lib/cookie.lib";
-import pathLib from "lib/path.lib";
-import languageLib from "lib/language.lib";
-import settingLib from "lib/setting.lib";
-import themeLib from "lib/theme.lib";
-
 import ComponentApp from "components/app";
-import pageLib from "lib/page.lib";
-import i18Lib from "lib/i18.lib";
+import i18n from "i18next";
+import {initReactI18next} from "react-i18next";
+import {IPagePropCommon} from "types/pageProps";
+import {CookieUtil} from "utils/cookie.util";
+import {PathUtil} from "utils/path.util";
+import {LanguageUtil} from "utils/language.util";
+import {SettingUtil} from "utils/setting.util";
+import {ThemeUtil} from "utils/theme.util";
+import {PageUtil} from "utils/page.util";
+
+function i18Init(pageProps: IPagePropCommon){
+    const language = i18n.use(initReactI18next);
+    language.init({
+        resources: {
+            default: {translation: pageProps.appData.settings.staticContents?.reduce((a: any, v) => ({...a, [v.elementId]: v.contents?.content || ""}), {}) || {}}
+        },
+        keySeparator: false,
+        lng: "default",
+        fallbackLng: "default",
+        interpolation: {
+            escapeValue: false
+        }
+    });
+}
 
 function App(props: AppProps) {
-    i18Lib.init(props.pageProps.appData)
+    i18Init(props.pageProps)
     return (
         <ComponentApp {...props.pageProps} Component={props.Component} router={props.router}/>
     )
@@ -36,35 +52,31 @@ App.getInitialProps = async (props: AppContext) => {
             'public, s-maxage=10, stale-while-revalidate=59'
         );
 
-        req.themeData = {
-            ...req.themeData
-        }
-
         req.appData = {
             ...req.appData
         };
 
-        cookieLib.set(req);
-        pathLib.set(req);
-        await languageLib.get(req);
-        await settingLib.getDefaultLanguageId(req);
+        //CookieUtil.set(req);
+        PathUtil.set(req);
+        await LanguageUtil.get(req);
+        await SettingUtil.getDefaultLanguageId(req);
 
         let langMatches = req.appData.apiPath.website.originalUrl.match(/\/([a-z]{2}\-[a-z]{2})/gm);
         if (langMatches && langMatches.length > 0) {
             let langKey = langMatches[0].slice(1);
-            if (languageLib.check(req, res, langKey)) return {};
-            cookieLib.setLanguageId(req, res)
-            await settingLib.get(req);
-            if (languageLib.isDefault(req, res)) return {};
+            if (LanguageUtil.check(req, res, langKey)) return {};
+            CookieUtil.setLanguageId(req, res)
+            await SettingUtil.get(req);
+            if (LanguageUtil.isDefault(req, res)) return {};
         } else {
-            if (languageLib.checkCookie(req, res)) return {};
-            await settingLib.get(req);
+            if (LanguageUtil.checkCookie(req, res)) return {};
+            await SettingUtil.get(req);
         }
 
-        await themeLib.getTools(req);
+        await ThemeUtil.getTools(req);
 
         return {
-            pageProps: pageLib.getReturnData(req)
+            pageProps: PageUtil.getReturnData(req)
         }
     }
 

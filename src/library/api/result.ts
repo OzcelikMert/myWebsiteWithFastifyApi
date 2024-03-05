@@ -1,13 +1,14 @@
-import ErrorCodes from "./errorCodes";
+import {ApiErrorCodes} from "./errorCodes";
+import {ApiStatusCodes} from "./statusCodes";
 
-class Result {
+export class ApiResult<Data = any[], CustomData = null> {
     constructor(
         data: any = [],
         customData: any = null,
-        status: boolean = true,
-        message: string = "",
-        errorCode: number = ErrorCodes.success,
-        statusCode: number = 200,
+        status: boolean = false,
+        message: any = "",
+        errorCode: ApiErrorCodes = ApiErrorCodes.incorrectData,
+        statusCode: ApiStatusCodes = ApiStatusCodes.conflict,
         source: string = ""
     ) {
         this.data = data;
@@ -19,13 +20,11 @@ class Result {
         this.source = source;
     }
 
-    data: any;
-    customData: any;
+    data?: Data | null;
+    customData?: CustomData;
     status: boolean;
-    message: string;
-    errorCode: number;
-    statusCode: number;
+    message: any;
+    errorCode: ApiErrorCodes;
+    statusCode: ApiStatusCodes;
     source: string;
 }
-
-export default Result;

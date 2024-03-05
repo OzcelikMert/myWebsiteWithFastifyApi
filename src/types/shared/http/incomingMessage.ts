@@ -1,12 +1,10 @@
-import {AppDataDocument, PagePropCommonDocument} from "types/pageProps";
+import {IPagePropCommon} from "types/pageProps";
 
 declare module "http" {
     interface IncomingMessage {
-        appData: PagePropCommonDocument<{}>["appData"]
-        pageData:  PagePropCommonDocument<{}>["pageData"]
-        themeData: PagePropCommonDocument<{}>["themeData"]
-        get cookies(): Partial<{
-            [key: string]: string;
-        }>;
+        appData: IPagePropCommon["appData"]
+        pageData: IPagePropCommon["pageData"]
+        navigations?: IPagePropCommon["navigations"]
+        cookies: IPagePropCommon["cookies"]
     }
 }
