@@ -8,7 +8,7 @@ import {ViewService} from "services/view.service";
 const get = async(req: IncomingMessage, url?: string, typeId?: PageTypeId, isSetView = true) => {
     req.pageData = {};
 
-    let resData = await PostService.getWithURL({
+    let serviceResult = await PostService.getWithURL({
         langId: req.appData.selectedLangId,
         typeId: PostTypeId.Page,
         statusId: StatusId.Active,
@@ -16,8 +16,8 @@ const get = async(req: IncomingMessage, url?: string, typeId?: PageTypeId, isSet
         ...(typeId ? {pageTypeId: typeId} : {})
     });
 
-    if(resData.status && resData.data){
-        req.pageData.page = resData.data;
+    if(serviceResult.status && serviceResult.data){
+        req.pageData.page = serviceResult.data;
 
         if(isSetView){
             await PostService.updateViewWithId({

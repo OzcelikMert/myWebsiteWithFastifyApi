@@ -19,12 +19,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let typeId = PostUtil.getTypeId(typeName.toCapitalizeCase());
     let page = Number(context.params?.page ?? 1);
 
-    let resData = await SitemapService.getPost({
+    let serviceResult = await SitemapService.getPost({
         typeId: typeId,
         page: page
     });
 
-    if (resData.status && resData.data) {
+    if (serviceResult.status && serviceResult.data) {
         let sitemapData: SitemapFileDocument = {
             urlset: {
                 url: [],
@@ -37,7 +37,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             }
         }
 
-        for (const post of resData.data) {
+        for (const post of serviceResult.data) {
             let defaultContent = post.contents.findSingle("langId", req.appData.defaultLangId);
             if(defaultContent){
                 sitemapData.urlset.url.push({

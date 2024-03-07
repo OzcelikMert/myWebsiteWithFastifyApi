@@ -13,9 +13,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let res = context.res;
     let req = context.req;
 
-    let resData = await SitemapService.getMaps();
+    let serviceResult = await SitemapService.getMaps();
 
-    if(resData.status && resData.data){
+    if(serviceResult.status && serviceResult.data){
         let sitemapData: ISitemapFileIndex = {
             sitemapindex: {
                 sitemap: [],
@@ -27,7 +27,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             }
         }
 
-        for(const post of resData.data.post){
+        for(const post of serviceResult.data.post){
             let pages = Math.ceil(post.total / 500);
             let typeName = PostUtil.getTypeName(post.typeId);
             for (let i = 0; i < pages; i++) {
