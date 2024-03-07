@@ -6,7 +6,6 @@ import  {
 } from "types/services/postTerm.service";
 import ApiRequest from "library/api/request";
 import {PathUtil} from "utils/path.util";
-import {IPostTermModel} from "types/models/postTerm.model";
 
 const getWithId = (params: IPostTermGetWithIdParamService) => {
     return new ApiRequest({

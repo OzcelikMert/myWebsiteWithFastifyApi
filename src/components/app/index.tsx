@@ -24,13 +24,14 @@ class ComponentApp extends Component<PageProps, PageState> {
             appData: this.props.appData,
             pageData: this.props.pageData,
             cookies: this.props.cookies,
+            getURL: this.props.getURL
         };
 
         return (
             <div>
                 <Head>
                     <link rel="shortcut icon" href={ImageSourceUtil.getUploadedImageSrc(commonProps.appData.settings.icon)}/>
-                    <link rel="canonical" href={commonProps.appData.apiPath.website.full}/>
+                    <link rel="canonical" href={commonProps.getURL.full}/>
                     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
                 </Head>
                 <ProviderNoFound {...commonProps}>

@@ -3,9 +3,9 @@ import Parser from "xml2js";
 import {SitemapFileDocument} from "types/pages/sitemaps";
 import {PostUtil} from "utils/post.util";
 import {SitemapService} from "services/sitemap.service";
-import {LinkUtil} from "utils/link.util";
 import {SitemapUtil} from "utils/sitemap.util";
 import {PageUtil} from "utils/page.util";
+import {LanguageUtil} from "utils/language.util";
 
 export default function PageSitemapsXML() {
     return null;
@@ -38,22 +38,22 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         }
 
         for (const post of resData.data) {
-            let defaultContent = post.contents.findSingle("langId", req.appData.settings.defaultLangId);
+            let defaultContent = post.contents.findSingle("langId", req.appData.defaultLangId);
             if(defaultContent){
                 sitemapData.urlset.url.push({
                     "xhtml:link": post.contents.map(content => {
-                        let language = req.appData.languages.findSingle("_id", content.langId);
-                        let hrefLang = language ? LinkUtil.languageCode(language) : "tr-tr";
+                        let language = req.appData.languages!.findSingle("_id", content.langId);
+                        let hrefLang = language ? LanguageUtil.getCode(language) : "tr-tr";
                         return {
                             $: {
                                 rel: "alternate",
-                                href: SitemapUtil.getLoc(req.appData.apiPath.website.base, hrefLang, SitemapUtil.getSitemapPostLoc(post.typeId, content.url, post.pageTypeId)),
+                                href: SitemapUtil.getLoc(req.getURL.base, hrefLang, SitemapUtil.getSitemapPostLoc(post.typeId, content.url, post.pageTypeId)),
                                 hreflang: hrefLang
                             }
                         }
                     }),
                     priority: SitemapUtil.getSitemapPostPriority(post.typeId, post.pageTypeId),
-                    loc: SitemapUtil.getLoc(req.appData.apiPath.website.base, SitemapUtil.getSitemapPostLoc(post.typeId, defaultContent.url, post.pageTypeId)),
+                    loc: SitemapUtil.getLoc(req.getURL.base, SitemapUtil.getSitemapPostLoc(post.typeId, defaultContent.url, post.pageTypeId)),
                     changefreq: "weekly",
                     lastmod: new Date(post.updatedAt).toISOString()
                 })
@@ -69,6 +69,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     return {
-        props: PageUtil.getReturnData(req)
+        props: PageUtil.getPropCommon(req)
     };
 }

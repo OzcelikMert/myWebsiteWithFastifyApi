@@ -6,7 +6,7 @@ const getUploadedImageSrc = (imageName?: string): string => {
         ? (imageName.isUrl())
             ? imageName
             : PathUtil.getImageURL() + imageName
-        : "assets/images/empty.jpg"
+        : PathUtil.getStaticURL() + "empty.jpg"
 }
 
 export const ImageSourceUtil = {

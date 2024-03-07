@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {IPagePropCommon} from "types/pageProps";
-import {LinkUtil} from "utils/link.util";
 
 type PageState = {};
 
@@ -23,7 +22,7 @@ export default class ComponentError404 extends Component<PageProps, PageState> {
                                 <h1 className="display-1 font">404</h1>
                                 <h1 className="mb-4 font">{this.props.t("pageNotFound")}</h1>
                                 <p className="mb-4 desc">{this.props.t("pageNotFoundDesc")}</p>
-                                <a className="btn btn-color rounded-pill py-3 px-5" href={LinkUtil.target(this.props.appData, "")}>
+                                <a className="btn btn-color rounded-pill py-3 px-5" href="/">
                                     {this.props.t("returnHomePage")}
                                 </a>
                             </div>

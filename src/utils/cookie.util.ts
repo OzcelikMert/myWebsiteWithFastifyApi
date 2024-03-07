@@ -1,21 +1,23 @@
 import {IncomingMessage, ServerResponse} from "http";
 import {setCookie} from "cookies-next";
 
-/*const set = (req: IncomingMessage) => {
-    req.cookies = {
-        ...req.appData.cookies,
-        ...req.cookies
-    };
-}*/
-
-const setLanguageId = (req: IncomingMessage, res: ServerResponse<IncomingMessage>) => {
-    setCookie("languageId", req.appData.languageId, {req, res,
+const setLangId = (req: IncomingMessage, res: ServerResponse<IncomingMessage>) => {
+    setCookie("langId", req.appData.selectedLangId, {req, res,
         maxAge: 1000 * 60 * 60 * 24 * 365,
         httpOnly: true,
         path: "/"
     })
 }
 
+const deleteLangId = (req: IncomingMessage, res: ServerResponse<IncomingMessage>) => {
+    setCookie("langId",  null, {req, res,
+        maxAge: 0,
+        httpOnly: true,
+        path: "/"
+    });
+}
+
 export const CookieUtil = {
-    setLanguageId: setLanguageId
+    setLangId: setLangId,
+    deleteLangId: deleteLangId
 };

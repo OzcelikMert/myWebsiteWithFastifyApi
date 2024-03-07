@@ -7,32 +7,41 @@ import {PostService} from "services/post.service";
 import {PostTypeId} from "constants/postTypes";
 import {StatusId} from "constants/status";
 import {IPostGetManyResultService} from "types/services/post.service";
+import {PathUtil} from "utils/path.util";
 
 type PageState = {};
 
 type PageProps = {
     components: any[]
-} & IPagePropCommon<{ blogs: string[] }>;
+} & IPagePropCommon<{ blogs: IPostGetManyResultService[] }>;
 
 export default class PageHome extends Component<PageProps, PageState> {
     constructor(props: PageProps) {
         super(props);
     }
 
+    componentDidMount() {
+        console.log(this.props)
+    }
+
     Blog = (props: IPostGetManyResultService) => {
         return (
             <div>
-                <div>{props.contents?.title}</div>
+                <a href={`/${props.contents?.url}`} className="href">/{props.contents?.title}</a><br/>
+                <a href={`${props.contents?.url}`} className="href">{props.contents?.title}</a>
                 <div>{props.contents?.content}</div>
             </div>
         );
     }
 
     render() {
-        console.log(this.props)
         return (
             <div className="page page-home">
-                {}
+                {
+                    this.props.pageData.blogs.map(blog =>
+                        <this.Blog {...blog} />
+                    )
+                }
             </div>
         );
     }
@@ -41,15 +50,15 @@ export default class PageHome extends Component<PageProps, PageState> {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     let req = context.req;
 
-    await PageUtil.get(req, "", PageTypeId.HomePage)
+    await PageUtil.get(req, "homepage", PageTypeId.HomePage);
 
     req.pageData.blogs = (await PostService.getMany({
-        langId: req.appData.languageId,
+        langId: req.appData.selectedLangId,
         typeId: [PostTypeId.Blog],
         statusId: StatusId.Active
     })).data;
 
     return {
-        props: PageUtil.getReturnData(req),
+        props: PageUtil.getPropCommon(req),
     };
 }

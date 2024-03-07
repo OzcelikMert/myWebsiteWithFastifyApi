@@ -15,7 +15,7 @@ class ApiRequest {
             .map(k => {
                 if (Array.isArray(params[k])) {
                     return params[k]
-                        .map((val: any) => val ? `${encodeURIComponent(k)}[]=${encodeURIComponent(val)}` : "")
+                        .map((val: any) => val ? `${encodeURIComponent(k)}=${encodeURIComponent(val)}` : "")
                         .join('&')
                 }
 

@@ -17,7 +17,7 @@ export default class ProviderNoFound extends Component<PageProps, PageState> {
 
     render() {
         if(!this.props.pageData){
-            return <ComponentError404 appData={this.props.appData}/>;
+            return <ComponentError404 {...this.props}/>;
         }
         return this.props.children;
     }

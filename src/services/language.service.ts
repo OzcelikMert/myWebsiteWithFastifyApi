@@ -6,13 +6,19 @@ import {
 } from "types/services/language.service";
 import ApiRequest from "library/api/request";
 import {PathUtil} from "utils/path.util";
-import {ILanguageModel} from "types/models/language.model";
 
 const getWithId = (params: ILanguageGetWithIdParamService) =>{
     return new ApiRequest({
         apiUrl: PathUtil.getApiURL(),
         endPoint: ApiEndPoints.LANGUAGE_WITH.GET_WITH_ID(params._id),
         data: params
+    }).get<ILanguageGetResultService>();
+}
+
+const getDefault = () => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.LANGUAGE_WITH.GET_DEFAULT
     }).get<ILanguageGetResultService>();
 }
 
@@ -34,6 +40,7 @@ const getFlags = (params: {}) => {
 
 export const LanguageService = {
     getWithId: getWithId,
+    getDefault: getDefault,
     getMany: getMany,
     getFlags: getFlags
 }

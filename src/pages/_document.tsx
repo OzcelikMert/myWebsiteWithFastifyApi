@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Html, Head, Main, NextScript} from 'next/document'
 import {NEXT_DATA} from "next/dist/shared/lib/utils";
 import {IPagePropCommon} from "types/pageProps";
-import {LinkUtil} from "utils/link.util";
+import {LanguageUtil} from "utils/language.util";
 
 type PageState = {};
 
@@ -17,9 +17,9 @@ export default class HTMLDocument extends Component<PageProps, PageState> {
 
     render() {
         let appData = this.props.__NEXT_DATA__.props.pageProps.appData;
-        let language = appData.languages.findSingle("_id", appData.languageId);
+        let language = appData.languages.findSingle("_id", appData.selectedLangId);
         return (
-            <Html lang={language ? LinkUtil.languageUpperLocale(language) : ""}>
+            <Html lang={language ? LanguageUtil.getCode(language, "_", true) : "en_US"}>
                 <Head/>
                 <body>
                 <Main/>

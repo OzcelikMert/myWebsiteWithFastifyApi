@@ -32,7 +32,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             let typeName = PostUtil.getTypeName(post.typeId);
             for (let i = 0; i < pages; i++) {
                 sitemapData.sitemapindex.sitemap.push({
-                    loc: SitemapUtil.getLoc(req.appData.apiPath.website.base, "sitemaps", "post", typeName, (i + 1).toString())
+                    loc: SitemapUtil.getLoc(req.getURL.base, "sitemaps", "post", typeName, (i + 1).toString())
                 })
             }
         }
@@ -44,6 +44,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     return {
-        props: PageUtil.getReturnData(req)
+        props: PageUtil.getPropCommon(req)
     };
 }

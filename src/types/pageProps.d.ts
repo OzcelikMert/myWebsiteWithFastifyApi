@@ -10,30 +10,30 @@ export type IPagePropCommon<T = {[key: string]: any}> = {
     t: (key: ILanguageKeys) => string
     appData: IAppData
     pageData: IPageData<T>
-    navigations?: INavigationGetResultService[]
-    cookies: {} & { [key: string]: any }
+    cookies: ICookies
+    getURL: IGetURL
 }
 
 export interface IAppData {
+    navigations: INavigationGetResultService[]
     settings: ISettingGetResultService,
     languages: ILanguageGetResultService[],
-    languageId: string
-    languageKeyWithLocale?: string
-    apiPath: {
-        website: {
-            full: string,
-            base: string,
-            originalUrl: string
-        }
-        api: string
-        uploads: {
-            images: string,
-            flags: string,
-            static: string
-        }
-    }
+    selectedLangId: string
+    selectedLangCode: string
+    defaultLangId: string
 }
 
 export type IPageData<T> = {
     page?: IPostGetOneResultService,
 } & T
+
+export interface ICookies {
+    langCode?: string
+    langId?: string
+}
+
+export interface IGetURL {
+    full: string,
+    base: string,
+    asPath: string
+}

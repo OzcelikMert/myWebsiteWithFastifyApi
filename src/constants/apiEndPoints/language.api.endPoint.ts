@@ -9,6 +9,7 @@ export class LanguageApiEndPoint {
     }
 
     get GET() { return PathUtil.createPath(this.mainPath, "/get"); }
+    get GET_DEFAULT() { return PathUtil.createPath(this.mainPath, "/get/default"); }
     GET_WITH_ID(_id: string) { return PathUtil.createPath(this.mainPath, `/get/${_id}`); }
     get GET_FLAGS() { return PathUtil.createPath(this.mainPath, "/get/flags"); }
 }

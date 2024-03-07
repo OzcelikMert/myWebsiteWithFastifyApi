@@ -1,12 +1,22 @@
 import {NextResponse, type NextRequest, NextFetchEvent} from "next/server";
+import {URLUtil} from "utils/url.util";
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
     let res = NextResponse.next();
 
-    let langMatches = req.nextUrl.pathname.match(/\/([a-z]{2}\-[a-z]{2})/gm);
-    if(langMatches && langMatches.length > 0) {
-        let langKey = langMatches[0];
-        req.nextUrl.pathname = req.nextUrl.pathname.replace(langKey, "")
+    res.headers.set(
+        'Cache-Control',
+        'public, s-maxage=10, stale-while-revalidate=59'
+    );
+
+    let langCode = URLUtil.getLanguageCode(req.nextUrl.pathname);
+    if (langCode) {
+        req.nextUrl.pathname = req.nextUrl.pathname.replace(`/${langCode}`, "");
+
+        req.cookies.set({
+            name: 'langCode',
+            value: langCode,
+        })
     }
 
     return NextResponse.rewrite(req.nextUrl, {headers: res.headers, request: req});

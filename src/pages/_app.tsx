@@ -16,15 +16,23 @@ import {IPagePropCommon} from "types/pageProps";
 import {CookieUtil} from "utils/cookie.util";
 import {PathUtil} from "utils/path.util";
 import {LanguageUtil} from "utils/language.util";
-import {SettingUtil} from "utils/setting.util";
-import {ThemeUtil} from "utils/theme.util";
 import {PageUtil} from "utils/page.util";
+import {LanguageService} from "services/language.service";
+import {StatusId} from "constants/status";
+import {SettingService} from "services/setting.service";
+import {URLUtil} from "utils/url.util";
+import {NavigationService} from "services/navigation.service";
 
-function i18Init(pageProps: IPagePropCommon){
+async function i18Init(pageProps: IPagePropCommon) {
     const language = i18n.use(initReactI18next);
-    language.init({
+    await language.init({
         resources: {
-            default: {translation: pageProps.appData.settings.staticContents?.reduce((a: any, v) => ({...a, [v.elementId]: v.contents?.content || ""}), {}) || {}}
+            default: {
+                translation: pageProps.appData.settings.staticContents?.reduce((a: any, v) => ({
+                    ...a,
+                    [v.elementId]: v.contents?.content || ""
+                }), {}) || {}
+            }
         },
         keySeparator: false,
         lng: "default",
@@ -47,36 +55,76 @@ App.getInitialProps = async (props: AppContext) => {
         let req = props.ctx.req;
         let res = props.ctx.res;
 
-        res.setHeader(
-            'Cache-Control',
-            'public, s-maxage=10, stale-while-revalidate=59'
-        );
+        req.pageData = {};
+        req.appData = {};
+        req.getURL = URLUtil.get(req);
+        console.log(req.getURL)
 
-        req.appData = {
-            ...req.appData
-        };
+        // Get all languages
+        req.appData.languages = (await LanguageService.getMany({statusId: StatusId.Active})).data ?? [];
 
-        //CookieUtil.set(req);
-        PathUtil.set(req);
-        await LanguageUtil.get(req);
-        await SettingUtil.getDefaultLanguageId(req);
+        // Find default language
+        let foundDefaultLanguage = req.appData.languages.findSingle("isDefault", true);
+        if (foundDefaultLanguage) {
+            req.appData.defaultLangId = foundDefaultLanguage._id;
+            req.appData.selectedLangId = foundDefaultLanguage._id;
+            req.appData.selectedLangCode = LanguageUtil.getCode(foundDefaultLanguage);
 
-        let langMatches = req.appData.apiPath.website.originalUrl.match(/\/([a-z]{2}\-[a-z]{2})/gm);
-        if (langMatches && langMatches.length > 0) {
-            let langKey = langMatches[0].slice(1);
-            if (LanguageUtil.check(req, res, langKey)) return {};
-            CookieUtil.setLanguageId(req, res)
-            await SettingUtil.get(req);
-            if (LanguageUtil.isDefault(req, res)) return {};
-        } else {
-            if (LanguageUtil.checkCookie(req, res)) return {};
-            await SettingUtil.get(req);
+            // Check is there cookie lang code
+            if (req.cookies.langCode) {
+                // Check cookie lang code and default lang code is same
+                if (req.appData.selectedLangCode == req.cookies.langCode) {
+                    CookieUtil.deleteLangId(req, res);
+                    URLUtil.move(res, URLUtil.replaceLanguageCode({
+                        url: req.getURL,
+                        withBase: true
+                    }));
+                    return {};
+                } else {
+                    // Find cookie lang code
+                    let langKeys = req.cookies.langCode.split("-");
+                    let foundCookieLanguagesWithKey = req.appData.languages.findMulti("shortKey", langKeys[0]);
+                    let foundCookieLanguageWithLocale = foundCookieLanguagesWithKey.findSingle("locale", langKeys[1]);
+                    // Check lang code is correct
+                    if (foundCookieLanguageWithLocale) {
+                        req.appData.selectedLangId = foundCookieLanguageWithLocale._id;
+                        req.appData.selectedLangCode = req.cookies.langCode;
+                        if(req.cookies.langId != req.appData.selectedLangId){
+                            CookieUtil.setLangId(req, res);
+                        }
+                    } else {
+                        URLUtil.move(res, URLUtil.replaceLanguageCode({
+                            url: req.getURL,
+                            withBase: true
+                        }));
+                        return {};
+                    }
+                }
+            } else {
+                // Check is there a cookie lang id and check is it same with default lang id
+                if (req.cookies.langId && req.cookies.langId != req.appData.selectedLangId) {
+                    let foundCookieLanguageWithId = req.appData.languages.findSingle("_id", req.cookies.langId);
+                    if (foundCookieLanguageWithId) {
+                        URLUtil.move(res, URLUtil.replaceLanguageCode({
+                            url: req.getURL,
+                            newLanguage: foundCookieLanguageWithId,
+                            withBase: true
+                        }));
+                        return {};
+                    }
+                }
+            }
+
+            let serviceResultSettings = await SettingService.get({langId: req.appData.selectedLangId});
+
+            if (serviceResultSettings.status && serviceResultSettings.data) {
+                req.appData.settings = serviceResultSettings.data;
+                req.appData.navigations = (await NavigationService.getMany({langId: req.appData.selectedLangId})).data ?? [];
+            }
         }
 
-        await ThemeUtil.getTools(req);
-
         return {
-            pageProps: PageUtil.getReturnData(req)
+            pageProps: PageUtil.getPropCommon(req)
         }
     }
 

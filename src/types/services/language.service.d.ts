@@ -5,11 +5,11 @@ export type ILanguageGetResultService = {} & ILanguageModel
 
 export interface ILanguageGetWithIdParamService {
     _id: string
-    shortKey?: string
-    locale?: string
 }
 
 export interface ILanguageGetManyParamService {
     _id?: string[]
     statusId?: StatusId
+    shortKey?: string
+    locale?: string
 }
