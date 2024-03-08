@@ -7,7 +7,7 @@ import {PostService} from "services/post.service";
 import {PostTypeId} from "constants/postTypes";
 import {StatusId} from "constants/status";
 import {IPostGetManyResultService} from "types/services/post.service";
-import {PathUtil} from "utils/path.util";
+import {URLUtil} from "utils/url.util";
 
 type PageState = {};
 
@@ -20,16 +20,16 @@ export default class PageHome extends Component<PageProps, PageState> {
         super(props);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         console.log(this.props)
     }
 
     Blog = (props: IPostGetManyResultService) => {
         return (
             <div>
-                <a href={`/${props.contents?.url}`} className="href">/{props.contents?.title}</a><br/>
-                <a href={`${props.contents?.url}`} className="href">{props.contents?.title}</a>
+                <a href={URLUtil.createHref({url: this.props.getURL, targetPath: props.contents?.url})} className="href">{props.contents?.title}</a>
                 <div>{props.contents?.content}</div>
+                <hr/>
             </div>
         );
     }
@@ -37,10 +37,9 @@ export default class PageHome extends Component<PageProps, PageState> {
     render() {
         return (
             <div className="page page-home">
+                <a href={URLUtil.createHref({url: this.props.getURL})} className="href">Anasayfa</a><br/>
                 {
-                    this.props.pageData.blogs.map(blog =>
-                        <this.Blog {...blog} />
-                    )
+                    this.props.pageData.blogs.map(blog => <this.Blog {...blog} />)
                 }
             </div>
         );
