@@ -19,6 +19,7 @@ export interface IPostModel {
     contents: IPostContentModel
     beforeAndAfter?: IPostBeforeAndAfterModel
     eCommerce?: IPostECommerceModel
+    components?: string[]
     updatedAt?: string
     createdAt?: string
 }

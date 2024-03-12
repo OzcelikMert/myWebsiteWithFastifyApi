@@ -10,6 +10,7 @@ import {
 import {PostTypeId} from "constants/postTypes";
 import {PageTypeId} from "constants/pageTypes";
 import {StatusId} from "constants/status";
+import {IComponentModel} from "types/models/component.model";
 
 export interface IPostAlternateService {
     langId: string
@@ -28,17 +29,21 @@ export type IPostGetOneResultService = {
     eCommerce?: (Omit<IPostECommerceModel<IPostTermPopulateService, IPostTermPopulateService[]>, "variations"> & {
         variations?: (Omit<IPostECommerceVariationModel<IPostTermPopulateService>, "contents"> & {
             contents?: IPostECommerceVariationContentModel
+            alternates?: IPostAlternateService[]
         })[]
     })
-} & Omit<IPostModel, "contents"|"categories"|"tags"|"eCommerce"|"authorId"|"lastAuthorId">
+    components?: IComponentModel[]
+} & Omit<IPostModel, "contents"|"categories"|"tags"|"eCommerce"|"authorId"|"lastAuthorId"|"components">
 
 export type IPostGetManyResultService = {
     eCommerce?: (Omit<IPostECommerceModel, "variations"> & {
         variations?: (Omit<IPostECommerceVariationModel, "contents"> & {
-            contents?: IPostECommerceVariationContentModel | IPostECommerceVariationContentModel[]
+            contents?: IPostECommerceVariationContentModel
+            alternates?: IPostAlternateService[]
         })[]
     })
-} & Omit<IPostGetOneResultService, "eCommerce">
+    components?: IPostModel["components"]
+} & Omit<IPostGetOneResultService, "eCommerce"|"components">
 
 export interface IPostGetWithURLParamService {
     typeId: PostTypeId,

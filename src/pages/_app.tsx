@@ -12,9 +12,7 @@ import "library/variable/math"
 import ComponentApp from "components/app";
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
-import {IPagePropCommon} from "types/pageProps";
 import {CookieUtil} from "utils/cookie.util";
-import {PathUtil} from "utils/path.util";
 import {LanguageUtil} from "utils/language.util";
 import {PageUtil} from "utils/page.util";
 import {LanguageService} from "services/language.service";
@@ -22,13 +20,14 @@ import {StatusId} from "constants/status";
 import {SettingService} from "services/setting.service";
 import {URLUtil} from "utils/url.util";
 import {NavigationService} from "services/navigation.service";
+import {ISettingGetResultService} from "types/services/setting.service";
 
-async function i18Init(pageProps: IPagePropCommon) {
+async function i18Init(staticContents: ISettingGetResultService["staticContents"]) {
     const language = i18n.use(initReactI18next);
     await language.init({
         resources: {
             default: {
-                translation: pageProps.appData.settings.staticContents?.reduce((a: any, v) => ({
+                translation: staticContents?.reduce((a: any, v) => ({
                     ...a,
                     [v.elementId]: v.contents?.content || ""
                 }), {}) || {}
@@ -44,7 +43,6 @@ async function i18Init(pageProps: IPagePropCommon) {
 }
 
 function App(props: AppProps) {
-    i18Init(props.pageProps)
     return (
         <ComponentApp {...props.pageProps} Component={props.Component} router={props.router}/>
     )
@@ -120,6 +118,7 @@ App.getInitialProps = async (props: AppContext) => {
             if (serviceResultSettings.status && serviceResultSettings.data) {
                 req.appData.settings = serviceResultSettings.data;
                 req.appData.navigations = (await NavigationService.getMany({langId: req.appData.selectedLangId})).data ?? [];
+                await i18Init(req.appData.settings.staticContents);
             }
         }
 
