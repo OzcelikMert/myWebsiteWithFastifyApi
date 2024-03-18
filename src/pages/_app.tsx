@@ -123,7 +123,7 @@ App.getInitialProps = async (props: AppContext) => {
         }
 
         return {
-            pageProps: PageUtil.getPropCommon(req)
+            pageProps: PageUtil.getCommonProps(req)
         }
     }
 

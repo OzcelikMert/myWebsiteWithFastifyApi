@@ -1,5 +1,6 @@
 import {ElementTypeId} from "constants/elementTypes";
 import {ComponentTypeId} from "constants/componentTypes";
+import {ComponentKey} from "constants/componentKeys";
 
 export interface IComponentModel {
     _id: string,
@@ -7,7 +8,7 @@ export interface IComponentModel {
     lastAuthorId: string
     title: string,
     typeId: ComponentTypeId
-    elementId: string
+    elementId: ComponentKey
     elements: IComponentElementModel[]
     updatedAt?: string,
     createdAt?: string

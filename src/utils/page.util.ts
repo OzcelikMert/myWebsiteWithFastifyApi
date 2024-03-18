@@ -1,40 +1,76 @@
-import {PageTypeId} from "constants/pageTypes";
 import {PostTypeId} from "constants/postTypes";
 import {StatusId} from "constants/status";
 import {IncomingMessage} from "http";
 import {PostService} from "services/post.service";
 import {ViewService} from "services/view.service";
+import {IPageGetParamUtil} from "types/utils/page.util";
+import {PostTermService} from "services/postTerm.service";
+import {PostTermTypeId} from "constants/postTermTypes";
+import {ComponentKey} from "constants/componentKeys";
+import {lastBlogsPerPageBlogCount} from "components/theme/lastBlogs";
 
-const get = async(req: IncomingMessage, url?: string, typeId?: PageTypeId, isSetView = true) => {
-    req.pageData = {};
-
+const initProps = async(params: IPageGetParamUtil) => {
     let serviceResult = await PostService.getWithURL({
-        langId: req.appData.selectedLangId,
+        langId: params.req.appData.selectedLangId,
         typeId: PostTypeId.Page,
         statusId: StatusId.Active,
-        url: url ?? "",
-        ...(typeId ? {pageTypeId: typeId} : {})
+        url: params.url ?? "",
+        ...(params.typeId ? {pageTypeId: params.typeId} : {})
     });
 
     if(serviceResult.status && serviceResult.data){
-        req.pageData.page = serviceResult.data;
+        params.req.pageData.page = serviceResult.data;
 
-        if(isSetView){
+        if(params.increaseView){
             await PostService.updateViewWithId({
-                _id: req.pageData.page._id,
-                typeId: req.pageData.page.typeId,
-                langId: req.appData.selectedLangId ?? ""
+                _id: serviceResult.data._id,
+                typeId: serviceResult.data.typeId,
+                langId: params.req.appData.selectedLangId ?? ""
             });
 
             await ViewService.add({
-                url: req.getURL.asPath,
-                langId: req.appData.selectedLangId ?? ""
+                url: params.req.getURL.asPath,
+                langId: params.req.appData.selectedLangId ?? ""
             });
+        }
+
+        if(serviceResult.data.components){
+            await initComponentProps(params.req);
         }
     }
 }
 
-const getPropCommon = (req: IncomingMessage) =>  {
+const initComponentProps = async (req: IncomingMessage) => {
+    if(req.pageData.page){
+        for (const component of req.pageData.page.components ?? []) {
+            switch (component.elementId) {
+                case ComponentKey.HotCategories:
+                    req.pageData.categories = (await PostTermService.getMany({
+                        langId: req.appData.selectedLangId,
+                        typeId: [PostTermTypeId.Category],
+                        postTypeId: PostTypeId.Blog,
+                        statusId: StatusId.Active
+                    })).data;
+                    break;
+                case ComponentKey.LastBlogs:
+                    req.pageData.lastBlogs = (await PostService.getMany({
+                        langId: req.appData.selectedLangId,
+                        typeId: [PostTypeId.Blog],
+                        statusId: StatusId.Active,
+                        count: lastBlogsPerPageBlogCount,
+                        page: 1
+                    })).data;
+                    req.pageData.maxBlogCount = (await PostService.getCount({
+                        typeId: PostTypeId.Blog,
+                        statusId: StatusId.Active,
+                    })).data;
+                    break;
+            }
+        }
+    }
+}
+
+const getCommonProps = (req: IncomingMessage) =>  {
     return {
         appData: req.appData,
         pageData: req.pageData ?? {},
@@ -44,6 +80,6 @@ const getPropCommon = (req: IncomingMessage) =>  {
 }
 
 export const PageUtil = {
-    get: get,
-    getPropCommon: getPropCommon
+    initProps: initProps,
+    getCommonProps: getCommonProps
 }

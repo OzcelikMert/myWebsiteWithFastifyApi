@@ -24,7 +24,7 @@ export interface IAppData {
 }
 
 export type IPageData<T> = {
-    page?: IPostGetOneResultService,
+    page?: IPostGetOneResultService | null,
 } & T
 
 export interface ICookies {

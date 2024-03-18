@@ -44,6 +44,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     return {
-        props: PageUtil.getPropCommon(req)
+        props: PageUtil.getCommonProps(req)
     };
 }
