@@ -65,7 +65,6 @@ export interface IPostGetManyParamService {
     page?: number
     ignorePostId?: string[]
     title?: string
-    ignoreDefaultLanguage?: boolean
     categories?: string[]
 }
 

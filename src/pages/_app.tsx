@@ -37,12 +37,15 @@ async function i18Init(staticContents: ISettingGetResultService["staticContents"
         lng: "default",
         fallbackLng: "default",
         interpolation: {
-            escapeValue: false
-        }
+            escapeValue: false,
+        },
     });
+
+    return language.t;
 }
 
 function App(props: AppProps) {
+    i18Init(props.pageProps.appData.settings.staticContents);
     return (
         <ComponentApp {...props.pageProps} Component={props.Component} router={props.router}/>
     )
@@ -118,7 +121,6 @@ App.getInitialProps = async (props: AppContext) => {
             if (serviceResultSettings.status && serviceResultSettings.data) {
                 req.appData.settings = serviceResultSettings.data;
                 req.appData.navigations = (await NavigationService.getMany({langId: req.appData.selectedLangId})).data ?? [];
-                await i18Init(req.appData.settings.staticContents);
             }
         }
 

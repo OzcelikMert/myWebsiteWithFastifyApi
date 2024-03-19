@@ -3,7 +3,12 @@ import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
 import {ImageSourceUtil} from "utils/imageSource.util";
 import {IPostTermGetResultService} from "types/services/postTerm.service";
-import {ComponentHelperClass} from "../../../classes/componentHelper.class";
+import {ComponentHelperClass} from "classes/componentHelper.class";
+import {IncomingMessage} from "http";
+import {PostTypeId} from "constants/postTypes";
+import {StatusId} from "constants/status";
+import {PostTermService} from "services/postTerm.service";
+import {PostTermTypeId} from "constants/postTermTypes";
 
 type IPageState = {};
 
@@ -11,7 +16,7 @@ type IPageProps = {
     component: IComponentModel;
 } & IPagePropCommon<{categories?: IPostTermGetResultService[]}>;
 
-export default class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPageState> {
+class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {
         super(props);
     }
@@ -52,3 +57,14 @@ export default class ComponentThemeHotCategories extends ComponentHelperClass<IP
         );
     }
 }
+
+ComponentThemeHotCategories.initServersideProps = async (req: IncomingMessage) => {
+    req.pageData.categories = (await PostTermService.getMany({
+        langId: req.appData.selectedLangId,
+        typeId: [PostTermTypeId.Category],
+        postTypeId: PostTypeId.Blog,
+        statusId: StatusId.Active
+    })).data;
+}
+
+export default ComponentThemeHotCategories;

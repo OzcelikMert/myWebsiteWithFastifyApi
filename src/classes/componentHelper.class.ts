@@ -3,7 +3,7 @@ import {Component} from "react";
 import {ISettingSocialMediaModel} from "types/models/setting.model";
 import {SocialMediaKey} from "constants/socialMediaKeys";
 
-export abstract class ComponentHelperClass<P, S> extends Component<P & {[key: string]: any}, S> {
+export class ComponentHelperClass<P, S> extends Component<P & {[key: string]: any}, S> {
     component?: IComponentModel
     socialMedia?: ISettingSocialMediaModel[]
 
@@ -26,4 +26,6 @@ export abstract class ComponentHelperClass<P, S> extends Component<P & {[key: st
     getSocialMediaURL = (elementId: SocialMediaKey) => {
         return this.socialMedia?.findSingle("elementId", elementId)?.url;
     }
+
+    static initServersideProps: (req: any) => Promise<void>;
 }

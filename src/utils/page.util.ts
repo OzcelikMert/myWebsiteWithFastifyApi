@@ -4,10 +4,6 @@ import {IncomingMessage} from "http";
 import {PostService} from "services/post.service";
 import {ViewService} from "services/view.service";
 import {IPageGetParamUtil} from "types/utils/page.util";
-import {PostTermService} from "services/postTerm.service";
-import {PostTermTypeId} from "constants/postTermTypes";
-import {ComponentKey} from "constants/componentKeys";
-import {lastBlogsPerPageBlogCount} from "components/theme/lastBlogs";
 
 const initProps = async(params: IPageGetParamUtil) => {
     let serviceResult = await PostService.getWithURL({
@@ -43,29 +39,12 @@ const initProps = async(params: IPageGetParamUtil) => {
 const initComponentProps = async (req: IncomingMessage) => {
     if(req.pageData.page){
         for (const component of req.pageData.page.components ?? []) {
-            switch (component.elementId) {
-                case ComponentKey.HotCategories:
-                    req.pageData.categories = (await PostTermService.getMany({
-                        langId: req.appData.selectedLangId,
-                        typeId: [PostTermTypeId.Category],
-                        postTypeId: PostTypeId.Blog,
-                        statusId: StatusId.Active
-                    })).data;
-                    break;
-                case ComponentKey.LastBlogs:
-                    req.pageData.lastBlogs = (await PostService.getMany({
-                        langId: req.appData.selectedLangId,
-                        typeId: [PostTypeId.Blog],
-                        statusId: StatusId.Active,
-                        count: lastBlogsPerPageBlogCount,
-                        page: 1
-                    })).data;
-                    req.pageData.maxBlogCount = (await PostService.getCount({
-                        typeId: PostTypeId.Blog,
-                        statusId: StatusId.Active,
-                    })).data;
-                    break;
-            }
+            try {
+                const componentClass = (await import(`components/theme/${component.elementId}`)).default;
+                if(componentClass.initServersideProps){
+                    await componentClass.initServersideProps(req);
+                }
+            }catch (e) {}
         }
     }
 }

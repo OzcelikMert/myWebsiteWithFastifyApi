@@ -1,6 +1,7 @@
 export enum ComponentKey {
-    Hero = "heroSection",
-    HotCategories = "hotCategoriesSection",
-    FeaturesSection = "featuresSection",
-    LastBlogs = "lastBlogs"
+    Hero = "hero",
+    HotCategories = "hotCategories",
+    FeaturesSection = "features",
+    LastBlogs = "lastBlogs",
+    HotBlogsSection = "hotBlogs"
 }
