@@ -8,7 +8,7 @@ type IPageState = {};
 
 type IPageProps = {
     component: IComponentModel;
-} & IPagePropCommon<{}>;
+} & IPagePropCommon;
 
 export default class ComponentThemeFeatures extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {

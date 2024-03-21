@@ -9,7 +9,7 @@ type IPageState = {};
 
 type IPageProps = {
     component: IComponentModel;
-} & IPagePropCommon<{}>;
+} & IPagePropCommon;
 
 export default class ComponentThemeHero extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {

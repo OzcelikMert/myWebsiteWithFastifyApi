@@ -120,7 +120,7 @@ App.getInitialProps = async (props: AppContext) => {
 
             if (serviceResultSettings.status && serviceResultSettings.data) {
                 req.appData.settings = serviceResultSettings.data;
-                req.appData.navigations = (await NavigationService.getMany({langId: req.appData.selectedLangId})).data ?? [];
+                await PageUtil.initToolComponentProps(req);
             }
         }
 

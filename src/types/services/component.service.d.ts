@@ -1,5 +1,5 @@
 import {IUserPopulateService} from "./user.service";
-import {IComponentElementContentModel, IComponentElementModel, IComponentModel} from "types/models/component.model";
+import {IComponentElementModel, IComponentModel} from "types/models/component.model";
 import {ComponentTypeId} from "constants/componentTypes";
 
 export interface IComponentAlternateService {
@@ -9,8 +9,7 @@ export interface IComponentAlternateService {
 export type IComponentGetResultService = {
     authorId: IUserPopulateService,
     lastAuthorId: IUserPopulateService,
-    elements: (Omit<IComponentElementModel, "contents"> & {
-        contents?: IComponentElementContentModel
+    elements: (IComponentElementModel & {
         alternates?: IComponentAlternateService[]
     })[]
 } & Omit<IComponentModel, "elements"|"authorId"|"lastAuthorId">
@@ -30,4 +29,5 @@ export interface IComponentGetManyParamService {
     elementId?: string[]
     langId?: string
     typeId?: ComponentTypeId
+    withContent?: boolean
 }

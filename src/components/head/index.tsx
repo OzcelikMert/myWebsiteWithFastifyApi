@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import Head from 'next/head'
-import Variable from "library/variable";
 import {IPagePropCommon} from "types/pageProps";
 import {ImageSourceUtil} from "utils/imageSource.util";
 import {LanguageUtil} from "utils/language.util";
@@ -8,7 +7,7 @@ import {URLUtil} from "utils/url.util";
 
 type PageState = {};
 
-type PageProps = {} & IPagePropCommon<{}>;
+type PageProps = {} & IPagePropCommon;
 
 export default class ComponentHead extends Component<PageProps, PageState> {
     constructor(props: PageProps) {
@@ -63,7 +62,7 @@ export default class ComponentHead extends Component<PageProps, PageState> {
     render() {
         let pageData = this.props.pageData;
         let appData = this.props.appData;
-        let title = `${appData.settings.seoContents?.title}${!Variable.isEmpty(pageData.page?.contents?.title) ? ` | ${pageData.page?.contents?.title}` : ""}`;
+        let title = `${appData.settings.seoContents?.title}${pageData.page ? ` | ${pageData.page.contents?.title}` : ""}`;
         let desc = pageData.page?.contents?.shortContent || appData.settings.seoContents?.content || "";
         let logo = ImageSourceUtil.getUploadedImageSrc(appData.settings.logo)
         let language = this.props.appData.languages.findSingle("_id", this.props.appData.selectedLangId);
@@ -71,6 +70,9 @@ export default class ComponentHead extends Component<PageProps, PageState> {
         return (
             <Head>
                 <title>{title}</title>
+                <link rel="shortcut icon" href={ImageSourceUtil.getUploadedImageSrc(appData.settings.icon)}/>
+                <link rel="canonical" href={this.props.getURL.full}/>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
 
                 <meta name="description" content={desc} />
                 <meta name="copyright" content={appData.settings.seoContents?.title} />

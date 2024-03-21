@@ -4,8 +4,11 @@ import {IncomingMessage} from "http";
 import {PostService} from "services/post.service";
 import {ViewService} from "services/view.service";
 import {IPageGetParamUtil} from "types/utils/page.util";
+import {ComponentService} from "services/component.service";
+import {ComponentTypeId} from "constants/componentTypes";
+import {ComponentHelperClass} from "classes/componentHelper.class";
 
-const initProps = async(params: IPageGetParamUtil) => {
+const initProps = async (params: IPageGetParamUtil) => {
     let serviceResult = await PostService.getWithURL({
         langId: params.req.appData.selectedLangId,
         typeId: PostTypeId.Page,
@@ -14,10 +17,10 @@ const initProps = async(params: IPageGetParamUtil) => {
         ...(params.typeId ? {pageTypeId: params.typeId} : {})
     });
 
-    if(serviceResult.status && serviceResult.data){
+    if (serviceResult.status && serviceResult.data) {
         params.req.pageData.page = serviceResult.data;
 
-        if(params.increaseView){
+        if (params.increaseView) {
             await PostService.updateViewWithId({
                 _id: serviceResult.data._id,
                 typeId: serviceResult.data.typeId,
@@ -30,26 +33,49 @@ const initProps = async(params: IPageGetParamUtil) => {
             });
         }
 
-        if(serviceResult.data.components){
-            await initComponentProps(params.req);
+        if (serviceResult.data.components) {
+            await initThemeComponentProps(params.req);
         }
     }
 }
 
-const initComponentProps = async (req: IncomingMessage) => {
-    if(req.pageData.page){
+const initThemeComponentProps = async (req: IncomingMessage) => {
+    if (req.pageData.page) {
         for (const component of req.pageData.page.components ?? []) {
             try {
-                const componentClass = (await import(`components/theme/${component.elementId}`)).default;
-                if(componentClass.initServersideProps){
-                    await componentClass.initServersideProps(req);
+                const componentClass = (await import(`components/theme/${component.elementId}`)).default as typeof ComponentHelperClass;
+                if (componentClass.initComponentServersideProps) {
+                    await componentClass.initComponentServersideProps(req, component);
                 }
-            }catch (e) {}
+            } catch (e) {}
         }
     }
 }
 
-const getCommonProps = (req: IncomingMessage) =>  {
+const initToolComponentProps = async (req: IncomingMessage) => {
+    req.appData.toolComponents = [];
+
+    let serviceResult = await ComponentService.getMany({
+        langId: req.appData.selectedLangId,
+        typeId: ComponentTypeId.Tool,
+        withContent: true
+    });
+
+    if (serviceResult.status && serviceResult.data) {
+        req.appData.toolComponents = serviceResult.data;
+
+        for (const component of req.appData.toolComponents) {
+            try {
+                const componentClass = (await import(`components/tools/${component.elementId}`)).default as typeof ComponentHelperClass;
+                if (componentClass.initComponentServersideProps) {
+                    await componentClass.initComponentServersideProps(req, component);
+                }
+            } catch (e) {}
+        }
+    }
+}
+
+const getCommonProps = (req: IncomingMessage) => {
     return {
         appData: req.appData,
         pageData: req.pageData ?? {},
@@ -60,5 +86,6 @@ const getCommonProps = (req: IncomingMessage) =>  {
 
 export const PageUtil = {
     initProps: initProps,
-    getCommonProps: getCommonProps
+    getCommonProps: getCommonProps,
+    initToolComponentProps: initToolComponentProps
 }

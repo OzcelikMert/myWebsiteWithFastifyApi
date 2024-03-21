@@ -1,31 +1,26 @@
-import {IComponentModel} from "types/models/component.model";
 import {Component} from "react";
-import {ISettingSocialMediaModel} from "types/models/setting.model";
 import {SocialMediaKey} from "constants/socialMediaKeys";
+import {IPagePropCommon} from "types/pageProps";
+import {IComponentModel} from "types/models/component.model";
+import {IncomingMessage} from "http";
+import {IComponentGetResultService} from "types/services/component.service";
 
-export class ComponentHelperClass<P, S> extends Component<P & {[key: string]: any}, S> {
-    component?: IComponentModel
-    socialMedia?: ISettingSocialMediaModel[]
+type IPageProps = {
+    component?: IComponentModel | IComponentGetResultService;
+} & IPagePropCommon;
 
-    protected constructor(props: P & {[key: string]: any}) {
+export class ComponentHelperClass<P = {}, S = {}> extends Component<P & IPageProps, S> {
+    protected constructor(props: P & IPageProps) {
         super(props);
-
-        if(this.props.component){
-            this.component = this.props.component;
-        }
-
-        if(this.props.appData.settings.socialMedia){
-            this.socialMedia = this.props.appData.settings.socialMedia;
-        }
     }
 
     getComponentElementContents = (elementId: string) => {
-        return this.component?.elements.findSingle("elementId", elementId)?.contents;
+        return this.props.component?.elements.findSingle("elementId", elementId)?.contents;
     }
 
     getSocialMediaURL = (elementId: SocialMediaKey) => {
-        return this.socialMedia?.findSingle("elementId", elementId)?.url;
+        return this.props.appData.settings.socialMedia?.findSingle("elementId", elementId)?.url;
     }
 
-    static initServersideProps: (req: any) => Promise<void>;
+    static initComponentServersideProps?: (req: IncomingMessage, component: IComponentModel | IComponentGetResultService) => Promise<void>;
 }

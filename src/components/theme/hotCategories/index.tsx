@@ -4,7 +4,6 @@ import {IPagePropCommon} from "types/pageProps";
 import {ImageSourceUtil} from "utils/imageSource.util";
 import {IPostTermGetResultService} from "types/services/postTerm.service";
 import {ComponentHelperClass} from "classes/componentHelper.class";
-import {IncomingMessage} from "http";
 import {PostTypeId} from "constants/postTypes";
 import {StatusId} from "constants/status";
 import {PostTermService} from "services/postTerm.service";
@@ -13,8 +12,8 @@ import {PostTermTypeId} from "constants/postTermTypes";
 type IPageState = {};
 
 type IPageProps = {
-    component: IComponentModel;
-} & IPagePropCommon<{categories?: IPostTermGetResultService[]}>;
+    component: IComponentModel<{categories?: IPostTermGetResultService[]}>;
+} & IPagePropCommon;
 
 class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {
@@ -48,7 +47,7 @@ class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPage
                     <div className="categories-container">
                         <div className="options">
                             {
-                                this.props.pageData.categories?.map((category, index) => this.Category(category, index))
+                                this.props.component.customData?.categories?.map((category, index) => this.Category(category, index))
                             }
                         </div>
                     </div>
@@ -58,8 +57,9 @@ class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPage
     }
 }
 
-ComponentThemeHotCategories.initServersideProps = async (req: IncomingMessage) => {
-    req.pageData.categories = (await PostTermService.getMany({
+ComponentThemeHotCategories.initComponentServersideProps = async (req, component) => {
+    component.customData = {};
+    component.customData.categories = (await PostTermService.getMany({
         langId: req.appData.selectedLangId,
         typeId: [PostTermTypeId.Category],
         postTypeId: PostTypeId.Blog,

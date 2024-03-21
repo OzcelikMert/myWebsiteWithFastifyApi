@@ -1,9 +1,9 @@
 import {AppProps} from "next/app";
 import {ILanguageKeys} from "types/constants/languageKeys";
-import {INavigationGetResultService} from "types/services/navigation.service";
 import {IPostGetOneResultService} from "types/services/post.service";
 import {ISettingGetResultService} from "types/services/setting.service";
 import {ILanguageGetResultService} from "types/services/language.service";
+import {IComponentGetResultService} from "types/services/component.service";
 
 export type IPagePropCommon<T = {[key: string]: any}> = {
     router: AppProps["router"],
@@ -15,7 +15,7 @@ export type IPagePropCommon<T = {[key: string]: any}> = {
 }
 
 export interface IAppData {
-    navigations: INavigationGetResultService[]
+    toolComponents: IComponentGetResultService[]
     settings: ISettingGetResultService,
     languages: ILanguageGetResultService[],
     selectedLangId: string

@@ -1,7 +1,11 @@
 export enum ComponentKey {
-    Hero = "hero",
-    HotCategories = "hotCategories",
-    FeaturesSection = "features",
+    Features = "features",
     LastBlogs = "lastBlogs",
-    HotBlogsSection = "hotBlogs"
+    HotBlogs = "hotBlogs",
+    HotCategories = "hotCategories",
+    Hero = "hero",
+    Navbar = "navbar",
+    Subscribe = "subscribe",
+    VideoHeader = "videoHeader",
+    Footer = "footer"
 }

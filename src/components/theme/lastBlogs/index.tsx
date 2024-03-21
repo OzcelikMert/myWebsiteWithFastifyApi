@@ -7,7 +7,6 @@ import {PostService} from "services/post.service";
 import {PostTypeId} from "constants/postTypes";
 import {StatusId} from "constants/status";
 import ComponentArticleBlog from "components/elements/articles/blog";
-import {IncomingMessage} from "http";
 
 type IPageState = {
     lastBlogs: IPostGetManyResultService[]
@@ -16,8 +15,8 @@ type IPageState = {
 };
 
 type IPageProps = {
-    component: IComponentModel;
-} & IPagePropCommon<{ lastBlogs?: IPostGetManyResultService[], maxBlogCount?: number }>;
+    component: IComponentModel<{ lastBlogs?: IPostGetManyResultService[], maxBlogCount?: number }>;
+} & IPagePropCommon;
 
 export const lastBlogsPerPageBlogCount = 3;
 
@@ -27,13 +26,14 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
     constructor(props: IPageProps) {
         super(props);
         this.state = {
-            lastBlogs: this.props.pageData.lastBlogs ?? [],
+            lastBlogs: this.props.component.customData?.lastBlogs ?? [],
             isLoadingShowMoreButton: false,
             isActiveShowMoreButton: true
         }
     }
 
     async onClickShowMore() {
+        if(!this.state.isActiveShowMoreButton) return false;
         this.setState({
             isLoadingShowMoreButton: true
         }, async () => {
@@ -50,7 +50,7 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
                     lastBlogs: [...this.state.lastBlogs, ...serviceResult.data]
                 }, () => {
                     this.setState({
-                        isActiveShowMoreButton: (this.props.pageData.maxBlogCount ?? 0) > this.state.lastBlogs.length
+                        isActiveShowMoreButton: (this.props.component.customData?.maxBlogCount ?? 0) > this.state.lastBlogs.length
                     })
                 })
             }
@@ -90,15 +90,16 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
     }
 }
 
-ComponentThemeLastBlogs.initServersideProps = async (req: IncomingMessage) => {
-    req.pageData.lastBlogs = (await PostService.getMany({
+ComponentThemeLastBlogs.initComponentServersideProps = async (req, component) => {
+    component.customData = {};
+    component.customData.lastBlogs = (await PostService.getMany({
         langId: req.appData.selectedLangId,
         typeId: [PostTypeId.Blog],
         statusId: StatusId.Active,
         count: lastBlogsPerPageBlogCount,
         page: 1,
     })).data;
-    req.pageData.maxBlogCount = (await PostService.getCount({
+    component.customData.maxBlogCount = (await PostService.getCount({
         typeId: PostTypeId.Blog,
         statusId: StatusId.Active,
     })).data;

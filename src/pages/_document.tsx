@@ -20,7 +20,7 @@ export default class HTMLDocument extends Component<PageProps, PageState> {
         let language = appData.languages.findSingle("_id", appData.selectedLangId);
         return (
             <Html lang={language ? LanguageUtil.getCode(language, "_", true) : "en_US"}>
-                <Head/>
+                <Head />
                 <body>
                 <Main/>
                 <NextScript/>

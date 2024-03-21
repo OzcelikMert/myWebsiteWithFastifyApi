@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
+import {ComponentHelperClass} from "classes/componentHelper.class";
 
 type IPageState = {};
 
@@ -15,7 +16,7 @@ export default class ComponentThemeSelectedComponents extends Component<IPagePro
         let element = (<div></div>);
 
          try {
-             const ComponentClass = (require(`components/theme/${component.elementId}`)).default;
+             const ComponentClass = (require(`components/theme/${component.elementId}`)).default as typeof ComponentHelperClass;
              element = (<ComponentClass component={component} {...this.props} />)
          }catch (e) {}
 

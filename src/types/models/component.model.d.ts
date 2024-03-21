@@ -2,7 +2,7 @@ import {ElementTypeId} from "constants/elementTypes";
 import {ComponentTypeId} from "constants/componentTypes";
 import {ComponentKey} from "constants/componentKeys";
 
-export interface IComponentModel {
+export interface IComponentModel<T = {[key: string]: any}> {
     _id: string,
     authorId: string
     lastAuthorId: string
@@ -11,7 +11,8 @@ export interface IComponentModel {
     elementId: ComponentKey
     elements: IComponentElementModel[]
     updatedAt?: string,
-    createdAt?: string
+    createdAt?: string,
+    customData?: T
 }
 
 export interface IComponentElementModel {

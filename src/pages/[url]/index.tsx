@@ -6,7 +6,7 @@ import {URLUtil} from "utils/url.util";
 
 type PageState = {};
 
-type PageProps = {} & IPagePropCommon<{}>;
+type PageProps = {} & IPagePropCommon;
 
 export default class PageURL extends Component<PageProps, PageState> {
   constructor(props: PageProps) {

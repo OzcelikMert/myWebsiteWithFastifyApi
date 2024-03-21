@@ -8,7 +8,7 @@ type PageState = {
 
 type PageProps = {
     children: React.ReactNode
-} & IPagePropCommon<{}>;
+} & IPagePropCommon;
 
 export default class ProviderNoFound extends Component<PageProps, PageState> {
     constructor(props: PageProps) {

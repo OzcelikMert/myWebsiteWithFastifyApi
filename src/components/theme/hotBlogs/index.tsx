@@ -14,14 +14,14 @@ type IPageState = {
 };
 
 type IPageProps = {
-    component: IComponentModel;
-} & IPagePropCommon<{ hotBlogs?: IPostGetManyResultService[] }>;
+    component: IComponentModel<{ hotBlogs?: IPostGetManyResultService[] }>;
+} & IPagePropCommon;
 
 class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {
         super(props);
         this.state = {
-            hotBlogs: this.props.pageData.hotBlogs ?? []
+            hotBlogs: this.props.component.customData?.hotBlogs ?? []
         }
     }
 
@@ -80,8 +80,9 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
     }
 }
 
-ComponentThemeHotBlogs.initServersideProps = async (req: IncomingMessage) => {
-    req.pageData.hotBlogs = (await PostService.getMany({
+ComponentThemeHotBlogs.initComponentServersideProps = async (req: IncomingMessage, component) => {
+    component.customData = {};
+    component.customData.hotBlogs = (await PostService.getMany({
         langId: req.appData.selectedLangId,
         typeId: [PostTypeId.Blog],
         statusId: StatusId.Active,

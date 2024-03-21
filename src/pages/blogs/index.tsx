@@ -5,7 +5,7 @@ import {IPagePropCommon} from "types/pageProps";
 
 type PageState = {};
 
-type PageProps = {} & IPagePropCommon<{}>;
+type PageProps = {} & IPagePropCommon;
 
 export default class PageBlogs extends Component<PageProps, PageState> {
     constructor(props: PageProps) {

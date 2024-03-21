@@ -5,7 +5,7 @@ import {PageUtil} from "utils/page.util";
 
 type PageState = {};
 
-type PageProps = {} & IPagePropCommon<{}>;
+type PageProps = {} & IPagePropCommon;
 
 export default class PageBlogURL extends Component<PageProps, PageState> {
     constructor(props: PageProps) {
@@ -14,7 +14,9 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
 
     render() {
         return (
-            <div className="page page-blog"></div>
+            <div className="page page-blog">
+
+            </div>
         );
     }
 }

@@ -1,16 +1,16 @@
 import React, {Component} from "react";
-import Head from "next/head";
 import {useTranslation} from "react-i18next";
 import ProviderNoFound from "components/providers/noFound";
 import ComponentHead from "components/head";
 import {IPagePropCommon} from "types/pageProps";
-import {ImageSourceUtil} from "utils/imageSource.util";
+import ComponentToolSubscribe from "components/tools/subscribe";
+import {ComponentKey} from "constants/componentKeys";
 
 type PageState = {};
 
 type PageProps = {
     Component: any
-} & IPagePropCommon<{}>;
+} & IPagePropCommon;
 
 class ComponentApp extends Component<PageProps, PageState> {
     constructor(props: PageProps) {
@@ -18,7 +18,7 @@ class ComponentApp extends Component<PageProps, PageState> {
     }
 
     render() {
-        const commonProps: IPagePropCommon<{}> = {
+        const commonProps: IPagePropCommon = {
             router: this.props.router,
             t: this.props.t,
             appData: this.props.appData,
@@ -27,19 +27,23 @@ class ComponentApp extends Component<PageProps, PageState> {
             getURL: this.props.getURL
         };
 
+        let subscribeComponent = this.props.appData.toolComponents.findSingle("elementId", ComponentKey.Subscribe);
+
         return (
             <div>
-                <Head>
-                    <link rel="shortcut icon" href={ImageSourceUtil.getUploadedImageSrc(commonProps.appData.settings.icon)}/>
-                    <link rel="canonical" href={commonProps.getURL.full}/>
-                    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-                </Head>
-                <ProviderNoFound {...commonProps}>
-                    <ComponentHead {...commonProps} />
-                    <div className="page-content">
-                        <this.props.Component {...commonProps} />
-                    </div>
-                </ProviderNoFound>
+                <ComponentHead {...commonProps} />
+                <div className="container-fluid main-section" id="main-section">
+                    <ProviderNoFound {...commonProps}>
+                        <div className="page-content">
+                            <this.props.Component {...commonProps} />
+                        </div>
+                    </ProviderNoFound>
+                    {
+                        subscribeComponent
+                            ? <ComponentToolSubscribe component={subscribeComponent} {...commonProps} />
+                            : null
+                    }
+                </div>
             </div>
         );
     }
