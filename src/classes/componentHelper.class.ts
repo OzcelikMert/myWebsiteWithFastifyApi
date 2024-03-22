@@ -4,7 +4,6 @@ import {IPagePropCommon} from "types/pageProps";
 import {IComponentElementContentModel, IComponentModel} from "types/models/component.model";
 import {IncomingMessage} from "http";
 import {IComponentGetResultService} from "types/services/component.service";
-import {ISettingSocialMediaModel} from "types/models/setting.model";
 
 type IPageProps = {
     component?: IComponentModel | IComponentGetResultService;
