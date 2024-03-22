@@ -34,4 +34,6 @@ export interface INavigationGetManyParamService {
     langId?: string
     statusId?: StatusId
     ignoreDefaultLanguage?: boolean
+    isSecondary?: boolean
+    isPrimary?: boolean
 }

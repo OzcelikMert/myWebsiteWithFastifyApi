@@ -5,6 +5,7 @@ import ComponentHead from "components/head";
 import {IPagePropCommon} from "types/pageProps";
 import ComponentToolSubscribe from "components/tools/subscribe";
 import {ComponentKey} from "constants/componentKeys";
+import ComponentToolFooter from "components/tools/footer";
 
 type PageState = {};
 
@@ -28,6 +29,7 @@ class ComponentApp extends Component<PageProps, PageState> {
         };
 
         let subscribeComponent = this.props.appData.toolComponents.findSingle("elementId", ComponentKey.Subscribe);
+        let footerComponent = this.props.appData.toolComponents.findSingle("elementId", ComponentKey.Footer);
 
         return (
             <div>
@@ -41,6 +43,11 @@ class ComponentApp extends Component<PageProps, PageState> {
                     {
                         subscribeComponent
                             ? <ComponentToolSubscribe component={subscribeComponent} {...commonProps} />
+                            : null
+                    }
+                    {
+                        footerComponent
+                            ? <ComponentToolFooter component={footerComponent} {...commonProps} />
                             : null
                     }
                 </div>

@@ -55,7 +55,7 @@ export default class ComponentArticleBlog extends Component<IPageProps, IPageSta
                     </div>
                     <div className="meta-date">
                         <time dateTime={date.getStringWithMask(DateMask.DATE)}>
-                            <span>{date.toLocaleDateString()}</span>
+                            <span>{date.toDateString()}</span>
                         </time>
                     </div>
                 </div>

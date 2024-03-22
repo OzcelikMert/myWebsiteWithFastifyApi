@@ -6,13 +6,13 @@ export interface IComponentAlternateService {
     langId: string
 }
 
-export type IComponentGetResultService = {
+export type IComponentGetResultService<T = {[key: string]: any}> = {
     authorId: IUserPopulateService,
     lastAuthorId: IUserPopulateService,
     elements: (IComponentElementModel & {
         alternates?: IComponentAlternateService[]
     })[]
-} & Omit<IComponentModel, "elements"|"authorId"|"lastAuthorId">
+} & Omit<IComponentModel<T>, "elements"|"authorId"|"lastAuthorId">
 
 export interface IComponentGetWithIdParamService {
     _id: string
