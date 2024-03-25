@@ -1,0 +1,40 @@
+/*************
+#Hover Animations
+***************/
+
+.hover-top {
+  transition: transform .5s ease;
+  will-change: transform;
+}
+
+.hover-top:hover {
+  transform: translateY(-4px);
+}
+
+.img-link img {
+  transition: transform .5s ease;
+  will-change: transform;
+}
+
+.img-link:hover img {
+  transform: scale(1.05);
+}
+
+/*************
+#Blink Animations
+***************/
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

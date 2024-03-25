@@ -1,0 +1,47 @@
+/*************
+#Features
+***************/
+
+.property-section {
+  .cards .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cards .icon span {
+    background: var(--bg-color);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+  }
+
+  .cards .icon i {
+    font-size: 35px;
+    color: var(--propertyIconColor);
+  }
+
+  .cards .card {
+    border: 0;
+    box-shadow: 1px 1px 7px 0px #00000038;
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+
+  .cards .card-title {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+
+  .cards .card-text {
+    color: #717171;
+    font-size: 15px;
+  }
+
+  .content {
+    padding-bottom: 10px;
+  }
+}

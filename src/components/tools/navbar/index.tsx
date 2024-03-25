@@ -9,7 +9,7 @@ import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {URLUtil} from "utils/url.util";
 
 type IPageState = {
-    navbar: React.ReactNode
+    isNavbarSticky: boolean
 };
 
 type IPageProps = {
@@ -22,14 +22,31 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {
         super(props);
         this.state = {
-            navbar: this.props.component.customData?.navigations?.map((navigation, index) => {
-                let children = this.props.component.customData?.navigations?.findMulti("mainId._id", navigation._id) ?? [];
-                return children.length > 0
-                    ? this.Dropdown(navigation, index)
-                    : navigation.mainId
-                        ? null
-                        : this.NavItem(navigation, index)
-            })
+            isNavbarSticky: false
+        }
+    }
+
+    componentDidMount() {
+        this.setEvents();
+    }
+
+    setEvents() {
+        window.addEventListener("scroll", () => this.onScrolling());
+    }
+
+    onScrolling() {
+        if (window.scrollY > 500) {
+            if (!this.state.isNavbarSticky) {
+                this.setState({
+                    isNavbarSticky: true,
+                });
+            }
+        } else {
+            if (this.state.isNavbarSticky) {
+                this.setState({
+                    isNavbarSticky: false,
+                });
+            }
         }
     }
 
@@ -72,7 +89,7 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
 
     render() {
         return (
-            <div className="navbar-section start-style" id="navbar-section">
+            <div className={`navbar-section ${this.state.isNavbarSticky ? "scroll-on" : "start-style"}`} id="navbar-section">
                 <div className="container">
                     <Navbar expand="md" className="navbar-light">
                         <Navbar.Brand href={URLUtil.createHref({url: this.props.getURL, targetPath: ""})}>

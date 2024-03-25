@@ -6,7 +6,7 @@ import {IPostGetManyResultService} from "types/services/post.service";
 import {PostService} from "services/post.service";
 import {PostTypeId} from "constants/postTypes";
 import {StatusId} from "constants/status";
-import ComponentArticleBlog from "components/elements/articles/blog";
+import ComponentBlog from "components/elements/blog";
 
 type IPageState = {
     lastBlogs: IPostGetManyResultService[]
@@ -70,7 +70,7 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
                         <div className="row">
                             {
                                 this.state.lastBlogs.map((item, index) =>
-                                    <ComponentArticleBlog item={item} index={index} t={this.props.t} />
+                                    <ComponentBlog className={`col-md-4 mt-4 mt-md-0 ${index > 2 ? "mt-md-4" : ""}`} item={item} index={index} t={this.props.t} />
                                 )
                             }
                         </div>

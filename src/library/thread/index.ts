@@ -1,9 +1,9 @@
 class Thread {
-    static start(func: () => void, ms: number = 100): void {
-        setTimeout(() => func(), ms);
+    static start(func: () => void, delay: number = 0) {
+        return new Promise(resolve => setTimeout(() => {func(); resolve(1);}, delay));
     }
     static sleep(ms: number): Promise<any> {
-        return new Promise(resolve => setTimeout(resolve, 750));
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
 

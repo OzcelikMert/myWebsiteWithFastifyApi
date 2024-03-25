@@ -14,10 +14,16 @@ type IPageProps = {
     item: IPostGetManyResultService
     t: IPagePropCommon["t"]
     hideAuthorImage?: boolean
+    hideShortContent?: boolean
     index?: number
+    className?: string
+    imageHeight?: number
+    imageWidth?: number
+    imageAuthorHeight?: number
+    imageAuthorWidth?: number
 };
 
-export default class ComponentArticleBlog extends Component<IPageProps, IPageState> {
+export default class ComponentBlog extends Component<IPageProps, IPageState> {
     constructor(props: IPageProps) {
         super(props);
     }
@@ -35,8 +41,8 @@ export default class ComponentArticleBlog extends Component<IPageProps, IPageSta
                                         src={ImageSourceUtil.getUploadedImageSrc(author.image)}
                                         alt={author.name}
                                         className="img-fluid"
-                                        width="50"
-                                        height="50"
+                                        width={this.props.imageAuthorWidth ?? 50}
+                                        height={this.props.imageAuthorHeight ?? 50}
                                     />
                                 </a>
                             ))
@@ -71,7 +77,7 @@ export default class ComponentArticleBlog extends Component<IPageProps, IPageSta
 
     render() {
         return (
-            <article className="col-md-4">
+            <article className={this.props.className} title={this.props.item.contents?.title}>
                 <div className="card">
                     <div className="card-header hover-top">
                         <a href="#" className="img-link">
@@ -79,8 +85,8 @@ export default class ComponentArticleBlog extends Component<IPageProps, IPageSta
                                 src={ImageSourceUtil.getUploadedImageSrc(this.props.item.contents?.image)}
                                 alt={this.props.item.contents?.title ?? ""}
                                 className="img-fluid"
-                                width="250"
-                                height="250"
+                                width={this.props.imageWidth ?? 500}
+                                height={this.props.imageHeight ?? 250}
                             />
                         </a>
                     </div>
@@ -94,7 +100,7 @@ export default class ComponentArticleBlog extends Component<IPageProps, IPageSta
                             <span>{this.props.item.contents?.title}</span>
                         </a>
                         <p className="card-text">
-                            {this.props.item.contents?.shortContent}
+                            {this.props.hideShortContent ? null : this.props.item.contents?.shortContent}
                         </p>
                     </div>
                     <div className="card-footer">

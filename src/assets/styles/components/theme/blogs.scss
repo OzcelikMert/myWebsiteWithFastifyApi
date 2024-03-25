@@ -1,0 +1,100 @@
+/*************
+#Blogs
+***************/
+
+.blogs {
+  .card {
+    border: 0;
+    background-color: var(--bg-color);
+  }
+
+  .card .card-header {
+    border: 0;
+    padding: 0;
+    display: flex;
+    position: relative;
+    border-radius: 35px;
+    /*box-shadow: 4px 4px 20px 2px #0000009c;*/
+    overflow: hidden;
+  }
+
+  .card .blog-category-badges {
+
+  }
+
+  .card .blog-category-badges a {
+    font-size: 13px;
+    border-radius: 2rem;
+  }
+
+  .card .card-body {
+    padding: 10px 0 25px 0;
+  }
+
+  .card .card-body .card-title {
+    font-weight: bold;
+    margin: 0 0 5px;
+    font-size: 30px;
+  }
+
+  .card .card-body .card-text {
+    font-size: 17px;
+    color: #5a5858;
+    margin: 0 0 5px;
+  }
+
+  .card .card-footer {
+    border: 0;
+    background: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .meta {
+    display: flex;
+  }
+
+  .meta .meta-avatars {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .meta .meta-avatars a {
+    margin-left: -5px;
+  }
+
+  .meta .meta-avatars img {
+    width: 25px;
+    height: 25px;
+    border-radius: 30px;
+    box-shadow: 1px 1px 7px #000000c7;
+  }
+
+  .meta .meta-contents {
+    margin-left: 10px;
+    color: #616161;
+  }
+
+  .meta .meta-contents .meta-authors {
+    font-size: 12px;
+  }
+
+  .meta .meta-contents .meta-authors a {
+    font-weight: bolder;
+  }
+
+  .meta .meta-contents .meta-date {
+    font-size: 10px;
+  }
+
+  .row {
+    margin-top: 10px;
+  }
+}
+
+.blogs-section {
+  .blogs card {
+    margin-bottom: 48px;
+  }
+}

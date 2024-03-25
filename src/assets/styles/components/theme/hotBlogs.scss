@@ -1,0 +1,73 @@
+/*************
+#Hot Blogs
+***************/
+
+.hot-blogs-section {
+  .recent-blog-section {
+    .blogs .card .card-header .blog-category-badges a {
+      font-size: 17px;
+    }
+
+    .blogs .card .card-body .card-title {
+      font-weight: bold;
+      margin: 0 0 5px;
+      font-size: 45px;
+    }
+
+    .blogs .card .card-body .card-text {
+      font-size: 23px;
+    }
+
+    .blogs .meta .meta-avatars img {
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      box-shadow: 1px 1px 7px #000000c7;
+    }
+
+    .blogs .meta .meta-contents .meta-authors {
+      font-size: 14px;
+    }
+
+    .blogs .meta .meta-contents .meta-date {
+      font-size: 12px;
+    }
+  }
+
+  .featured-blogs-section {
+    .card {
+      padding: 20px 0;
+    }
+
+    .card .card-header .blog-category-badges a {
+      padding: 5px;
+      margin: 2px;
+      font-size: 10px;
+    }
+
+    .card .card-body {
+      padding: 10px 0 10px 0;
+    }
+
+    .meta .meta-contents {
+      margin-left: 0;
+      color: #616161;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+}

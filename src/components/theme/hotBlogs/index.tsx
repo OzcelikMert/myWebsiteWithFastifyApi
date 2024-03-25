@@ -3,7 +3,7 @@ import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
 import {ComponentHelperClass} from "classes/componentHelper.class";
 import {IPostGetManyResultService} from "types/services/post.service";
-import ComponentArticleBlog from "components/elements/articles/blog";
+import ComponentBlog from "components/elements/blog";
 import {IncomingMessage} from "http";
 import {PostService} from "services/post.service";
 import {PostTypeId} from "constants/postTypes";
@@ -34,7 +34,7 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
                     <p className="section-content">{this.getComponentElementContents("hotDescribe")?.content}</p>
                     <div className="d-flex blogs">
                         <div className="row">
-                            <ComponentArticleBlog item={item} index={0} t={this.props.t} />
+                            <ComponentBlog className="col-md-12" item={item} index={0} t={this.props.t} imageWidth={1000} imageHeight={500} />
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
                         <div className="row">
                             {
                                 items.map(item => (
-                                    <ComponentArticleBlog item={item} index={0} t={this.props.t} hideAuthorImage={true} />
+                                    <ComponentBlog className="col-md-12" item={item} index={0} t={this.props.t} hideAuthorImage={true} hideShortContent={true} />
                                 ))
                             }
                         </div>

@@ -34,8 +34,8 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
                                                             className="img-fluid"
                                                             src={ImageSourceUtil.getUploadedImageSrc(this.getComponentElementContents("image1")?.content)}
                                                             alt={this.getComponentElementContents("title")?.content ?? ""}
-                                                            width={50}
-                                                            height={50}
+                                                            width={250}
+                                                            height={250}
                                                         />
                                                     </div>
                                                     <div className="col-11 mb-3">
@@ -43,8 +43,8 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
                                                             className="img-fluid"
                                                             src={ImageSourceUtil.getUploadedImageSrc(this.getComponentElementContents("image2")?.content)}
                                                             alt={this.getComponentElementContents("title")?.content ?? ""}
-                                                            width={50}
-                                                            height={50}
+                                                            width={250}
+                                                            height={250}
                                                         />
                                                     </div>
                                                 </div>
@@ -56,8 +56,8 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
                                                             className="img-fluid"
                                                             src={ImageSourceUtil.getUploadedImageSrc(this.getComponentElementContents("image3")?.content)}
                                                             alt={this.getComponentElementContents("title")?.content ?? ""}
-                                                            width={50}
-                                                            height={50}
+                                                            width={250}
+                                                            height={250}
                                                         />
 
                                                     </div>
@@ -66,8 +66,8 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
                                                             className="img-fluid"
                                                             src={ImageSourceUtil.getUploadedImageSrc(this.getComponentElementContents("image4")?.content)}
                                                             alt={this.getComponentElementContents("title")?.content ?? ""}
-                                                            width={50}
-                                                            height={50}
+                                                            width={250}
+                                                            height={250}
                                                         />
                                                     </div>
                                                 </div>

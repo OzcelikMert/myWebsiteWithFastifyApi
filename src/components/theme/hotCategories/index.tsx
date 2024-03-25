@@ -8,8 +8,11 @@ import {PostTypeId} from "constants/postTypes";
 import {StatusId} from "constants/status";
 import {PostTermService} from "services/postTerm.service";
 import {PostTermTypeId} from "constants/postTermTypes";
+import ComponentCategory from "components/elements/category";
 
-type IPageState = {};
+type IPageState = {
+    selectedCategoryId: string
+};
 
 type IPageProps = {
     component: IComponentModel<{categories?: IPostTermGetResultService[]}>;
@@ -18,24 +21,15 @@ type IPageProps = {
 class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {
         super(props);
+        this.state = {
+            selectedCategoryId: ""
+        }
     }
 
-    Category = (props: IPostTermGetResultService, index: number) => {
-        return (
-            <div className={`option ${index == 0 ? "active" : ""}`}>
-                <div className="bg-img"
-                     style={{backgroundImage: `url(${ImageSourceUtil.getUploadedImageSrc(props.contents?.image)})`}}></div>
-                <div className="label-shadow"></div>
-                <div className="label">
-                    <div className="icon">
-                        <i className="mdi mdi-walk"></i>
-                    </div>
-                    <div className="info">
-                        <h2 className="main">{props.contents?.title}</h2>
-                    </div>
-                </div>
-            </div>
-        )
+    onMouseOver = (item: IPostTermGetResultService) => {
+        this.setState({
+            selectedCategoryId: item._id
+        })
     }
 
     render() {
@@ -47,7 +41,18 @@ class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPage
                     <div className="categories-container">
                         <div className="options">
                             {
-                                this.props.component.customData?.categories?.map((category, index) => this.Category(category, index))
+                                this.props.component.customData?.categories?.map((category, index) =>
+                                    <ComponentCategory
+                                        item={category}
+                                        t={this.props.t}
+                                        index={index}
+                                        onMouseOver={item => this.onMouseOver(item)}
+                                        isSelected={
+                                            (this.state.selectedCategoryId == "" && index == 0) ||
+                                            category._id == this.state.selectedCategoryId
+                                        }
+                                    />
+                                )
                             }
                         </div>
                     </div>
@@ -63,7 +68,8 @@ ComponentThemeHotCategories.initComponentServersideProps = async (req, component
         langId: req.appData.selectedLangId,
         typeId: [PostTermTypeId.Category],
         postTypeId: PostTypeId.Blog,
-        statusId: StatusId.Active
+        statusId: StatusId.Active,
+        count: 5
     })).data;
 }
 
