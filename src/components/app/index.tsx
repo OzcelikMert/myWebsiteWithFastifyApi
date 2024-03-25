@@ -6,6 +6,7 @@ import {IPagePropCommon} from "types/pageProps";
 import ComponentToolSubscribe from "components/tools/subscribe";
 import {ComponentKey} from "constants/componentKeys";
 import ComponentToolFooter from "components/tools/footer";
+import ComponentToolNavbar from "components/tools/navbar";
 
 type PageState = {};
 
@@ -30,10 +31,16 @@ class ComponentApp extends Component<PageProps, PageState> {
 
         let subscribeComponent = this.props.appData.toolComponents.findSingle("elementId", ComponentKey.Subscribe);
         let footerComponent = this.props.appData.toolComponents.findSingle("elementId", ComponentKey.Footer);
+        let navbarComponent = this.props.appData.toolComponents.findSingle("elementId", ComponentKey.Navbar);
 
         return (
             <div>
                 <ComponentHead {...commonProps} />
+                {
+                    navbarComponent
+                        ? <ComponentToolNavbar component={navbarComponent} {...commonProps} />
+                        : null
+                }
                 <div className="container-fluid main-section" id="main-section">
                     <ProviderNoFound {...commonProps}>
                         <div className="page-content">

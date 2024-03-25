@@ -25,7 +25,7 @@ export default class ComponentArticleBlog extends Component<IPageProps, IPageSta
     Authors = (props: IUserPopulateService[], createdAt: string) => {
         let date = new Date(createdAt);
         return (
-            <div className="meta">
+            <div key={this.props.item._id} className="meta">
                 <div className="meta-avatars">
                     {
                         this.props.hideAuthorImage ? null
