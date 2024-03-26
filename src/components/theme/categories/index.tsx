@@ -18,7 +18,7 @@ type IPageProps = {
     component: IComponentModel<{categories?: IPostTermGetResultService[]}>;
 } & IPagePropCommon;
 
-class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPageState> {
+class ComponentThemeCategories extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {
         super(props);
         this.state = {
@@ -34,7 +34,7 @@ class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPage
 
     render() {
         return (
-            <section className="categories-section hot-categories-section">
+            <section className="categories-section">
                 <div className="container">
                     <h2 className="section-header">{this.getComponentElementContents("title")?.content}</h2>
                     <p className="section-content">{this.getComponentElementContents("describe")?.content}</p>
@@ -47,10 +47,7 @@ class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPage
                                         t={this.props.t}
                                         index={index}
                                         onMouseOver={item => this.onMouseOver(item)}
-                                        isSelected={
-                                            (this.state.selectedCategoryId == "" && index == 0) ||
-                                            category._id == this.state.selectedCategoryId
-                                        }
+                                        isSelected={category._id == this.state.selectedCategoryId}
                                     />
                                 )
                             }
@@ -62,15 +59,14 @@ class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPage
     }
 }
 
-ComponentThemeHotCategories.initComponentServersideProps = async (req, component) => {
+ComponentThemeCategories.initComponentServersideProps = async (req, component) => {
     component.customData = {};
     component.customData.categories = (await PostTermService.getMany({
         langId: req.appData.selectedLangId,
         typeId: [PostTermTypeId.Category],
         postTypeId: PostTypeId.Blog,
         statusId: StatusId.Active,
-        count: 5
     })).data;
 }
 
-export default ComponentThemeHotCategories;
+export default ComponentThemeCategories;

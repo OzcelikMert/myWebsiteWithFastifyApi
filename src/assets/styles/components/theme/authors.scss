@@ -1,0 +1,206 @@
+/*************
+#Authors
+***************/
+
+.authors-section {
+  .card-wrapper {
+    width: 279px;
+    height: 400px;
+    position: relative;
+  }
+
+  .card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px;
+    height: 350px;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+
+  .card .card-image {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: #000;
+    transition: 0.5s;
+  }
+
+  .card:hover img {
+    opacity: 0.4;
+    transition: 0.5s;
+  }
+
+  .card:hover .card-image {
+    transform: translateY(-100px);
+    transition: all 0.9s;
+  }
+
+  /* Social Icons */
+  .social-icons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    display: flex;
+    padding-left: 0;
+  }
+
+  .social-icons li {
+    list-style: none;
+  }
+
+  .social-icons li a {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: #fff;
+    font-size: 23px;
+    color: #333;
+    font-weight: bold;
+    margin: 0 6px;
+    transition: 0.4s;
+    transform: translateY(200px);
+    opacity: 0;
+    border-radius: 50%;
+  }
+
+  .card:hover .social-icons li a {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+
+  .social-icons li a:hover {
+    background: #000;
+    transition: 0.2s;
+  }
+
+  .social-icons li a .mdi {
+    transition: 0.8s;
+  }
+
+  .social-icons li a:hover .mdi {
+    transform: rotateY(360deg);
+    color: #fff;
+  }
+
+  .card:hover li:nth-child(1) a {
+    transition-delay: 0.1s;
+  }
+
+  .card:hover li:nth-child(2) a {
+    transition-delay: 0.2s;
+  }
+
+  .card:hover li:nth-child(3) a {
+    transition-delay: 0.3s;
+  }
+
+  .card:hover li:nth-child(4) a {
+    transition-delay: 0.4s;
+  }
+
+  /* Personal Details */
+  .details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    width: 100%;
+    height: 120px;
+    z-index: 1;
+    padding: 10px;
+  }
+
+  .details h2 {
+    margin: 30px 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  .details .job-title {
+    font-size: 1rem;
+    line-height: 2.5rem;
+    color: #333;
+    font-weight: 300;
+  }
+
+  .jane {
+    position: absolute;
+    bottom: -120px;
+    left: 0;
+    opacity: 0;
+    background: #fff;
+    width: 100%;
+    height: 120px;
+    z-index: 3;
+    padding: 10px;
+    transition: 0.4s;
+  }
+
+  .profile-two .social-icons li a {
+    border-radius: 50%;
+  }
+
+  .card:hover .profile-img--two {
+    transform: rotateY(180deg);
+  }
+
+  .card:hover .jane {
+    bottom: 0;
+    left: 0;
+    transition-delay: 0.5s;
+    opacity: 1;
+  }
+}
+
+/* #Media
+================================================== */
+
+@media (width <= 575.98px) {
+  .authors-section {
+    .card-wrapper {
+      width: 168px;
+      height: 267px;
+    }
+
+    .card {
+      width: 159px;
+      height: 255px;
+    }
+    .card:hover .card-image {
+      transform: translateY(0px);
+    }
+    .details {
+      z-index: 2;
+      transition: 0.5s;
+      transform: translate(0%, 100%);
+    }
+    .card:hover .details h2 {
+      color: #fff;
+      transition: 0.5s;
+      transform: translate(0%, -180%);
+    }
+    .details .job-title{
+      color: #fff;
+    }
+    .social-icons li a {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 21px;
+      margin: 0 3px;
+    }
+  }
+}

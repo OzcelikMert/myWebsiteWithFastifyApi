@@ -8,5 +8,6 @@ export class UserApiEndPoint {
         this.mainPath = mainPath;
     }
 
+    get GET() { return PathUtil.createPath(this.mainPath, "/get"); }
     GET_WITH_URL(url: string) { return PathUtil.createPath(this.mainPath, `/get/url/${url}`); }
 }

@@ -5,12 +5,12 @@ import {IComponentGetResultService} from "types/services/component.service";
 import {NavigationService} from "services/navigation.service";
 import {StatusId} from "constants/status";
 import {INavigationGetResultService} from "types/services/navigation.service";
-import {Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {DropdownToggle, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {URLUtil} from "utils/url.util";
 
 type IPageState = {
     isNavbarSticky: boolean
-};
+} & {[key: string]: any};
 
 type IPageProps = {
     component: IComponentGetResultService<{
@@ -35,7 +35,7 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
     }
 
     onScrolling() {
-        if (window.scrollY > 500) {
+       if (window.scrollY > window.frames.innerHeight) {
             if (!this.state.isNavbarSticky) {
                 this.setState({
                     isNavbarSticky: true,
@@ -48,6 +48,12 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
                 });
             }
         }
+    }
+
+    onShowDropdown = (navigationId: string, isShow: boolean) => {
+        this.setState({
+            [navigationId]: isShow
+        })
     }
 
     DropdownItem = (props: INavigationGetResultService, index: number) => {
@@ -66,7 +72,16 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
         let children = this.props.component.customData?.navigations?.findMulti("mainId._id", props._id) ?? [];
 
         return (
-            <NavDropdown key={props._id} title={props.contents?.title} drop={props.mainId ? "end" : "down"}>
+            <NavDropdown
+                renderMenuOnMount={true}
+                show={this.state[props._id]}
+                key={props._id}
+                title={props.contents?.title}
+                drop={props.mainId ? "end" : "down"}
+                onMouseEnter={event => this.onShowDropdown(props._id, true)}
+                onMouseLeave={event => this.onShowDropdown(props._id, false)}
+                onClick={event => this.onShowDropdown(props._id, !this.state[props._id])}
+            >
                 {
                     children.map((child, childIndex) => this.DropdownItem(child, childIndex))
                 }
@@ -81,9 +96,11 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
         return children.length > 0
             ? this.Dropdown(props, index)
             : (
-                <Nav.Link key={props._id} href={URLUtil.createHref({url: this.props.getURL, targetPath: props.contents?.url})}>
-                    {props.contents?.title}
-                </Nav.Link>
+                <Nav.Item key={props._id}>
+                    <Nav.Link href={URLUtil.createHref({url: this.props.getURL, targetPath: props.contents?.url})}>
+                        {props.contents?.title}
+                    </Nav.Link>
+                </Nav.Item>
             )
     }
 
@@ -99,7 +116,7 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
                             <span className="navbar-toggler-icon"></span>
                         </Navbar.Toggle>
                         <Navbar.Collapse id="nav">
-                            <Nav>
+                            <Nav >
                                 {
                                     this.props.component.customData?.navigations?.map((navigation, index) => this.NavItem(navigation, index))
                                 }

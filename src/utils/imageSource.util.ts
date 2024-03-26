@@ -9,6 +9,11 @@ const getUploadedImageSrc = (imageName?: string): string => {
         : PathUtil.getStaticURL() + "empty.jpg"
 }
 
+const getFlagSrc = (flagName: string): string => {
+    return PathUtil.getFlagURL() + flagName
+}
+
 export const ImageSourceUtil = {
-    getUploadedImageSrc: getUploadedImageSrc
+    getUploadedImageSrc: getUploadedImageSrc,
+    getFlagSrc: getFlagSrc
 }
