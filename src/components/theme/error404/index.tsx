@@ -1,11 +1,12 @@
-import React, {Component} from "react";
+import React from "react";
 import {IPagePropCommon} from "types/pageProps";
+import {ComponentHelperClass} from "classes/componentHelper.class";
 
 type PageState = {};
 
 type PageProps = {} & IPagePropCommon;
 
-export default class ComponentError404 extends Component<PageProps, PageState> {
+export default class ComponentThemeError404 extends ComponentHelperClass<PageProps, PageState> {
     constructor(props: PageProps) {
         super(props);
         this.state = {};
@@ -20,10 +21,10 @@ export default class ComponentError404 extends Component<PageProps, PageState> {
                             <div className="col-lg-6">
                                 <i className="bi bi-exclamation-triangle triangle-color display-1"></i>
                                 <h1 className="display-1 font">404</h1>
-                                <h1 className="mb-4 font">{this.props.t("pageNotFound")}</h1>
-                                <p className="mb-4 desc">{this.props.t("pageNotFoundDesc")}</p>
-                                <a className="btn btn-color rounded-pill py-3 px-5" href="/">
-                                    {this.props.t("returnHomePage")}
+                                <h1 className="mb-4 font">{this.getComponentElementContents("title")?.content}</h1>
+                                <p className="mb-4 desc">{this.getComponentElementContents("describe")?.content}</p>
+                                <a className="btn btn-outline-primary btn-lg" href="/">
+                                    <span>{this.getComponentElementContents("buttonText")?.content}</span>
                                 </a>
                             </div>
                         </div>

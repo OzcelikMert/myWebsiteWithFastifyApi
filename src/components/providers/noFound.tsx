@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {IPagePropCommon} from "types/pageProps";
-import ComponentError404 from "components/error/404";
+import ComponentError404 from "components/theme/error404";
 
 type PageState = {
     

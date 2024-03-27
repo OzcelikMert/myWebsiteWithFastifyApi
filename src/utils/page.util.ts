@@ -7,6 +7,7 @@ import {IPageGetParamUtil} from "types/utils/page.util";
 import {ComponentService} from "services/component.service";
 import {ComponentTypeId} from "constants/componentTypes";
 import {ComponentHelperClass} from "classes/componentHelper.class";
+import {PageTypeId} from "constants/pageTypes";
 
 const initProps = async (params: IPageGetParamUtil) => {
     let serviceResult = await PostService.getWithURL({
@@ -16,6 +17,16 @@ const initProps = async (params: IPageGetParamUtil) => {
         url: params.url ?? "",
         ...(params.typeId ? {pageTypeId: params.typeId} : {})
     });
+
+    if (!serviceResult.status || !serviceResult.data) {
+        serviceResult = await PostService.getWithURL({
+            langId: params.req.appData.selectedLangId,
+            typeId: PostTypeId.Page,
+            statusId: StatusId.Active,
+            pageTypeId: PageTypeId.ErrorPage404,
+            url: "404"
+        });
+    }
 
     if (serviceResult.status && serviceResult.data) {
         params.req.pageData.page = serviceResult.data;
@@ -47,7 +58,8 @@ const initThemeComponentProps = async (req: IncomingMessage) => {
                 if (componentClass.initComponentServersideProps) {
                     await componentClass.initComponentServersideProps(req, component);
                 }
-            } catch (e) {}
+            } catch (e) {
+            }
         }
     }
 }
@@ -70,7 +82,8 @@ const initToolComponentProps = async (req: IncomingMessage) => {
                 if (componentClass.initComponentServersideProps) {
                     await componentClass.initComponentServersideProps(req, component);
                 }
-            } catch (e) {}
+            } catch (e) {
+            }
         }
     }
 }
