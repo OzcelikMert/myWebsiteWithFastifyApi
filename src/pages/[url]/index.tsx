@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {GetServerSidePropsContext} from "next";
 import {IPagePropCommon} from "types/pageProps";
 import {PageUtil} from "utils/page.util";
-import {URLUtil} from "utils/url.util";
 import {PageTypeId} from "constants/pageTypes";
 import ComponentThemeSelectedComponents from "components/theme/selectedComponents";
 
@@ -26,7 +25,7 @@ export default class PageURL extends Component<PageProps, PageState> {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     let req = context.req;
-    console.log(req.url);
+
     await PageUtil.initProps({
         req: req,
         url: context.params?.url as string ?? "",
