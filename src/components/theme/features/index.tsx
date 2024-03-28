@@ -27,11 +27,11 @@ export default class ComponentThemeFeatures extends ComponentHelperClass<IPagePr
                                         <div className="card-body">
                                             <div className="icon">
                                         <span>
-                                          <i style={{color: "blue"}} className={`mdi mdi-${this.getComponentElementContents("featureOneIcon")?.content}`}></i>
+                                          <i style={{color: "blue"}} className={`mdi mdi-${this.getComponentElementContents("feature1Icon")?.content}`}></i>
                                         </span>
                                             </div>
-                                            <h4 className="card-title">{this.getComponentElementContents("featureOneTitle")?.content}</h4>
-                                            <p className="card-text">{this.getComponentElementContents("featureOneDescribe")?.content} </p>
+                                            <h4 className="card-title">{this.getComponentElementContents("feature1Title")?.content}</h4>
+                                            <p className="card-text">{this.getComponentElementContents("feature1Describe")?.content} </p>
                                         </div>
                                     </div>
                                 </div>
@@ -40,11 +40,11 @@ export default class ComponentThemeFeatures extends ComponentHelperClass<IPagePr
                                         <div className="card-body">
                                             <div className="icon">
                                         <span>
-                                          <i style={{color: "red"}} className={`mdi mdi-${this.getComponentElementContents("featureTwoIcon")?.content}`}></i>
+                                          <i style={{color: "red"}} className={`mdi mdi-${this.getComponentElementContents("feature2Icon")?.content}`}></i>
                                         </span>
                                             </div>
-                                            <h4 className="card-title">{this.getComponentElementContents("featureTwoTitle")?.content}</h4>
-                                            <p className="card-text">{this.getComponentElementContents("featureTwoDescribe")?.content} </p>
+                                            <h4 className="card-title">{this.getComponentElementContents("feature2Title")?.content}</h4>
+                                            <p className="card-text">{this.getComponentElementContents("feature2Describe")?.content} </p>
                                         </div>
                                     </div>
                                 </div>
@@ -53,11 +53,11 @@ export default class ComponentThemeFeatures extends ComponentHelperClass<IPagePr
                                         <div className="card-body">
                                             <div className="icon">
                                         <span>
-                                          <i style={{color: "orange"}} className={`mdi mdi-${this.getComponentElementContents("featureThreeIcon")?.content}`}></i>
+                                          <i style={{color: "orange"}} className={`mdi mdi-${this.getComponentElementContents("feature3Icon")?.content}`}></i>
                                         </span>
                                             </div>
-                                            <h4 className="card-title">{this.getComponentElementContents("featureThreeTitle")?.content}</h4>
-                                            <p className="card-text">{this.getComponentElementContents("featureThreeDescribe")?.content} </p>
+                                            <h4 className="card-title">{this.getComponentElementContents("feature3Title")?.content}</h4>
+                                            <p className="card-text">{this.getComponentElementContents("feature3Describe")?.content} </p>
                                         </div>
                                     </div>
                                 </div>
@@ -66,11 +66,11 @@ export default class ComponentThemeFeatures extends ComponentHelperClass<IPagePr
                                         <div className="card-body">
                                             <div className="icon">
                                         <span>
-                                          <i style={{color: "green"}} className={`mdi mdi-${this.getComponentElementContents("featureFourIcon")?.content}`}></i>
+                                          <i style={{color: "green"}} className={`mdi mdi-${this.getComponentElementContents("feature4Icon")?.content}`}></i>
                                         </span>
                                             </div>
-                                            <h4 className="card-title">{this.getComponentElementContents("featureFourTitle")?.content}</h4>
-                                            <p className="card-text">{this.getComponentElementContents("featureFourDescribe")?.content} </p>
+                                            <h4 className="card-title">{this.getComponentElementContents("feature4Title")?.content}</h4>
+                                            <p className="card-text">{this.getComponentElementContents("feature4Describe")?.content} </p>
                                         </div>
                                     </div>
                                 </div>
