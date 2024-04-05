@@ -54,7 +54,7 @@ const initThemeComponentProps = async (req: IncomingMessage) => {
     if (req.pageData.page) {
         for (const component of req.pageData.page.components ?? []) {
             try {
-                const componentClass = (await import(`components/theme/${component.elementId}`)).default as typeof ComponentHelperClass;
+                const componentClass = (await import(`components/theme/${component.key}`)).default as typeof ComponentHelperClass;
                 if (componentClass.initComponentServersideProps) {
                     await componentClass.initComponentServersideProps(req, component);
                 }
@@ -78,7 +78,7 @@ const initToolComponentProps = async (req: IncomingMessage) => {
 
         for (const component of req.appData.toolComponents) {
             try {
-                const componentClass = (await import(`components/tools/${component.elementId}`)).default as typeof ComponentHelperClass;
+                const componentClass = (await import(`components/tools/${component.key}`)).default as typeof ComponentHelperClass;
                 if (componentClass.initComponentServersideProps) {
                     await componentClass.initComponentServersideProps(req, component);
                 }

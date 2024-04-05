@@ -30,10 +30,10 @@ class ComponentApp extends Component<PageProps, PageState> {
             getURL: this.props.getURL
         };
 
-        let subscribeComponent = this.props.appData.toolComponents.findSingle("elementId", ComponentKey.Subscribe);
-        let footerComponent = this.props.appData.toolComponents.findSingle("elementId", ComponentKey.Footer);
-        let navbarComponent = this.props.appData.toolComponents.findSingle("elementId", ComponentKey.Navbar);
-        let videoHeaderComponent = this.props.appData.toolComponents.findSingle("elementId", ComponentKey.VideoHeader);
+        let subscribeComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.Subscribe);
+        let footerComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.Footer);
+        let navbarComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.Navbar);
+        let videoHeaderComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.VideoHeader);
 
         return (
             <div>

@@ -3,7 +3,7 @@ import {PathUtil} from "utils/path.util";
 import ApiRequest from "library/api/request";
 import {
     IComponentGetManyParamService,
-    IComponentGetResultService, IComponentGetWithElementIdParamService,
+    IComponentGetResultService, IComponentGetWithKeyParamService,
     IComponentGetWithIdParamService
 } from "types/services/component.service";
 
@@ -15,10 +15,10 @@ const getWithId = (params: IComponentGetWithIdParamService) =>  {
     }).get<IComponentGetResultService>();
 }
 
-const getWithElementId = (params: IComponentGetWithElementIdParamService) =>  {
+const getWithKey = (params: IComponentGetWithKeyParamService) =>  {
     return new ApiRequest({
         apiUrl: PathUtil.getApiURL(),
-        endPoint: ApiEndPoints.COMPONENT_WITH.GET_WITH_ELEMENT_ID(params.elementId),
+        endPoint: ApiEndPoints.COMPONENT_WITH.GET_WITH_KEY(params.key),
         data: params
     }).get<IComponentGetResultService>();
 }
@@ -33,6 +33,6 @@ const getMany = (params: IComponentGetManyParamService) =>  {
 
 export const ComponentService = {
     getWithId: getWithId,
-    getWithElementId: getWithElementId,
+    getWithKey: getWithKey,
     getMany: getMany
 }

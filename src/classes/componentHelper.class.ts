@@ -14,12 +14,12 @@ export class ComponentHelperClass<P = {}, S = {}> extends Component<P & IPagePro
         super(props);
     }
 
-    getComponentElementContents = (elementId: string): IComponentElementContentModel | undefined => {
-        return this.props.component?.elements.findSingle("elementId", elementId)?.contents;
+    getComponentElementContents = (key: string): IComponentElementContentModel | undefined => {
+        return this.props.component?.elements.findSingle("key", key)?.contents;
     }
 
-    getSocialMediaURL = (elementId: SocialMediaKey): string | undefined => {
-        return this.props.appData.settings.socialMedia?.findSingle("elementId", elementId)?.url;
+    getSocialMediaURL = (key: SocialMediaKey): string | undefined => {
+        return this.props.appData.settings.socialMedia?.findSingle("key", key)?.url;
     }
 
     static initComponentServersideProps?: (req: IncomingMessage, component: IComponentModel | IComponentGetResultService) => Promise<void>;

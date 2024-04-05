@@ -1,8 +1,10 @@
 {
-  "name": "nextjs-template-blog-1",
+  "name": "my-website-nextjs-with-fastify-api",
   "version": "0.1.1",
-  "description": "Website",
+  "description": "Website Theme using NextJS with Fastify API",
   "private": true,
+  "author": "Mert ÖZÇELİK",
+  "license": "ISC",
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",

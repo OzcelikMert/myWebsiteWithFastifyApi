@@ -16,7 +16,7 @@ export default class ComponentThemeSelectedComponents extends Component<IPagePro
         let element = (<div></div>);
 
          try {
-             const ComponentClass = (require(`components/theme/${component.elementId}`)).default as typeof ComponentHelperClass;
+             const ComponentClass = (require(`components/theme/${component.key}`)).default as typeof ComponentHelperClass;
              element = (<ComponentClass component={component} {...this.props} />)
          }catch (e) {}
 

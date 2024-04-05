@@ -29,7 +29,7 @@ async function i18Init(staticContents: ISettingGetResultService["staticContents"
             default: {
                 translation: staticContents?.reduce((a: any, v) => ({
                     ...a,
-                    [v.elementId]: v.contents?.content || ""
+                    [v.key]: v.contents?.content || ""
                 }), {}) || {}
             }
         },

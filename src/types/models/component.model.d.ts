@@ -8,7 +8,7 @@ export interface IComponentModel<T = {[key: string]: any}> {
     lastAuthorId: string
     title: string,
     typeId: ComponentTypeId
-    elementId: ComponentKey
+    key: ComponentKey
     elements: IComponentElementModel[]
     updatedAt?: string,
     createdAt?: string,
@@ -17,7 +17,7 @@ export interface IComponentModel<T = {[key: string]: any}> {
 
 export interface IComponentElementModel {
     _id: string,
-    elementId: string
+    key: string
     typeId: ElementTypeId,
     title: string,
     rank: number,
