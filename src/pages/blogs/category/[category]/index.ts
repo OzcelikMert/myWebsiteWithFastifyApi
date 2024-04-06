@@ -1,5 +1,5 @@
 import {GetServerSidePropsContext} from "next";
-import PageBlogs, {getServerSideProps as getSSP} from "pages/blogs";
+import PageBlogs, {getServerSideProps as getSSP} from "@pages/blogs";
 
 export default PageBlogs;
 

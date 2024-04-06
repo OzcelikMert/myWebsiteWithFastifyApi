@@ -1,14 +1,14 @@
 import React from "react";
 import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
-import {ImageSourceUtil} from "utils/imageSource.util";
+import {ImageSourceUtil} from "@utils/imageSource.util";
 import {IPostTermGetResultService} from "types/services/postTerm.service";
-import {ComponentHelperClass} from "classes/componentHelper.class";
-import {PostTypeId} from "constants/postTypes";
-import {StatusId} from "constants/status";
-import {PostTermService} from "services/postTerm.service";
-import {PostTermTypeId} from "constants/postTermTypes";
-import ComponentCategory from "components/elements/category";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
+import {PostTypeId} from "@constants/postTypes";
+import {StatusId} from "@constants/status";
+import {PostTermService} from "@services/postTerm.service";
+import {PostTermTypeId} from "@constants/postTermTypes";
+import ComponentCategory from "@components/elements/category";
 
 type IPageState = {
     selectedCategoryId: string

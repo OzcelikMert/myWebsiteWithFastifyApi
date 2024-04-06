@@ -1,10 +1,10 @@
-import {ApiEndPoints} from "constants/apiEndPoints";
+import {ApiEndPoints} from "@constants/apiEndPoints";
 import {
     ISettingGetParamService,
     ISettingGetResultService
 } from "types/services/setting.service";
-import {PathUtil} from "utils/path.util";
-import ApiRequest from "library/api/request";
+import {PathUtil} from "@utils/path.util";
+import ApiRequest from "@library/api/request";
 
 const get = (params: ISettingGetParamService) => {
     return new ApiRequest({

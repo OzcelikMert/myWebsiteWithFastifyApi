@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {GetServerSidePropsContext} from "next";
 import { IPagePropCommon } from "types/pageProps";
-import {PageUtil} from "utils/page.util";
+import {PageUtil} from "@utils/page.util";
 
 type PageState = {};
 

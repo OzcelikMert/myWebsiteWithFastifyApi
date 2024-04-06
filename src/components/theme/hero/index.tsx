@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
-import {ImageSourceUtil} from "utils/imageSource.util";
-import {ComponentHelperClass} from "classes/componentHelper.class";
-import Thread from "library/thread";
+import {ImageSourceUtil} from "@utils/imageSource.util";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
+import Thread from "@library/thread";
 import {TypeAnimation} from "react-type-animation";
 
 type IPageState = {};
@@ -59,7 +59,7 @@ export default class ComponentThemeHero extends ComponentHelperClass<IPageProps,
                                 </h1>
                             </div>
                             <p className="lead">{this.getComponentElementContents("describe")?.content}</p>
-                            <a href="#blogs" className="btn btn-primary btn-lg w-100 mt-3">
+                            <a href="#hot-blogs" className="btn btn-primary btn-lg w-100 mt-3">
                                 <span>{this.getComponentElementContents("buttonText")?.content}</span>
                             </a>
                         </div>

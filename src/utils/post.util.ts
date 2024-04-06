@@ -1,4 +1,4 @@
-import {PostTypeId} from "constants/postTypes";
+import {PostTypeId} from "@constants/postTypes";
 
 const getTypeName = (typeId: PostTypeId) => {
     const indexOfS = Object.values(PostTypeId).indexOf(typeId);

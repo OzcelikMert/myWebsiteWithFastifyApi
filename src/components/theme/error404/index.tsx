@@ -1,6 +1,6 @@
 import React from "react";
 import {IPagePropCommon} from "types/pageProps";
-import {ComponentHelperClass} from "classes/componentHelper.class";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
 
 type PageState = {};
 

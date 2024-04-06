@@ -5,7 +5,7 @@ import {
     ISettingStaticContentContentModel,
     ISettingStaticContentModel
 } from "../models/setting.model";
-import {SettingProjectionKeys} from "constants/settingProjections";
+import {SettingProjectionKeys} from "@constants/settingProjections";
 
 export type ISettingGetResultService = {
     seoContents?: ISettingSeoContentModel

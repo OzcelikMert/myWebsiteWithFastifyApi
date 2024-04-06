@@ -1,12 +1,12 @@
 import React from "react";
 import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
-import {ComponentHelperClass} from "classes/componentHelper.class";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {IPostGetManyResultService} from "types/services/post.service";
-import {PostService} from "services/post.service";
-import {PostTypeId} from "constants/postTypes";
-import {StatusId} from "constants/status";
-import ComponentBlog from "components/elements/blog";
+import {PostService} from "@services/post.service";
+import {PostTypeId} from "@constants/postTypes";
+import {StatusId} from "@constants/status";
+import ComponentBlog from "@components/elements/blog";
 
 type IPageState = {
     lastBlogs: IPostGetManyResultService[]

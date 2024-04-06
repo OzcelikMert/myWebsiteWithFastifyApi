@@ -1,6 +1,6 @@
-import {ApiEndPoints} from "constants/apiEndPoints";
-import ApiRequest from "library/api/request";
-import {PathUtil} from "utils/path.util";
+import {ApiEndPoints} from "@constants/apiEndPoints";
+import ApiRequest from "@library/api/request";
+import {PathUtil} from "@utils/path.util";
 import {IMailerSendParamService} from "types/services/mailer.service";
 
 const send = (params: IMailerSendParamService) =>{

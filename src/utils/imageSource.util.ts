@@ -1,4 +1,4 @@
-import V from "library/variable";
+import V from "@library/variable";
 import {PathUtil} from "./path.util";
 
 const getUploadedImageSrc = (imageName?: string): string => {

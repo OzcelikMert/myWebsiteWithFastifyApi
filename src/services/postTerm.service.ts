@@ -1,11 +1,11 @@
-import {ApiEndPoints} from "constants/apiEndPoints";
+import {ApiEndPoints} from "@constants/apiEndPoints";
 import  {
     IPostTermGetResultService,
     IPostTermGetManyParamService,
     IPostTermGetWithIdParamService,
 } from "types/services/postTerm.service";
-import ApiRequest from "library/api/request";
-import {PathUtil} from "utils/path.util";
+import ApiRequest from "@library/api/request";
+import {PathUtil} from "@utils/path.util";
 
 const getWithId = (params: IPostTermGetWithIdParamService) => {
     return new ApiRequest({

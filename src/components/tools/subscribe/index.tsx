@@ -1,9 +1,9 @@
 import React from "react";
 import {IPagePropCommon} from "types/pageProps";
-import {ComponentHelperClass} from "classes/componentHelper.class";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {IComponentGetResultService} from "types/services/component.service";
 import Image from "next/image";
-import {ImageSourceUtil} from "utils/imageSource.util";
+import {ImageSourceUtil} from "@utils/imageSource.util";
 
 type IPageState = {};
 

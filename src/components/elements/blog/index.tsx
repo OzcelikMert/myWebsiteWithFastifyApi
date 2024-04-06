@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import Image from "next/image";
-import {ImageSourceUtil} from "utils/imageSource.util";
+import {ImageSourceUtil} from "@utils/imageSource.util";
 import {IPostTermPopulateService} from "types/services/postTerm.service";
 import {IUserPopulateService} from "types/services/user.service";
-import {DateMask} from "library/variable";
+import {DateMask} from "@library/variable";
 import {IPostGetManyResultService} from "types/services/post.service";
 import {IPagePropCommon} from "types/pageProps";
-import {URLUtil} from "utils/url.util";
+import {URLUtil} from "@utils/url.util";
 
 type IPageState = {};
 

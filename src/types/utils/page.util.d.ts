@@ -1,5 +1,5 @@
 import {IncomingMessage} from "http";
-import {PageTypeId} from "constants/pageTypes";
+import {PageTypeId} from "@constants/pageTypes";
 
 export interface IPageGetParamUtil {
     req: IncomingMessage,

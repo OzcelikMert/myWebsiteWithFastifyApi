@@ -1,13 +1,13 @@
-import {PostTypeId} from "constants/postTypes";
-import {StatusId} from "constants/status";
+import {PostTypeId} from "@constants/postTypes";
+import {StatusId} from "@constants/status";
 import {IncomingMessage} from "http";
-import {PostService} from "services/post.service";
-import {ViewService} from "services/view.service";
+import {PostService} from "@services/post.service";
+import {ViewService} from "@services/view.service";
 import {IPageGetParamUtil} from "types/utils/page.util";
-import {ComponentService} from "services/component.service";
-import {ComponentTypeId} from "constants/componentTypes";
-import {ComponentHelperClass} from "classes/componentHelper.class";
-import {PageTypeId} from "constants/pageTypes";
+import {ComponentService} from "@services/component.service";
+import {ComponentTypeId} from "@constants/componentTypes";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
+import {PageTypeId} from "@constants/pageTypes";
 
 const initProps = async (params: IPageGetParamUtil) => {
     let serviceResult = await PostService.getWithURL({

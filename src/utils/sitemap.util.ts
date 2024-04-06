@@ -1,7 +1,7 @@
-import {PostTypeId} from "constants/postTypes";
-import {PageTypeId} from "constants/pageTypes";
-import {PathUtil} from "utils/path.util";
-import {PostUtil} from "utils/post.util";
+import {PostTypeId} from "@constants/postTypes";
+import {PageTypeId} from "@constants/pageTypes";
+import {PathUtil} from "@utils/path.util";
+import {PostUtil} from "@utils/post.util";
 
 const getLoc = (...strings: string[]) => {
     return PathUtil.createPath.apply(getLoc, strings).slice(1)

@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import Head from 'next/head'
 import {IPagePropCommon} from "types/pageProps";
-import {ImageSourceUtil} from "utils/imageSource.util";
-import {LanguageUtil} from "utils/language.util";
-import {URLUtil} from "utils/url.util";
+import {ImageSourceUtil} from "@utils/imageSource.util";
+import {LanguageUtil} from "@utils/language.util";
+import {URLUtil} from "@utils/url.util";
 
 type PageState = {};
 

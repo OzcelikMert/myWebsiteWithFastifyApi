@@ -1,13 +1,13 @@
 import React from "react";
 import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
-import {ComponentHelperClass} from "classes/componentHelper.class";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {IPostGetManyResultService} from "types/services/post.service";
-import ComponentBlog from "components/elements/blog";
+import ComponentBlog from "@components/elements/blog";
 import {IncomingMessage} from "http";
-import {PostService} from "services/post.service";
-import {PostTypeId} from "constants/postTypes";
-import {StatusId} from "constants/status";
+import {PostService} from "@services/post.service";
+import {PostTypeId} from "@constants/postTypes";
+import {StatusId} from "@constants/status";
 
 type IPageState = {
     hotBlogs: IPostGetManyResultService[];
@@ -64,7 +64,7 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
 
     render() {
         return this.state.hotBlogs.length < 2 ? null :  (
-            <section className="hot-blogs-section">
+            <section className="hot-blogs-section" id="hot-blogs">
                 <div className="container">
                     <div className="row d-flex">
                         <div className="col-lg-8">

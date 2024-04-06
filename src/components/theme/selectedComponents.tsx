@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
-import {ComponentHelperClass} from "classes/componentHelper.class";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
 
 type IPageState = {};
 

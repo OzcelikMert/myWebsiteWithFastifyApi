@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {GetServerSidePropsContext} from "next";
-import {PageUtil} from "utils/page.util";
+import {PageUtil} from "@utils/page.util";
 import {IPagePropCommon} from "types/pageProps";
+import {PageTypeId} from "@constants/pageTypes";
 
 type PageState = {};
 
@@ -21,6 +22,12 @@ export default class PageBlogs extends Component<PageProps, PageState> {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     let req = context.req;
+
+    await PageUtil.initProps({req: req,
+        url: "blogs",
+        typeId: PageTypeId.Blogs,
+        increaseView: true
+    });
 
     return {
         props: PageUtil.getCommonProps(req),

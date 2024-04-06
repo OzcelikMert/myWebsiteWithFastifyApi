@@ -1,4 +1,4 @@
-import {ApiEndPoints} from "constants/apiEndPoints";
+import {ApiEndPoints} from "@constants/apiEndPoints";
 import {
     IPostGetCountParamService,
     IPostGetManyParamService,
@@ -7,8 +7,8 @@ import {
     IPostGetWithURLParamService,
     IPostUpdateViewWithIdParamService,
 } from "types/services/post.service";
-import ApiRequest from "library/api/request";
-import {PathUtil} from "utils/path.util";
+import ApiRequest from "@library/api/request";
+import {PathUtil} from "@utils/path.util";
 
 const getWithURL = (params: IPostGetWithURLParamService) => {
     return new ApiRequest({

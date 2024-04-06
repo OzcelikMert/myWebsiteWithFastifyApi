@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {GetServerSidePropsContext} from "next";
 import {IPagePropCommon} from "types/pageProps";
-import {PageUtil} from "utils/page.util";
-import {PageTypeId} from "constants/pageTypes";
-import ComponentThemeSelectedComponents from "components/theme/selectedComponents";
+import {PageUtil} from "@utils/page.util";
+import {PageTypeId} from "@constants/pageTypes";
+import ComponentThemeSelectedComponents from "@components/theme/selectedComponents";
 
 type PageState = {};
 

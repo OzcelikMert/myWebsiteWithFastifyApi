@@ -1,12 +1,12 @@
 import React from "react";
 import {IPagePropCommon} from "types/pageProps";
-import {ComponentHelperClass} from "classes/componentHelper.class";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {IComponentGetResultService} from "types/services/component.service";
-import {NavigationService} from "services/navigation.service";
-import {StatusId} from "constants/status";
+import {NavigationService} from "@services/navigation.service";
+import {StatusId} from "@constants/status";
 import {INavigationGetResultService} from "types/services/navigation.service";
 import {DropdownToggle, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {URLUtil} from "utils/url.util";
+import {URLUtil} from "@utils/url.util";
 
 type IPageState = {
     isNavbarSticky: boolean

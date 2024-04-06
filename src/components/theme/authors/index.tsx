@@ -1,13 +1,13 @@
 import React from "react";
 import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
-import {ComponentHelperClass} from "classes/componentHelper.class";
-import {StatusId} from "constants/status";
-import {UserService} from "services/user.service";
-import {PermissionId} from "constants/permissions";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
+import {StatusId} from "@constants/status";
+import {UserService} from "@services/user.service";
+import {PermissionId} from "@constants/permissions";
 import {IUserGetResultService} from "types/services/user.service";
 import Image from "next/image";
-import {ImageSourceUtil} from "utils/imageSource.util";
+import {ImageSourceUtil} from "@utils/imageSource.util";
 
 type IPageState = {};
 

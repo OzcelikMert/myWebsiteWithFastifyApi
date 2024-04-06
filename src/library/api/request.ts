@@ -1,6 +1,6 @@
-import {ApiRequestParamDocument, ApiRequestParamMethodDocument} from "library/types/api";
+import {ApiRequestParamDocument, ApiRequestParamMethodDocument} from "@library/types/api";
 import 'cross-fetch/polyfill'
-import {ApiResult} from "library/api/result";
+import {ApiResult} from "@library/api/result";
 
 class ApiRequest {
     constructor(params: ApiRequestParamDocument) {

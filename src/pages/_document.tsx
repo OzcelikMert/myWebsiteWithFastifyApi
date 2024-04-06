@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Html, Head, Main, NextScript} from 'next/document'
 import {NEXT_DATA} from "next/dist/shared/lib/utils";
 import {IPagePropCommon} from "types/pageProps";
-import {LanguageUtil} from "utils/language.util";
+import {LanguageUtil} from "@utils/language.util";
 
 type PageState = {};
 

@@ -1,6 +1,6 @@
-import {ElementTypeId} from "constants/elementTypes";
-import {ComponentTypeId} from "constants/componentTypes";
-import {ComponentKey} from "constants/componentKeys";
+import {ElementTypeId} from "@constants/elementTypes";
+import {ComponentTypeId} from "@constants/componentTypes";
+import {ComponentKey} from "@constants/componentKeys";
 
 export interface IComponentModel<T = {[key: string]: any}> {
     _id: string,

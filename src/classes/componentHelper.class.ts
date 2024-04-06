@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {SocialMediaKey} from "constants/socialMediaKeys";
+import {SocialMediaKey} from "@constants/socialMediaKeys";
 import {IPagePropCommon} from "types/pageProps";
 import {IComponentElementContentModel, IComponentModel} from "types/models/component.model";
 import {IncomingMessage} from "http";

@@ -1,11 +1,11 @@
-import {ApiEndPoints} from "constants/apiEndPoints";
+import {ApiEndPoints} from "@constants/apiEndPoints";
 import {
     ILanguageGetManyParamService,
     ILanguageGetResultService,
     ILanguageGetWithIdParamService,
 } from "types/services/language.service";
-import ApiRequest from "library/api/request";
-import {PathUtil} from "utils/path.util";
+import ApiRequest from "@library/api/request";
+import {PathUtil} from "@utils/path.util";
 
 const getWithId = (params: ILanguageGetWithIdParamService) =>{
     return new ApiRequest({

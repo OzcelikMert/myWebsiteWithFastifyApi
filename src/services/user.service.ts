@@ -1,10 +1,10 @@
-import {ApiEndPoints} from "constants/apiEndPoints";
+import {ApiEndPoints} from "@constants/apiEndPoints";
 import {
     IUserGetManyParamService,
     IUserGetResultService, IUserGetWithURLParamService,
 } from "types/services/user.service";
-import ApiRequest from "library/api/request";
-import {PathUtil} from "utils/path.util";
+import ApiRequest from "@library/api/request";
+import {PathUtil} from "@utils/path.util";
 
 const getWithURL = (params: IUserGetWithURLParamService) => {
     return new ApiRequest({

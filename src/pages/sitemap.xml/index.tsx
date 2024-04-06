@@ -1,11 +1,11 @@
 import {GetServerSidePropsContext} from 'next'
 import Parser from "xml2js";
 import React from "react";
-import {SitemapService} from "services/sitemap.service";
+import {SitemapService} from "@services/sitemap.service";
 import {ISitemapFileIndex} from "types/pages/sitemap.xml";
-import {PostUtil} from "utils/post.util";
-import {SitemapUtil} from "utils/sitemap.util";
-import {PageUtil} from "utils/page.util";
+import {PostUtil} from "@utils/post.util";
+import {SitemapUtil} from "@utils/sitemap.util";
+import {PageUtil} from "@utils/page.util";
 
 export default function PageSitemapXML() { return null; }
 

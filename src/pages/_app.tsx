@@ -1,25 +1,25 @@
 import type {AppContext, AppProps} from 'next/app'
 import React from "react";
 
-import "styles/global.scss";
+import "@styles/global.scss";
 
-import "library/variable/array"
-import "library/variable/string"
-import "library/variable/number"
-import "library/variable/date"
-import "library/variable/math"
+import "@library/variable/array"
+import "@library/variable/string"
+import "@library/variable/number"
+import "@library/variable/date"
+import "@library/variable/math"
 
-import ComponentApp from "components/app";
+import ComponentApp from "@components/app";
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
-import {CookieUtil} from "utils/cookie.util";
-import {LanguageUtil} from "utils/language.util";
-import {PageUtil} from "utils/page.util";
-import {LanguageService} from "services/language.service";
-import {StatusId} from "constants/status";
-import {SettingService} from "services/setting.service";
-import {URLUtil} from "utils/url.util";
-import {NavigationService} from "services/navigation.service";
+import {CookieUtil} from "@utils/cookie.util";
+import {LanguageUtil} from "@utils/language.util";
+import {PageUtil} from "@utils/page.util";
+import {LanguageService} from "@services/language.service";
+import {StatusId} from "@constants/status";
+import {SettingService} from "@services/setting.service";
+import {URLUtil} from "@utils/url.util";
+import {NavigationService} from "@services/navigation.service";
 import {ISettingGetResultService} from "types/services/setting.service";
 
 async function i18Init(staticContents: ISettingGetResultService["staticContents"]) {

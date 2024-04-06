@@ -1,8 +1,8 @@
 import React from "react";
 import {IPagePropCommon} from "types/pageProps";
-import {ComponentHelperClass} from "classes/componentHelper.class";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {IComponentGetResultService} from "types/services/component.service";
-import {PageTypeId} from "constants/pageTypes";
+import {PageTypeId} from "@constants/pageTypes";
 
 type IPageState = {};
 
@@ -20,7 +20,7 @@ class ComponentToolVideoHeader extends ComponentHelperClass<IPageProps, IPageSta
             <div className="content">
                 <h2>{this.props.appData.settings.seoContents?.title}</h2>
                 <p>{this.getComponentElementContents("content")?.content}</p>
-                <a href="#main-section" className="btn btn-primary btn-lg mt-3">
+                <a href="#hero-section" className="btn btn-primary btn-lg mt-3">
                     <span>{this.getComponentElementContents("buttonText")?.content}</span></a>
             </div>
         )

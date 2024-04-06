@@ -1,18 +1,18 @@
 import React from "react";
 import {IPagePropCommon} from "types/pageProps";
-import {ComponentHelperClass} from "classes/componentHelper.class";
+import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {IComponentGetResultService} from "types/services/component.service";
-import {SocialMediaKey} from "constants/socialMediaKeys";
-import {NavigationService} from "services/navigation.service";
-import {StatusId} from "constants/status";
-import {PostService} from "services/post.service";
-import {PostTypeId} from "constants/postTypes";
-import {PostSortTypeId} from "constants/postSortTypes";
+import {SocialMediaKey} from "@constants/socialMediaKeys";
+import {NavigationService} from "@services/navigation.service";
+import {StatusId} from "@constants/status";
+import {PostService} from "@services/post.service";
+import {PostTypeId} from "@constants/postTypes";
+import {PostSortTypeId} from "@constants/postSortTypes";
 import {INavigationGetResultService} from "types/services/navigation.service";
 import {IPostGetManyResultService} from "types/services/post.service";
-import {URLUtil} from "utils/url.util";
+import {URLUtil} from "@utils/url.util";
 import Image from "next/image";
-import {ImageSourceUtil} from "utils/imageSource.util";
+import {ImageSourceUtil} from "@utils/imageSource.util";
 
 type IPageState = {};
 

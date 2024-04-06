@@ -1,5 +1,5 @@
-import {CurrencyId} from "constants/currencyTypes";
-import {StaticContentTypeId} from "constants/staticContentTypes";
+import {CurrencyId} from "@constants/currencyTypes";
+import {StaticContentTypeId} from "@constants/staticContentTypes";
 
 export interface ISettingModel {
     icon?: string

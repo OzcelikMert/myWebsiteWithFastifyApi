@@ -2,7 +2,7 @@ import {IncomingMessage, ServerResponse} from "http";
 import absoluteUrl from "next-absolute-url";
 import {IGetURL} from "types/pageProps";
 import {ILanguageGetResultService} from "types/services/language.service";
-import {LanguageUtil} from "utils/language.util";
+import {LanguageUtil} from "@utils/language.util";
 
 const get = (req: IncomingMessage) : IGetURL => {
     let paths = absoluteUrl(req);
