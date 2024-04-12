@@ -57,7 +57,7 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
     }
 
     DropdownItem = (props: INavigationGetResultService, index: number) => {
-        let children = this.props.component.customData?.navigations?.findMulti("mainId._id", props._id) ?? [];
+        let children = this.props.component.customData?.navigations?.findMulti("parentId._id", props._id) ?? [];
 
         return children.length > 0
             ? this.Dropdown(props, index)
@@ -69,7 +69,7 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
     }
 
     Dropdown = (props: INavigationGetResultService, index: number) => {
-        let children = this.props.component.customData?.navigations?.findMulti("mainId._id", props._id) ?? [];
+        let children = this.props.component.customData?.navigations?.findMulti("parentId._id", props._id) ?? [];
 
         return (
             <NavDropdown
@@ -77,7 +77,7 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
                 show={this.state[props._id]}
                 key={props._id}
                 title={props.contents?.title}
-                drop={props.mainId ? "end" : "down"}
+                drop={props.parentId ? "end" : "down"}
                 onMouseEnter={event => this.onShowDropdown(props._id, true)}
                 onMouseLeave={event => this.onShowDropdown(props._id, false)}
                 onClick={event => this.onShowDropdown(props._id, !this.state[props._id])}
@@ -90,8 +90,8 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
     }
 
     NavItem = (props: INavigationGetResultService, index: number) => {
-        if (props.mainId) return null;
-        let children = this.props.component.customData?.navigations?.findMulti("mainId._id", props._id) ?? [];
+        if (props.parentId) return null;
+        let children = this.props.component.customData?.navigations?.findMulti("parentId._id", props._id) ?? [];
 
         return children.length > 0
             ? this.Dropdown(props, index)
