@@ -59,7 +59,9 @@ App.getInitialProps = async (props: AppContext) => {
         req.pageData = {};
         req.appData = {};
         req.getURL = URLUtil.get(req);
-        console.log(req.getURL)
+        let isURLSitemap = req.getURL.asPath.includes("/sitemap.xml") || req.getURL.asPath.includes("/sitemaps/")
+        console.log(req.getURL);
+
 
         // Get all languages
         req.appData.languages = (await LanguageService.getMany({statusId: StatusId.Active})).data ?? [];
@@ -71,56 +73,59 @@ App.getInitialProps = async (props: AppContext) => {
             req.appData.selectedLangId = foundDefaultLanguage._id;
             req.appData.selectedLangCode = LanguageUtil.getCode(foundDefaultLanguage);
 
-            // Check is there cookie lang code
-            if (req.cookies.langCode) {
-                // Check cookie lang code and default lang code is same
-                if (req.appData.selectedLangCode == req.cookies.langCode) {
-                    CookieUtil.deleteLangId(req, res);
-                    URLUtil.move(res, URLUtil.replaceLanguageCode({
-                        url: req.getURL,
-                        withBase: true
-                    }));
-                    return {};
-                } else {
-                    // Find cookie lang code
-                    let langKeys = req.cookies.langCode.split("-");
-                    let foundCookieLanguagesWithKey = req.appData.languages.findMulti("shortKey", langKeys[0]);
-                    let foundCookieLanguageWithLocale = foundCookieLanguagesWithKey.findSingle("locale", langKeys[1]);
-                    // Check lang code is correct
-                    if (foundCookieLanguageWithLocale) {
-                        req.appData.selectedLangId = foundCookieLanguageWithLocale._id;
-                        req.appData.selectedLangCode = req.cookies.langCode;
-                        if(req.cookies.langId != req.appData.selectedLangId){
-                            CookieUtil.setLangId(req, res);
-                        }
+            if(!isURLSitemap){
+                // Check is there cookie lang code
+                if (req.cookies.langCode) {
+                    // Check cookie lang code and default lang code is same
+                    if (req.appData.selectedLangCode == req.cookies.langCode) {
+                        CookieUtil.deleteLangId(req, res);
+                        URLUtil.move(res, URLUtil.replaceLanguageCode({
+                            url: req.getURL,
+                            withBase: true
+                        }));
+                        return {};
                     } else {
-                        URLUtil.move(res, URLUtil.replaceLanguageCode({
-                            url: req.getURL,
-                            withBase: true
-                        }));
-                        return {};
+                        // Find cookie lang code
+                        let langKeys = req.cookies.langCode.split("-");
+                        let foundCookieLanguagesWithKey = req.appData.languages.findMulti("shortKey", langKeys[0]);
+                        let foundCookieLanguageWithLocale = foundCookieLanguagesWithKey.findSingle("locale", langKeys[1]);
+                        // Check lang code is correct
+                        if (foundCookieLanguageWithLocale) {
+                            req.appData.selectedLangId = foundCookieLanguageWithLocale._id;
+                            req.appData.selectedLangCode = req.cookies.langCode;
+                            if(req.cookies.langId != req.appData.selectedLangId){
+                                CookieUtil.setLangId(req, res);
+                            }
+                        } else {
+                            URLUtil.move(res, URLUtil.replaceLanguageCode({
+                                url: req.getURL,
+                                withBase: true
+                            }));
+                            return {};
+                        }
+                    }
+                } else {
+                    // Check is there a cookie lang id and check is it same with default lang id
+                    if (req.cookies.langId && req.cookies.langId != req.appData.selectedLangId) {
+                        let foundCookieLanguageWithId = req.appData.languages.findSingle("_id", req.cookies.langId);
+                        if (foundCookieLanguageWithId) {
+                            URLUtil.move(res, URLUtil.replaceLanguageCode({
+                                url: req.getURL,
+                                newLanguage: foundCookieLanguageWithId,
+                                withBase: true
+                            }));
+                            return {};
+                        }
                     }
                 }
-            } else {
-                // Check is there a cookie lang id and check is it same with default lang id
-                if (req.cookies.langId && req.cookies.langId != req.appData.selectedLangId) {
-                    let foundCookieLanguageWithId = req.appData.languages.findSingle("_id", req.cookies.langId);
-                    if (foundCookieLanguageWithId) {
-                        URLUtil.move(res, URLUtil.replaceLanguageCode({
-                            url: req.getURL,
-                            newLanguage: foundCookieLanguageWithId,
-                            withBase: true
-                        }));
-                        return {};
-                    }
-                }
+
+                await PageUtil.initToolComponentProps(req);
             }
 
             let serviceResultSettings = await SettingService.get({langId: req.appData.selectedLangId});
 
             if (serviceResultSettings.status && serviceResultSettings.data) {
                 req.appData.settings = serviceResultSettings.data;
-                await PageUtil.initToolComponentProps(req);
             }
         }
 

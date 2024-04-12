@@ -15,6 +15,7 @@ export interface IPostModel {
     dateStart: Date,
     rank: number,
     isFixed?: boolean,
+    isNoIndex?: boolean
     categories?: string[]
     tags?: string[]
     contents: IPostContentModel

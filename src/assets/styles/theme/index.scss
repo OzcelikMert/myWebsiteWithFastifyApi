@@ -53,6 +53,7 @@ a:hover span,
 
 .btn:hover {
   transform: translateY(-4px);
+  mix-blend-mode: normal !important;
 }
 
 body {

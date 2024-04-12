@@ -29,6 +29,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         increaseView: true
     });
 
+    if(req.pageData.page && req.pageData.page.pageTypeId == PageTypeId.Blogs){
+        let page: number = Number(context.params?.page ?? 1) || 1;
+        let search: string = context.params?.search as string || "";
+        let categoryUrl: string = context.params?.category as string || "";
+
+        console.log(page, search, categoryUrl);
+    }
+
     return {
         props: PageUtil.getCommonProps(req),
     };

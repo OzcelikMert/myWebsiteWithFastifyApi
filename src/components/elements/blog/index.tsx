@@ -7,12 +7,12 @@ import {DateMask} from "@library/variable";
 import {IPostGetManyResultService} from "types/services/post.service";
 import {IPagePropCommon} from "types/pageProps";
 import {URLUtil} from "@utils/url.util";
+import {EndPoints} from "@constants/endPoints";
 
 type IPageState = {};
 
 type IPageProps = {
     item: IPostGetManyResultService
-    t: IPagePropCommon["t"]
     hideAuthorImage?: boolean
     hideShortContent?: boolean
     index?: number
@@ -21,7 +21,7 @@ type IPageProps = {
     imageWidth?: number
     imageAuthorHeight?: number
     imageAuthorWidth?: number
-};
+} & IPagePropCommon;
 
 export default class ComponentBlog extends Component<IPageProps, IPageState> {
     constructor(props: IPageProps) {
@@ -76,11 +76,12 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
     }
 
     render() {
+        let blogURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(this.props.item.contents?.url)});
         return (
             <article className={this.props.className} title={this.props.item.contents?.title}>
                 <div className="card">
                     <div className="card-header hover-top">
-                        <a href="#" className="img-link">
+                        <a href={blogURL} className="img-link">
                             <Image
                                 src={ImageSourceUtil.getUploadedImageSrc(this.props.item.contents?.image)}
                                 alt={this.props.item.contents?.title ?? ""}
@@ -96,7 +97,7 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
                                 this.props.item.categories?.map((category, index) => this.Category(category, index))
                             }
                         </div>
-                        <a href="#" className="card-title">
+                        <a href={blogURL} className="card-title">
                             <span>{this.props.item.contents?.title}</span>
                         </a>
                         <p className="card-text">

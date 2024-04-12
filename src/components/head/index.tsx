@@ -73,7 +73,11 @@ export default class ComponentHead extends Component<PageProps, PageState> {
                 <link rel="shortcut icon" href={ImageSourceUtil.getUploadedImageSrc(appData.settings.icon)}/>
                 <link rel="canonical" href={this.props.getURL.full}/>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-
+                {
+                    pageData.page?.isNoIndex
+                        ? <meta name="robots" content="noindex, nofollow" />
+                        : null
+                }
                 <meta name="description" content={desc} />
                 <meta name="copyright" content={appData.settings.seoContents?.title} />
                 <meta name="author" content="Özçelik Software" />

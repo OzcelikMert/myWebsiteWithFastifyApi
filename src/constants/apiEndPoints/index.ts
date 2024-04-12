@@ -3,7 +3,6 @@ import {PostApiEndPoint} from "@constants/apiEndPoints/post.api.endPoint";
 import {PostTermApiEndPoint} from "@constants/apiEndPoints/postTerm.api.endPoint";
 import {SettingApiEndPoint} from "@constants/apiEndPoints/setting.api.endPoint";
 import {LanguageApiEndPoint} from "@constants/apiEndPoints/language.api.endPoint";
-import {ViewApiEndPoint} from "@constants/apiEndPoints/view.api.endPoint";
 import {MailerApiEndPoint} from "@constants/apiEndPoints/mailer.api.endPoint";
 import {SubscriberApiEndPoint} from "@constants/apiEndPoints/subscriber.api.endPoint";
 import {SitemapApiEndPoint} from "@constants/apiEndPoints/sitemap.api.endPoint";
@@ -25,9 +24,6 @@ export class ApiEndPoints {
 
     static get LANGUAGE() { return "/language"; }
     static get LANGUAGE_WITH() { return new LanguageApiEndPoint(); }
-
-    static get VIEW() { return "/view"; }
-    static get VIEW_WITH() { return new ViewApiEndPoint(); }
 
     static get MAILER() { return "/mailer"; }
     static get MAILER_WITH() { return new MailerApiEndPoint(); }

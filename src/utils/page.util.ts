@@ -2,24 +2,29 @@ import {PostTypeId} from "@constants/postTypes";
 import {StatusId} from "@constants/status";
 import {IncomingMessage} from "http";
 import {PostService} from "@services/post.service";
-import {ViewService} from "@services/view.service";
 import {IPageGetParamUtil} from "types/utils/page.util";
 import {ComponentService} from "@services/component.service";
 import {ComponentTypeId} from "@constants/componentTypes";
 import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {PageTypeId} from "@constants/pageTypes";
+import {ApiResult} from "@library/api/result";
+import {IPostGetOneResultService} from "types/services/post.service";
 
 const initProps = async (params: IPageGetParamUtil) => {
-    let serviceResult = await PostService.getWithURL({
-        langId: params.req.appData.selectedLangId,
-        typeId: PostTypeId.Page,
-        statusId: StatusId.Active,
-        url: params.url ?? "",
-        ...(params.typeId ? {pageTypeId: params.typeId} : {})
-    });
+    let serviceResultPage = new ApiResult<IPostGetOneResultService, any>();
 
-    if (!serviceResult.status || !serviceResult.data) {
-        serviceResult = await PostService.getWithURL({
+    if(!params.force404){
+        serviceResultPage = await PostService.getWithURL({
+            langId: params.req.appData.selectedLangId,
+            typeId: PostTypeId.Page,
+            statusId: StatusId.Active,
+            url: params.url ?? "",
+            ...(params.typeId ? {pageTypeId: params.typeId} : {})
+        });
+    }
+
+    if (!serviceResultPage.status || !serviceResultPage.data || params.force404) {
+        serviceResultPage = await PostService.getWithURL({
             langId: params.req.appData.selectedLangId,
             typeId: PostTypeId.Page,
             statusId: StatusId.Active,
@@ -28,23 +33,18 @@ const initProps = async (params: IPageGetParamUtil) => {
         });
     }
 
-    if (serviceResult.status && serviceResult.data) {
-        params.req.pageData.page = serviceResult.data;
+    if (serviceResultPage.status && serviceResultPage.data) {
+        params.req.pageData.page = serviceResultPage.data;
 
-        if (params.increaseView) {
+        if (params.increaseView && serviceResultPage.data.pageTypeId != PageTypeId.ErrorPage404) {
             await PostService.updateViewWithId({
-                _id: serviceResult.data._id,
-                typeId: serviceResult.data.typeId,
-                langId: params.req.appData.selectedLangId ?? ""
-            });
-
-            await ViewService.add({
-                url: params.req.getURL.asPath,
+                _id: serviceResultPage.data._id,
+                typeId: serviceResultPage.data.typeId,
                 langId: params.req.appData.selectedLangId ?? ""
             });
         }
 
-        if (serviceResult.data.components) {
+        if (serviceResultPage.data.components) {
             await initThemeComponentProps(params.req);
         }
     }

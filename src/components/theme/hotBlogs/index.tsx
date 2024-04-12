@@ -34,7 +34,7 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
                     <p className="section-content">{this.getComponentElementContents("hotDescribe")?.content}</p>
                     <div className="d-flex blogs">
                         <div className="row">
-                            <ComponentBlog className="col-md-12" item={item} index={0} t={this.props.t} imageWidth={1000} imageHeight={500} />
+                            <ComponentBlog {...this.props} className="col-md-12" item={item} index={0} imageWidth={1000} imageHeight={500} />
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
                         <div className="row">
                             {
                                 items.map(item => (
-                                    <ComponentBlog className="col-md-12" item={item} index={0} t={this.props.t} hideAuthorImage={true} hideShortContent={true} />
+                                    <ComponentBlog {...this.props} className="col-md-12" item={item} index={0} hideAuthorImage={true} hideShortContent={true} />
                                 ))
                             }
                         </div>
