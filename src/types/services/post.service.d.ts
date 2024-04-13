@@ -1,12 +1,12 @@
-import {IUserPopulateService} from "./user.service";
-import {IPostTermPopulateService} from "./postTerm.service";
+import {IUserPopulateService} from "types/services/user.service";
+import {IPostTermPopulateService} from "types/services/postTerm.service";
 import {
     IPostContentModel,
     IPostModel,
     IPostECommerceModel,
     IPostECommerceVariationContentModel,
     IPostECommerceVariationModel
-} from "../models/post.model";
+} from "types/models/post.model";
 import {PostTypeId} from "@constants/postTypes";
 import {PageTypeId} from "@constants/pageTypes";
 import {StatusId} from "@constants/status";

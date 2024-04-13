@@ -9,7 +9,7 @@ export type IPagePropCommon<T = {[key: string]: any}> = {
     router: AppProps["router"],
     t: (key: ILanguageKeys) => string
     appData: IAppData
-    pageData: IPageData<T, P>
+    pageData: IPageData<T>
     cookies: ICookies
     getURL: IGetURL
 }
