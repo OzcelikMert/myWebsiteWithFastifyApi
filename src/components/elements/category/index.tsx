@@ -1,22 +1,18 @@
 import React, {Component} from "react";
-import Image from "next/image";
 import {ImageSourceUtil} from "@utils/imageSource.util";
-import {IPostTermGetResultService, IPostTermPopulateService} from "types/services/postTerm.service";
-import {IUserPopulateService} from "types/services/user.service";
-import {DateMask} from "@library/variable";
-import {IPostGetManyResultService} from "types/services/post.service";
+import {IPostTermGetResultService} from "types/services/postTerm.service";
 import {IPagePropCommon} from "types/pageProps";
 import {URLUtil} from "@utils/url.util";
+import {EndPoints} from "@constants/endPoints";
 
 type IPageState = {};
 
 type IPageProps = {
     item: IPostTermGetResultService
-    t: IPagePropCommon["t"]
     index?: number
     isSelected?: boolean
     onMouseOver?: (item: IPostTermGetResultService) => void
-};
+} & IPagePropCommon;
 
 export default class ComponentCategory extends Component<IPageProps, IPageState> {
     constructor(props: IPageProps) {
@@ -30,19 +26,22 @@ export default class ComponentCategory extends Component<IPageProps, IPageState>
     }
 
     render() {
+        let categoryURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.CATEGORY(this.props.item.contents?.url)});
         return (
             <div key={this.props.item._id} className={`option ${this.props.isSelected ? "active" : ""}`} onMouseOver={event => this.onMouseOver()}>
-                <div className="bg-img"
-                     style={{backgroundImage: `url(${ImageSourceUtil.getUploadedImageSrc(this.props.item.contents?.image)})`}}></div>
-                <div className="label-shadow"></div>
-                <div className="label">
-                    <div className="icon">
-                        <i className="mdi mdi-walk"></i>
+                <a href={categoryURL}>
+                    <div className="bg-img"
+                         style={{backgroundImage: `url(${ImageSourceUtil.getUploadedImageSrc(this.props.item.contents?.image)})`}}></div>
+                    <div className="label-shadow"></div>
+                    <div className="label">
+                        <div className="icon">
+                            <i className="mdi mdi-walk"></i>
+                        </div>
+                        <div className="info">
+                            <h2 className="main">{this.props.item.contents?.title}</h2>
+                        </div>
                     </div>
-                    <div className="info">
-                        <h2 className="main">{this.props.item.contents?.title}</h2>
-                    </div>
-                </div>
+                </a>
             </div>
         );
     }

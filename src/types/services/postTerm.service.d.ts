@@ -38,6 +38,14 @@ export interface IPostTermGetWithIdParamService {
     statusId?: StatusId,
 }
 
+export interface IPostTermGetWithURLParamService {
+    url: string
+    langId?: string
+    typeId: PostTermTypeId,
+    postTypeId: PostTypeId,
+    statusId?: StatusId,
+}
+
 export interface IPostTermGetManyParamService {
     langId?: string
     _id?: string[]

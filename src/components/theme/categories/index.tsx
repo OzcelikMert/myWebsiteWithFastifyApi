@@ -43,8 +43,8 @@ class ComponentThemeCategories extends ComponentHelperClass<IPageProps, IPageSta
                             {
                                 this.props.component.customData?.categories?.map((category, index) =>
                                     <ComponentCategory
+                                        {...this.props}
                                         item={category}
-                                        t={this.props.t}
                                         index={index}
                                         onMouseOver={item => this.onMouseOver(item)}
                                         isSelected={category._id == this.state.selectedCategoryId}

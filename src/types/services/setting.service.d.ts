@@ -1,16 +1,12 @@
 import {
-    ISettingContactFormModel,
-    ISettingModel, ISettingECommerceModel,
-    ISettingSeoContentModel, ISettingSocialMediaModel,
-    ISettingStaticContentContentModel,
-    ISettingStaticContentModel
+    ISettingModel,
+    ISettingSeoContentModel,
 } from "../models/setting.model";
 import {SettingProjectionKeys} from "@constants/settingProjections";
 
 export type ISettingGetResultService = {
     seoContents?: ISettingSeoContentModel
-    staticContents?: (Omit<ISettingStaticContentModel, "contents"> & { contents?: ISettingStaticContentContentModel })[]
-} & Omit<ISettingModel, "seoContents" | "staticContents">
+} & Omit<ISettingModel, "seoContents">
 
 export type ISettingGetParamService = {
     langId?: string

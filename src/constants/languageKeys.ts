@@ -2,5 +2,6 @@ export const languageKeys = [
     "pageNotFound",
     "pageNotFoundDesc",
     "returnHomePage",
-    "by"
+    "by",
+    "blog"
 ] as const;

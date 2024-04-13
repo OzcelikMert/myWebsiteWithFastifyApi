@@ -7,31 +7,15 @@ import {ComponentService} from "@services/component.service";
 import {ComponentTypeId} from "@constants/componentTypes";
 import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {PageTypeId} from "@constants/pageTypes";
-import {ApiResult} from "@library/api/result";
-import {IPostGetOneResultService} from "types/services/post.service";
 
 const initProps = async (params: IPageGetParamUtil) => {
-    let serviceResultPage = new ApiResult<IPostGetOneResultService, any>();
-
-    if(!params.force404){
-        serviceResultPage = await PostService.getWithURL({
-            langId: params.req.appData.selectedLangId,
-            typeId: PostTypeId.Page,
-            statusId: StatusId.Active,
-            url: params.url ?? "",
-            ...(params.typeId ? {pageTypeId: params.typeId} : {})
-        });
-    }
-
-    if (!serviceResultPage.status || !serviceResultPage.data || params.force404) {
-        serviceResultPage = await PostService.getWithURL({
-            langId: params.req.appData.selectedLangId,
-            typeId: PostTypeId.Page,
-            statusId: StatusId.Active,
-            pageTypeId: PageTypeId.ErrorPage404,
-            url: "404"
-        });
-    }
+    let serviceResultPage = await PostService.getWithURL({
+        langId: params.req.appData.selectedLangId,
+        typeId: PostTypeId.Page,
+        statusId: StatusId.Active,
+        url: params.url ?? "",
+        ...(params.typeId ? {pageTypeId: params.typeId} : {})
+    });
 
     if (serviceResultPage.status && serviceResultPage.data) {
         params.req.pageData.page = serviceResultPage.data;
@@ -100,5 +84,5 @@ const getCommonProps = (req: IncomingMessage) => {
 export const PageUtil = {
     initProps: initProps,
     getCommonProps: getCommonProps,
-    initToolComponentProps: initToolComponentProps
+    initToolComponentProps: initToolComponentProps,
 }

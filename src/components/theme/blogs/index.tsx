@@ -7,18 +7,23 @@ import {PostService} from "@services/post.service";
 import {PostTypeId} from "@constants/postTypes";
 import {StatusId} from "@constants/status";
 import ComponentBlog from "@components/elements/blog";
+import {IPostTermGetResultService} from "types/services/postTerm.service";
+import {IBlogsPagePropsParams} from "@pages/blogs";
 
 type IPageState = {
-    lastBlogs: IPostGetManyResultService[]
+    blogs: IPostGetManyResultService[]
     isLoadingShowMoreButton: boolean
     isActiveShowMoreButton: boolean
 };
 
 type IPageProps = {
-    component: IComponentModel<{ lastBlogs?: IPostGetManyResultService[], maxBlogCount?: number }>;
-} & IPagePropCommon;
+    component: IComponentModel<{ blogs?: IPostGetManyResultService[], maxBlogCount?: number }>;
+} & IPagePropCommon<{
+    category?: IPostTermGetResultService
+    params: IBlogsPagePropsParams
+}>;
 
-const perPageBlogCount = 3;
+const perPageBlogCount = 9;
 
 class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageState> {
     pageNumber = 1;
@@ -26,9 +31,9 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
     constructor(props: IPageProps) {
         super(props);
         this.state = {
-            lastBlogs: this.props.component.customData?.lastBlogs ?? [],
+            blogs: this.props.component.customData?.blogs ?? [],
             isLoadingShowMoreButton: false,
-            isActiveShowMoreButton: true
+            isActiveShowMoreButton: (this.props.component.customData?.maxBlogCount ?? 0) > (this.props.component.customData?.blogs?.length || 0)
         }
     }
 
@@ -47,10 +52,10 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
             });
             if(serviceResult.status && serviceResult.data){
                 this.setState({
-                    lastBlogs: [...this.state.lastBlogs, ...serviceResult.data]
+                    blogs: [...this.state.blogs, ...serviceResult.data]
                 }, () => {
                     this.setState({
-                        isActiveShowMoreButton: (this.props.component.customData?.maxBlogCount ?? 0) > this.state.lastBlogs.length
+                        isActiveShowMoreButton: (this.props.component.customData?.maxBlogCount ?? 0) > this.state.blogs.length
                     })
                 })
             }
@@ -64,12 +69,11 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
         return (
             <section className="blogs-section">
                 <div className="container">
-                    <h2 className="section-header">{this.getComponentElementContents("title")?.content}</h2>
-                    <p className="section-content">{this.getComponentElementContents("describe")?.content}</p>
                     <div className="blogs">
+                        <h5>{this.getComponentElementContents("countMessage")?.content?.replace("{{blogsCount}}", this.props.component.customData?.maxBlogCount?.toString() || "0")}</h5>
                         <div className="row">
                             {
-                                this.state.lastBlogs.map((item, index) =>
+                                this.state.blogs.map((item, index) =>
                                     <ComponentBlog {...this.props} className={`col-md-4 mt-4 mt-md-0 ${index > 2 ? "mt-md-4" : ""}`} item={item} index={index} />
                                 )
                             }
@@ -92,16 +96,25 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
 
 ComponentThemeLastBlogs.initComponentServersideProps = async (req, component) => {
     component.customData = {};
-    component.customData.lastBlogs = (await PostService.getMany({
+
+    let categoryId = req.pageData.category?._id ?? null;
+    let search = req.pageData.params?.search || null;
+    let page = req.pageData.params?.page ?? 1;
+
+    component.customData.blogs = (await PostService.getMany({
         langId: req.appData.selectedLangId,
         typeId: [PostTypeId.Blog],
         statusId: StatusId.Active,
         count: perPageBlogCount,
-        page: 1,
+        page: page,
+        ...(search ? {title: search} : {}),
+        ...(categoryId ? {categories: [categoryId]} : {})
     })).data;
     component.customData.maxBlogCount = (await PostService.getCount({
         typeId: PostTypeId.Blog,
         statusId: StatusId.Active,
+        ...(search ? {title: search} : {}),
+        ...(categoryId ? {categories: [categoryId]} : {})
     })).data;
 }
 

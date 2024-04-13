@@ -43,8 +43,8 @@ class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPage
                             {
                                 this.props.component.customData?.categories?.map((category, index) =>
                                     <ComponentCategory
+                                        {...this.props}
                                         item={category}
-                                        t={this.props.t}
                                         index={index}
                                         onMouseOver={item => this.onMouseOver(item)}
                                         isSelected={

@@ -70,8 +70,9 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
     }
 
     Category = (props: IPostTermPopulateService, index: number) => {
+        let categoryURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.CATEGORY(props.contents.url)});
         return (
-            <a href="#" className="btn btn-light"> <span>{props.contents.title}</span></a>
+            <a href={categoryURL} className="btn btn-light"> <span>{props.contents.title}</span></a>
         );
     }
 

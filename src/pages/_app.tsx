@@ -19,15 +19,15 @@ import {LanguageService} from "@services/language.service";
 import {StatusId} from "@constants/status";
 import {SettingService} from "@services/setting.service";
 import {URLUtil} from "@utils/url.util";
-import {NavigationService} from "@services/navigation.service";
-import {ISettingGetResultService} from "types/services/setting.service";
+import {IComponentGetResultService} from "types/services/component.service";
+import {ComponentKey} from "@constants/componentKeys";
 
-async function i18Init(staticContents: ISettingGetResultService["staticContents"]) {
+async function i18Init(staticContents: IComponentGetResultService) {
     const language = i18n.use(initReactI18next);
     await language.init({
         resources: {
             default: {
-                translation: staticContents?.reduce((a: any, v) => ({
+                translation: staticContents.elements.reduce((a: any, v) => ({
                     ...a,
                     [v.key]: v.contents?.content || ""
                 }), {}) || {}
@@ -45,7 +45,10 @@ async function i18Init(staticContents: ISettingGetResultService["staticContents"
 }
 
 function App(props: AppProps) {
-    i18Init(props.pageProps.appData.settings.staticContents);
+    let componentStaticContents = props.pageProps.appData.toolComponents.findSingle("key", ComponentKey.StaticContents);
+    if(componentStaticContents){
+        i18Init(componentStaticContents);
+    }
     return (
         <ComponentApp {...props.pageProps} Component={props.Component} router={props.router}/>
     )

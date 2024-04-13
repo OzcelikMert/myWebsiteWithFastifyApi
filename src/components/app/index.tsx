@@ -30,43 +30,7 @@ class ComponentApp extends Component<PageProps, PageState> {
             getURL: this.props.getURL
         };
 
-        let subscribeComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.Subscribe);
-        let footerComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.Footer);
-        let navbarComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.Navbar);
-        let videoHeaderComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.VideoHeader);
-
-        return (
-            <div>
-                <ComponentHead {...commonProps} />
-                {
-                    navbarComponent
-                        ? <ComponentToolNavbar component={navbarComponent} {...commonProps} />
-                        : null
-                }
-                <div className="container-fluid main-section" id="main-section">
-                    <ProviderNoFound {...commonProps}>
-                        <div className="page-content">
-                            {
-                                videoHeaderComponent
-                                    ? <ComponentToolVideoHeader component={videoHeaderComponent} {...commonProps} />
-                                    : null
-                            }
-                            <this.props.Component {...commonProps} />
-                        </div>
-                    </ProviderNoFound>
-                    {
-                        subscribeComponent
-                            ? <ComponentToolSubscribe component={subscribeComponent} {...commonProps} />
-                            : null
-                    }
-                    {
-                        footerComponent
-                            ? <ComponentToolFooter component={footerComponent} {...commonProps} />
-                            : null
-                    }
-                </div>
-            </div>
-        );
+        return (<this.props.Component {...commonProps} />);
     }
 }
 

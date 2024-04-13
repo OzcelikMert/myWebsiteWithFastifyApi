@@ -8,6 +8,7 @@ type IPageState = {};
 
 type IPageProps = {
     component: IComponentGetResultService;
+    title?: string
 } & IPagePropCommon;
 
 class ComponentToolVideoHeader extends ComponentHelperClass<IPageProps, IPageState> {
@@ -29,7 +30,7 @@ class ComponentToolVideoHeader extends ComponentHelperClass<IPageProps, IPageSta
     PageContent = () => {
         return (
             <div className="content">
-                <h2>{this.props.pageData.page?.contents?.title}</h2>
+                <h2>{this.props.title || this.props.pageData.page?.contents?.title}</h2>
             </div>
         )
     }

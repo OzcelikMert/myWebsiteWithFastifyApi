@@ -7,5 +7,5 @@ export class EndPoints {
 
     static BLOG(url?: string) { return `/blog/${url ?? "[url]"}`; }
     static get BLOGS() { return "/blogs"; }
-    static BLOGS_WITH() { return new BlogsEndPoint(); }
+    static get BLOGS_WITH() { return new BlogsEndPoint(); }
 }

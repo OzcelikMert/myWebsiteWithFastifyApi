@@ -6,5 +6,4 @@ export interface IPageGetParamUtil {
     url?: string,
     typeId?: PageTypeId,
     increaseView?: boolean
-    force404?: boolean
 }

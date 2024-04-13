@@ -7,11 +7,23 @@ import {URLUtil} from "@utils/url.util";
 
 type PageState = {};
 
-type PageProps = {} & IPagePropCommon;
+type PageProps = {
+    title?: string
+} & IPagePropCommon;
 
 export default class ComponentHead extends Component<PageProps, PageState> {
     constructor(props: PageProps) {
         super(props);
+    }
+
+    get getTitle() {
+        let title = this.props.appData.settings.seoContents?.title;
+        if(this.props.title){
+            title = `${title} | ${this.props.title}`;
+        }else if (this.props.pageData.page){
+            title = `${title} | ${this.props.pageData.page.contents?.title}`;
+        }
+        return title;
     }
 
     get getKeywords() {
@@ -62,7 +74,7 @@ export default class ComponentHead extends Component<PageProps, PageState> {
     render() {
         let pageData = this.props.pageData;
         let appData = this.props.appData;
-        let title = `${appData.settings.seoContents?.title}${pageData.page ? ` | ${pageData.page.contents?.title}` : ""}`;
+        let title = this.getTitle;
         let desc = pageData.page?.contents?.shortContent || appData.settings.seoContents?.content || "";
         let logo = ImageSourceUtil.getUploadedImageSrc(appData.settings.logo)
         let language = this.props.appData.languages.findSingle("_id", this.props.appData.selectedLangId);

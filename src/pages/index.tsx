@@ -5,6 +5,7 @@ import {PageUtil} from "@utils/page.util";
 import {PageTypeId} from "@constants/pageTypes";
 import {IPostGetManyResultService} from "types/services/post.service";
 import ComponentThemeSelectedComponents from "@components/theme/selectedComponents";
+import ComponentAppLayout from "@components/app/layout";
 
 type PageState = {};
 
@@ -17,9 +18,11 @@ export default class PageHome extends Component<PageProps, PageState> {
 
     render() {
         return (
-            <div className="page page-home">
-                <ComponentThemeSelectedComponents {...this.props} />
-            </div>
+            <ComponentAppLayout {...this.props}>
+                <div className="page page-home">
+                    <ComponentThemeSelectedComponents {...this.props} />
+                </div>
+            </ComponentAppLayout>
         );
     }
 }
