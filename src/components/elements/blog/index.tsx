@@ -3,11 +3,11 @@ import Image from "next/image";
 import {ImageSourceUtil} from "@utils/imageSource.util";
 import {IPostTermPopulateService} from "types/services/postTerm.service";
 import {IUserPopulateService} from "types/services/user.service";
-import {DateMask} from "@library/variable";
 import {IPostGetManyResultService} from "types/services/post.service";
 import {IPagePropCommon} from "types/pageProps";
 import {URLUtil} from "@utils/url.util";
 import {EndPoints} from "@constants/endPoints";
+import {DateMask} from "@library/variable/date";
 
 type IPageState = {};
 

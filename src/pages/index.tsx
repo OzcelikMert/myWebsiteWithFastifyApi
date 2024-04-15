@@ -32,7 +32,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     await PageUtil.initProps({req: req,
         url: "homepage",
-        typeId: PageTypeId.HomePage,
+        typeId: PageTypeId.Home,
         increaseView: true
     });
 

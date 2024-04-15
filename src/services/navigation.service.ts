@@ -5,7 +5,7 @@ import {
     INavigationGetResultService,
 } from "types/services/navigation.service";
 import {PathUtil} from "@utils/path.util";
-import ApiRequest from "@library/api/request";
+import {ApiRequest} from "@library/api/request";
 
 const getWithId = (params: INavigationGetWithIdParamService) =>  {
     return new ApiRequest({

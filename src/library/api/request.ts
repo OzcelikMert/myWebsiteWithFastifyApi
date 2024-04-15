@@ -1,13 +1,13 @@
-import {ApiRequestParamDocument, ApiRequestParamMethodDocument} from "@library/types/api";
+import {IApiRequestParam, IApiRequestParamMethod} from "@library/types/api";
 import 'cross-fetch/polyfill'
 import {ApiResult} from "@library/api/result";
 
-class ApiRequest {
-    constructor(params: ApiRequestParamDocument) {
+export class ApiRequest {
+    constructor(params: IApiRequestParam) {
         this.params = params;
     }
 
-    private params: ApiRequestParamDocument;
+    private params: IApiRequestParam;
 
     private getQueryString(params: any) {
         return Object
@@ -33,7 +33,7 @@ class ApiRequest {
         return apiUrl;
     }
 
-    private async request<Data = any[], CustomData = null>(method: ApiRequestParamMethodDocument) {
+    private async request<Data = any[], CustomData = null>(method: IApiRequestParamMethod) {
         let apiResult = new ApiResult<Data, CustomData>();
 
         try {
@@ -87,5 +87,3 @@ class ApiRequest {
         return await this.request<Data, CustomData>("DELETE");
     }
 }
-
-export default ApiRequest;

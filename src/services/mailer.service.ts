@@ -1,5 +1,5 @@
 import {ApiEndPoints} from "@constants/apiEndPoints";
-import ApiRequest from "@library/api/request";
+import {ApiRequest} from "@library/api/request";
 import {PathUtil} from "@utils/path.util";
 import {IMailerSendParamService} from "types/services/mailer.service";
 

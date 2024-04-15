@@ -3,7 +3,7 @@ import {
     IUserGetManyParamService,
     IUserGetResultService, IUserGetWithURLParamService,
 } from "types/services/user.service";
-import ApiRequest from "@library/api/request";
+import {ApiRequest} from "@library/api/request";
 import {PathUtil} from "@utils/path.util";
 
 const getWithURL = (params: IUserGetWithURLParamService) => {

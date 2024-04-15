@@ -36,7 +36,7 @@ class ComponentToolVideoHeader extends ComponentHelperClass<IPageProps, IPageSta
     }
 
     render() {
-        let isHomePage = this.props.pageData.page?.pageTypeId == PageTypeId.HomePage;
+        let isHomePage = this.props.pageData.page?.pageTypeId == PageTypeId.Home;
         return (
             <section className={`header-section container-fluid ${isHomePage ? "home" : ""}`} id="header">
                 <div className="video-wrap">

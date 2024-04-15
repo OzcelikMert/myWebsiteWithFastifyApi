@@ -1,4 +1,4 @@
-class Thread {
+export class ThreadLibrary {
     static start(func: () => void, delay: number = 0) {
         return new Promise(resolve => setTimeout(() => {func(); resolve(1);}, delay));
     }
@@ -6,5 +6,3 @@ class Thread {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
-
-export default Thread;

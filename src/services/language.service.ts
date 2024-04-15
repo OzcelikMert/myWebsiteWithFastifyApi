@@ -4,7 +4,7 @@ import {
     ILanguageGetResultService,
     ILanguageGetWithIdParamService,
 } from "types/services/language.service";
-import ApiRequest from "@library/api/request";
+import {ApiRequest} from "@library/api/request";
 import {PathUtil} from "@utils/path.util";
 
 const getWithId = (params: ILanguageGetWithIdParamService) =>{

@@ -3,7 +3,7 @@ import {
     ISubscriberAddParamService, ISubscriberDeleteWithEmailParamService,
     ISubscriberGetResultService, ISubscriberGetWithEmailParamService,
 } from "types/services/subscriber.service";
-import ApiRequest from "@library/api/request";
+import {ApiRequest} from "@library/api/request";
 import {PathUtil} from "@utils/path.util";
 import {ISubscriberModel} from "types/models/subscriber.model";
 

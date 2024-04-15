@@ -1,12 +1,8 @@
 export enum PageTypeId {
     Default = 1,
-    HomePage,
+    Home,
     Blogs,
-    Blog,
     Portfolios,
-    Portfolio,
     Products,
-    Product,
-    Contact,
-    ErrorPage404
+    Contact
 }

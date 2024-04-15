@@ -4,7 +4,7 @@ import {
     IPostTermGetManyParamService,
     IPostTermGetWithIdParamService, IPostTermGetWithURLParamService,
 } from "types/services/postTerm.service";
-import ApiRequest from "@library/api/request";
+import {ApiRequest} from "@library/api/request";
 import {PathUtil} from "@utils/path.util";
 
 const getWithId = (params: IPostTermGetWithIdParamService) => {

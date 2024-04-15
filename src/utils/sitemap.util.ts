@@ -9,7 +9,7 @@ const getLoc = (...strings: string[]) => {
 
 const getSitemapPostLoc = (typeId: PostTypeId, url: string, pageTypeId?: PageTypeId) => {
     let sitemapName = typeId == PostTypeId.Page ? "" : `${PostUtil.getTypeName(typeId)}/`;
-    url = pageTypeId == PageTypeId.HomePage ? "" : url;
+    url = pageTypeId == PageTypeId.Home ? "" : url;
     return `${sitemapName}${url}`;
 }
 
@@ -20,7 +20,7 @@ const getSitemapPostPriority = (typeId: PostTypeId, pageTypeId?: PageTypeId) => 
         priority = "0.8";
     }
 
-    if (pageTypeId == PageTypeId.HomePage) {
+    if (pageTypeId == PageTypeId.Home) {
         priority = "1.0";
     }
 

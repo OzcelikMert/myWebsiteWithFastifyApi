@@ -1,6 +1,6 @@
 declare type ForeachParamFunctionDocument = (key: string, value: any) => any;
 
-class Statement{
+export class StatementLibrary {
     /**
      * @param _value
      * Checks your entered value Ex: if(_value === case_key)
@@ -45,7 +45,5 @@ class Statement{
         return result;
     }
 }
-
-export default Statement;
 
 
