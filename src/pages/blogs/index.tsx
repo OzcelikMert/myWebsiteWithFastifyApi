@@ -30,7 +30,7 @@ export default class PageBlogs extends Component<PageProps, PageState> {
 
     getPageTitle() {
         let title: string = this.props.pageData.category
-            ? this.props.pageData.category.contents?.title
+            ? this.props.pageData.category.contents!.title!
             : this.props.pageData.params.search ?? "";
 
         if(this.props.pageData.params.page > 1){
@@ -42,10 +42,16 @@ export default class PageBlogs extends Component<PageProps, PageState> {
 
     render() {
         return (
-            <ComponentAppLayout {...this.props} pageTitle={this.getPageTitle()}>
+            <ComponentAppLayout {...this.props} pageTitle={this.getPageTitle()} headerBgImage={this.props.pageData.category?.contents?.image}>
                 <div className="page page-blogs">
                     <section className="page-blogs">
                         <div className="container">
+                            {
+                                this.props.pageData.category
+                                    ? (
+                                        <p className="section-content">{this.props.pageData.category.contents?.shortContent}</p>
+                                    ) : null
+                            }
                             <ComponentThemeSelectedComponents {...this.props} />
                         </div>
                     </section>

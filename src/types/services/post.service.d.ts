@@ -35,6 +35,8 @@ export type IPostGetOneResultService = {
         })[]
     })
     components?: IComponentModel[]
+    prev?: IPostGetManyResultService,
+    next?: IPostGetManyResultService
 } & Omit<IPostModel, "contents"|"categories"|"tags"|"eCommerce"|"authorId"|"lastAuthorId"|"components"|"authors">
 
 export type IPostGetManyResultService = {
@@ -52,7 +54,8 @@ export interface IPostGetWithURLParamService {
     url: string
     pageTypeId?: PageTypeId
     langId?: string
-    statusId?: StatusId,
+    statusId?: StatusId
+    isIncludePrevAndNext?: boolean
 }
 
 export interface IPostGetManyParamService {

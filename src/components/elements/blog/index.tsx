@@ -15,6 +15,7 @@ type IPageProps = {
     item: IPostGetManyResultService
     hideAuthorImage?: boolean
     hideShortContent?: boolean
+    hideCategories?: boolean
     index?: number
     className?: string
     imageHeight?: number
@@ -93,17 +94,27 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
                         </a>
                     </div>
                     <div className="card-body">
-                        <div className="blog-category-badges">
-                            {
-                                this.props.item.categories?.map((category, index) => this.Category(category, index))
-                            }
-                        </div>
+                        {
+                            this.props.hideCategories
+                                ? null
+                                : (
+                                    <div className="blog-category-badges">
+                                        {this.props.item.categories?.map((category, index) => this.Category(category, index))}
+                                    </div>
+                                )
+                        }
                         <a href={blogURL} className="card-title">
                             <span>{this.props.item.contents?.title}</span>
                         </a>
-                        <p className="card-text">
-                            {this.props.hideShortContent ? null : this.props.item.contents?.shortContent}
-                        </p>
+                        {
+                            this.props.hideShortContent
+                                ? null
+                                : (
+                                    <p className="card-text">
+                                        {this.props.item.contents?.shortContent}
+                                    </p>
+                                )
+                        }
                     </div>
                     <div className="card-footer">
                         {

@@ -6,13 +6,15 @@ import ComponentToolSubscribe from "@components/tools/subscribe";
 import {ComponentKey} from "@constants/componentKeys";
 import ComponentToolFooter from "@components/tools/footer";
 import ComponentToolNavbar from "@components/tools/navbar";
-import ComponentToolVideoHeader from "@components/tools/videoHeader";
+import ComponentToolHeader from "@components/tools/header";
 
 type PageState = {};
 
 type PageProps = {
     children: JSX.Element
     pageTitle?: string
+    headerBgImage?: string
+    headerContent?: string
 } & IPagePropCommon;
 
 export default class ComponentAppLayout extends Component<PageProps, PageState> {
@@ -24,7 +26,7 @@ export default class ComponentAppLayout extends Component<PageProps, PageState> 
         let subscribeComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.Subscribe);
         let footerComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.Footer);
         let navbarComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.Navbar);
-        let videoHeaderComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.VideoHeader);
+        let videoHeaderComponent = this.props.appData.toolComponents.findSingle("key", ComponentKey.Header);
 
         return (
             <div>
@@ -38,7 +40,7 @@ export default class ComponentAppLayout extends Component<PageProps, PageState> 
                         <div className="page-content">
                             {
                                 videoHeaderComponent
-                                    ? <ComponentToolVideoHeader component={videoHeaderComponent} {...this.props} title={this.props.pageTitle} />
+                                    ? <ComponentToolHeader component={videoHeaderComponent} {...this.props} title={this.props.pageTitle} backgroundImage={this.props.headerBgImage} content={this.props.headerContent} />
                                     : null
                             }
                             <ProviderNoFound {...this.props}>

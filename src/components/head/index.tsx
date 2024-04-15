@@ -4,6 +4,7 @@ import {IPagePropCommon} from "types/pageProps";
 import {ImageSourceUtil} from "@utils/imageSource.util";
 import {LanguageUtil} from "@utils/language.util";
 import {URLUtil} from "@utils/url.util";
+import HTMLReactParser from "html-react-parser";
 
 type PageState = {};
 
@@ -113,6 +114,8 @@ export default class ComponentHead extends Component<PageProps, PageState> {
                 <meta name="twitter:url" content={this.props.getURL.full} />
                 <meta name="twitter:description" content={desc} />
                 <meta name="twitter:image" content={logo} />
+                {appData.settings.head ? HTMLReactParser(appData.settings.head) : null}
+                {appData.settings.script ? HTMLReactParser(appData.settings.script) : null}
             </Head>
         );
     }

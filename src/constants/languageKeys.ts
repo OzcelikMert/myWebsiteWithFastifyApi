@@ -1,7 +1,8 @@
 export const languageKeys = [
-    "pageNotFound",
-    "pageNotFoundDesc",
-    "returnHomePage",
     "by",
-    "blog"
+    "blog",
+    "categories",
+    "authors",
+    "previous",
+    "next"
 ] as const;

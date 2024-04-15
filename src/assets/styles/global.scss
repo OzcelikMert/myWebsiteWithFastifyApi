@@ -37,6 +37,7 @@
 /*************
 #Pages
 ***************/
+@import "pages/blog";
 
 /*************
 #Components
@@ -48,8 +49,8 @@
 @import "components/theme/hero";
 @import "components/theme/hotBlogs";
 @import "components/theme/hotCategories";
-@import "components/theme/videoHeader";
 @import "components/error/404";
 @import "components/tools/navbar";
+@import "components/tools/header";
 @import "components/tools/subscribe";
 @import "components/tools/footer";

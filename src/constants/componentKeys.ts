@@ -6,7 +6,7 @@ export enum ComponentKey {
     Hero = "hero",
     Navbar = "navbar",
     Subscribe = "subscribe",
-    VideoHeader = "videoHeader",
+    Header = "header",
     Footer = "footer",
     StaticContents = "staticContents",
     Error404 = "error404"
