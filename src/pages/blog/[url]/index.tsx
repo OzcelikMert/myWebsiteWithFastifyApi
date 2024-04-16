@@ -15,11 +15,10 @@ import {IUserPopulateService} from "types/services/user.service";
 import Image from "next/image";
 import {ImageSourceUtil} from "@utils/imageSource.util";
 import {DateMask} from "@library/variable/date";
-import ComponentBlog from "@components/elements/blog";
 
 type PageState = {};
 
-type PageProps = {} & IPagePropCommon<{ blog: IPostGetOneResultService, url?: string }>;
+type PageProps = {} & IPagePropCommon<{ blog?: IPostGetOneResultService, url?: string }>;
 
 export default class PageBlogURL extends Component<PageProps, PageState> {
     constructor(props: PageProps) {
@@ -28,7 +27,7 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
 
     Author = (props: IUserPopulateService, index: number) => {
         let blog = this.props.pageData.blog;
-        let date = new Date(blog.createdAt ?? "");
+        let date = new Date(blog?.createdAt ?? "");
         return (
             <div className="author mt-2">
                 <div className="row">
@@ -82,18 +81,18 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
     }
 
     PrevBlog = () => {
-        let blog = this.props.pageData.blog.prev!;
-        let blogURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(blog.contents?.url)});
-        let date = new Date(blog.createdAt ?? "");
+        let blog = this.props.pageData.blog?.prev;
+        let blogURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(blog?.contents?.url)});
+        let date = new Date(blog?.createdAt ?? "");
         return (
-            <article className="prev-blog" title={blog.contents?.title}>
+            <article className="prev-blog" title={blog?.contents?.title}>
                 <div className="card">
                     <div className="card-body d-flex flex-row">
                         <div className="image hover-top">
                             <a href={blogURL} className="img-link">
                                 <Image
-                                    src={ImageSourceUtil.getUploadedImageSrc(blog.contents?.image)}
-                                    alt={blog.contents?.title ?? ""}
+                                    src={ImageSourceUtil.getUploadedImageSrc(blog?.contents?.image)}
+                                    alt={blog?.contents?.title ?? ""}
                                     className="img-fluid rounded-4"
                                     width={150}
                                     height={150}
@@ -102,7 +101,7 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
                         </div>
                         <div className="ms-3 align-content-center">
                             <a href={blogURL} className="fw-bold fs-4">
-                                <span>{blog.contents?.title}</span>
+                                <span>{blog?.contents?.title}</span>
                             </a>
                             <div className="date">
                                 <time dateTime={date.getStringWithMask(DateMask.DATE)}>
@@ -117,16 +116,16 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
     }
 
     NextBlog = () => {
-        let blog = this.props.pageData.blog.next!;
-        let blogURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(blog.contents?.url)});
-        let date = new Date(blog.createdAt ?? "");
+        let blog = this.props.pageData.blog?.next;
+        let blogURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(blog?.contents?.url)});
+        let date = new Date(blog?.createdAt ?? "");
         return (
-            <article className="prev-blog" title={blog.contents?.title}>
+            <article className="next-blog" title={blog?.contents?.title}>
                 <div className="card">
-                    <div className="card-body d-flex flex-row">
+                    <div className="card-body d-flex flex-row justify-content-end">
                         <div className="align-content-center me-3">
                             <a href={blogURL} className="fw-bold fs-4">
-                                <span>{blog.contents?.title}</span>
+                                <span>{blog?.contents?.title}</span>
                             </a>
                             <div className="date">
                                 <time dateTime={date.getStringWithMask(DateMask.DATE)}>
@@ -137,8 +136,8 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
                         <div className="image hover-top">
                             <a href={blogURL} className="img-link">
                                 <Image
-                                    src={ImageSourceUtil.getUploadedImageSrc(blog.contents?.image)}
-                                    alt={blog.contents?.title ?? ""}
+                                    src={ImageSourceUtil.getUploadedImageSrc(blog?.contents?.image)}
+                                    alt={blog?.contents?.title ?? ""}
                                     className="img-fluid rounded-4"
                                     width={150}
                                     height={150}
@@ -153,34 +152,33 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
 
     render() {
         let blog = this.props.pageData.blog;
-        console.log(blog);
         return (
             <ComponentAppLayout
                 {...this.props}
-                pageTitle={`${this.props.t("blog")} - ${blog.contents?.title || this.props.pageData.url}`}
-                headerBgImage={blog.contents?.image}
-                headerContent={blog.contents?.shortContent}
+                pageTitle={`${this.props.t("blog")} - ${blog?.contents?.title || this.props.pageData.url}`}
+                headerBgImage={blog?.contents?.image}
+                headerContent={blog?.contents?.shortContent}
             >
                 <div className="page page-blog">
                     <section className="blog-section">
                         <div className="container">
-                            <article title={blog.contents?.title}>
+                            <article title={blog?.contents?.title}>
                                 <div className="content">
-                                    {this.props.pageData.blog.contents?.content ? (HTMLReactParser(blog?.contents?.content || "")) : null}
+                                    {this.props.pageData.blog?.contents?.content ? (HTMLReactParser(blog?.contents?.content || "")) : null}
                                 </div>
                                 <div className="content-bottom mt-5">
                                     <div className="categories pb-3 border-bottom">
                                         <h6 className="fw-bold">{this.props.t("categories")}</h6>
                                         <div className="blog-category-badges">
                                             {
-                                                this.props.pageData.blog.categories?.map((category, index) => this.Category(category, index))
+                                                this.props.pageData.blog?.categories?.map((category, index) => this.Category(category, index))
                                             }
                                         </div>
                                     </div>
                                     <div className="authors mt-3">
                                         <h6 className="fw-bold">{this.props.t("authors")}</h6>
                                         {
-                                            [blog.authorId, ...(blog.authors ?? [])].map((author, index) => this.Author(author, index))
+                                            blog ? [blog.authorId, ...(blog.authors ?? [])].map((author, index) => this.Author(author, index)) : null
                                         }
                                     </div>
                                 </div>
@@ -192,10 +190,10 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-6 text-start">
-                                        {this.props.pageData.blog.prev ? <this.PrevBlog /> : null}
+                                        {this.props.pageData.blog?.prev ? <this.PrevBlog /> : null}
                                     </div>
                                     <div className="col-md-6 text-end">
-                                        {this.props.pageData.blog.next ? <this.NextBlog /> : null}
+                                        {this.props.pageData.blog?.next ? <this.NextBlog /> : null}
                                     </div>
                                 </div>
                             </div>

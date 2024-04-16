@@ -11,7 +11,7 @@ import ComponentToolHeader from "@components/tools/header";
 type PageState = {};
 
 type PageProps = {
-    children: JSX.Element
+    children: React.ReactNode
     pageTitle?: string
     headerBgImage?: string
     headerContent?: string
