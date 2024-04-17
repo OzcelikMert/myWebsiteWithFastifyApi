@@ -8,8 +8,11 @@ export class BlogsEndPoint {
         this.mainPath = mainPath;
     }
 
-    CATEGORY(category?: string) { return PathUtil.createPath(this.mainPath, `/category/${category ?? "[category]"}`); }
-    CATEGORY_WITH(category?: string) { return new BlogsEndPoint(this.CATEGORY(category)); }
+    CATEGORY(categoryURL?: string) { return PathUtil.createPath(this.mainPath, `/category/${categoryURL ?? "[category]"}`); }
+    CATEGORY_WITH(categoryURL?: string) { return new BlogsEndPoint(this.CATEGORY(categoryURL)); }
+
+    AUTHOR(authorURL?: string) { return PathUtil.createPath(this.mainPath, `/author/${authorURL ?? "[author]"}`); }
+    AUTHOR_WITH(authorURL?: string) { return new BlogsEndPoint(this.AUTHOR(authorURL)); }
 
     PAGE(page?: string) { return PathUtil.createPath(this.mainPath, `/page/${page ?? "[page]"}`); }
     PAGE_WITH(page?: string) { return new BlogsEndPoint(this.PAGE(page)); }

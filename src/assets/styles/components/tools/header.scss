@@ -57,6 +57,7 @@
   .content {
     position: relative;
     text-align: center;
+    padding: 0 25rem;
 
     h2 {
       color: white;
@@ -72,8 +73,8 @@
       position: relative;
       z-index: 2;
       mix-blend-mode: difference;
-      font-size: 14px;
-      padding: 1rem 25rem;
+      font-size: 17px;
+      margin-top: 1rem;
     }
 
     a {
@@ -90,16 +91,12 @@
 @media (max-width: 992px) {
   .header-section {
     .content {
-      padding-top: 80px;
-
-      p {
-        padding: 1rem;
-      }
+      padding: 10rem 1rem;
     }
 
     &.home {
       .content {
-        padding-top: 0;
+        padding: 0 1rem;
       }
     }
   }

@@ -13,6 +13,8 @@ import {PostService} from "@services/post.service";
 import {IPostGetManyResultService} from "types/services/post.service";
 import ComponentBlog from "@components/elements/blog";
 import ComponentLoadingButton from "@components/elements/button/loadingButton";
+import {UserService} from "@services/user.service";
+import {IUserGetResultService} from "types/services/user.service";
 
 type PageState = {
     blogs: IPostGetManyResultService[]
@@ -23,6 +25,7 @@ type PageProps = {} & IPagePropCommon<{
     blogs?: IPostGetManyResultService[],
     maxBlogCount?: number
     category?: IPostTermGetResultService
+    author?: IUserGetResultService
     params: {
         search?: string
         page: number
@@ -45,7 +48,9 @@ export default class PageBlogs extends Component<PageProps, PageState> {
     getPageTitle() {
         let title: string = this.props.pageData.category
             ? this.props.pageData.category.contents!.title!
-            : this.props.pageData.params.search ?? "";
+            : this.props.pageData.author?.name
+                ? this.props.pageData.author.name
+                : this.props.pageData.params.search ?? "";
 
         if (this.props.pageData.params.page > 1) {
             title = `${title.length > 0 ? "- " : ""}${this.props.pageData.params.page}`;
@@ -77,16 +82,39 @@ export default class PageBlogs extends Component<PageProps, PageState> {
         }
     }
 
+    AuthorSocialMedia = () => {
+        let author = this.props.pageData.author;
+        return (
+            <div>
+                <a className="me-4 fs-3 text-light" href={author?.facebook || "#"}>
+                    <span><i className="mdi mdi-facebook"></i></span>
+                </a>
+                <a className="me-4 fs-3 text-light" href={author?.instagram || "#"}>
+                    <span><i className="mdi mdi-instagram"></i></span>
+                </a>
+                <a className="fs-3 text-light" href={author?.twitter || "#"}>
+                    <span><i className="mdi mdi-twitter"></i></span>
+                </a>
+            </div>
+        );
+    }
+
     render() {
         return (
-            <ComponentAppLayout {...this.props} pageTitle={this.getPageTitle()} headerBgImage={this.props.pageData.category?.contents?.image}>
+            <ComponentAppLayout
+                {...this.props}
+                pageTitle={this.getPageTitle()}
+                headerBgImage={this.props.pageData.category?.contents?.image || this.props.pageData.author?.image}
+                headerContent={this.props.pageData.category?.contents?.shortContent || this.props.pageData.author?.comment}
+                headerButtons={this.props.pageData.author ? <this.AuthorSocialMedia /> : undefined}
+            >
                 <div className="page page-blogs">
                     <section className="page-blogs">
                         <div className="container">
                             {
                                 this.props.pageData.category
                                     ? (
-                                        <p className="section-content">{this.props.pageData.category.contents?.shortContent}</p>
+                                        <p className="section-content">{}</p>
                                     ) : null
                             }
                             <div className="blogs">
@@ -121,11 +149,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let page = Number(context.params?.page ?? 1) || 1;
     let search = decodeURI(context.params?.search as string || "");
     let categoryURL = context.params?.category as string || null;
-    let categoryId = "";
+    let authorURL = context.params?.author as string || null;
     req.pageData.params.search = search;
     req.pageData.params.page = page;
     req.pageData.params.categoryURL = categoryURL;
 
+    let categoryId = "";
     if (categoryURL) {
         let serviceResultCategory = await PostTermService.getWithURL({
             typeId: PostTermTypeId.Category,
@@ -138,6 +167,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         if (serviceResultCategory.status && serviceResultCategory.data) {
             req.pageData.category = serviceResultCategory.data;
             categoryId = serviceResultCategory.data._id;
+        }
+    }
+
+    let authorId = "";
+    if (authorURL) {
+        let serviceResultAuthor = await UserService.getWithURL({
+            statusId: StatusId.Active,
+            url: authorURL
+        });
+
+        if (serviceResultAuthor.status && serviceResultAuthor.data) {
+            req.pageData.author = serviceResultAuthor.data;
+            authorId = serviceResultAuthor.data._id;
         }
     }
 
@@ -156,14 +198,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             count: perPageBlogCount,
             page: page,
             ...(search ? {title: search} : {}),
-            ...(categoryId ? {categories: [categoryId]} : {})
+            ...(categoryId ? {categories: [categoryId]} : {}),
+            ...(authorId ? {authorId: authorId} : {})
         })).data;
 
         req.pageData.maxBlogCount = (await PostService.getCount({
             typeId: PostTypeId.Blog,
             statusId: StatusId.Active,
             ...(search ? {title: search} : {}),
-            ...(categoryId ? {categories: [categoryId]} : {})
+            ...(categoryId ? {categories: [categoryId]} : {}),
+            ...(authorId ? {authorId: authorId} : {})
         })).data;
     }
 

@@ -37,13 +37,13 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
                     {
                         this.props.hideAuthorImage ? null
                             : props.map(author => (
-                                <a href="#" className="hover-top">
+                                <a href={URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(author.url)})} className="hover-top">
                                     <Image
                                         src={ImageSourceUtil.getUploadedImageSrc(author.image)}
                                         alt={author.name}
                                         className="img-fluid"
-                                        width={this.props.imageAuthorWidth ?? 50}
-                                        height={this.props.imageAuthorHeight ?? 50}
+                                        width={this.props.imageAuthorWidth ?? 40}
+                                        height={this.props.imageAuthorHeight ?? 40}
                                     />
                                 </a>
                             ))
@@ -54,7 +54,7 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
                         {this.props.t("by")} {
                             props.map((author, index) => (
                                 <span>
-                                    <a href="#"><span>{author.name}</span></a>
+                                    <a href={URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(author.url)})}><span>{author.name}</span></a>
                                     {index < props.length - 1 ? " & " : ""}
                                 </span>
                             ))

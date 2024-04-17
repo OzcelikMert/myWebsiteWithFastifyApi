@@ -39,24 +39,25 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
     Author = (props: IUserPopulateService, index: number) => {
         let blog = this.props.pageData.blog;
         let date = new Date(blog?.createdAt ?? "");
+        let authorURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(props.url)});
         return (
             <div className="author mt-2">
                 <div className="row">
-                    <div className="col-8">
+                    <div className="col-8 d-flex flex-row align-items-center">
                         <div className="avatar d-inline-block me-3">
-                            <a href="#" className="hover-top">
+                            <a href={authorURL} className="hover-top">
                                 <Image
                                     src={ImageSourceUtil.getUploadedImageSrc(props.image)}
                                     alt={props.name}
                                     className="img-fluid"
-                                    width={35}
-                                    height={35}
+                                    width={40}
+                                    height={40}
                                 />
                             </a>
                         </div>
                         <div className="d-inline-block">
                             <div className="author">
-                                {this.props.t("by")} <a href="#"><span>{props.name}</span></a>
+                                {this.props.t("by")} <a href={authorURL}><span>{props.name}</span></a>
                             </div>
                             <div className="date">
                                 <time dateTime={date.getStringWithMask(DateMask.DATE)}>
@@ -66,10 +67,10 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
                         </div>
                     </div>
                     <div className="col-4 text-end fs-4">
-                        <a className="pe-1" href={props.facebook || "#"}>
+                        <a className="me-2" href={props.facebook || "#"}>
                             <span><i className="mdi mdi-facebook"></i></span>
                         </a>
-                        <a className="pe-1" href={props.instagram || "#"}>
+                        <a className="me-2" href={props.instagram || "#"}>
                             <span><i className="mdi mdi-instagram"></i></span>
                         </a>
                         <a href={props.twitter || "#"}>

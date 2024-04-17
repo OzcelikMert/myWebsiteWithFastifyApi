@@ -11,6 +11,7 @@ type IPageProps = {
     component: IComponentGetResultService;
     title?: string
     content?: string
+    buttons?: JSX.Element
     backgroundImage?: string
 } & IPagePropCommon;
 
@@ -24,8 +25,11 @@ class ComponentToolHeader extends ComponentHelperClass<IPageProps, IPageState> {
             <div className="content">
                 <h2>{this.props.appData.settings.seoContents?.title}</h2>
                 <p>{this.getComponentElementContents("content")?.content}</p>
-                <a href="#hero-section" className="btn btn-primary btn-lg mt-3">
-                    <span>{this.getComponentElementContents("buttonText")?.content}</span></a>
+                <div className="buttons mt-3">
+                    <a href="#hero-section" className="btn btn-primary btn-lg">
+                        <span>{this.getComponentElementContents("buttonText")?.content}</span>
+                    </a>
+                </div>
             </div>
         )
     }
@@ -37,6 +41,11 @@ class ComponentToolHeader extends ComponentHelperClass<IPageProps, IPageState> {
                 {
                     this.props.content
                         ? <p>{this.props.content}</p>
+                        : null
+                }
+                {
+                    this.props.buttons
+                        ? <div className="buttons mt-3">{this.props.buttons}</div>
                         : null
                 }
             </div>
@@ -59,7 +68,8 @@ class ComponentToolHeader extends ComponentHelperClass<IPageProps, IPageState> {
     BackgroundImage = () => {
         let bgImage = this.props.backgroundImage ?? this.props.pageData.page?.contents?.image
         return (
-            <div className="image-bg" style={{backgroundImage: `url(${ImageSourceUtil.getUploadedImageSrc(bgImage)})`}}></div>
+            <div className="image-bg"
+                 style={{backgroundImage: `url(${ImageSourceUtil.getUploadedImageSrc(bgImage)})`}}></div>
         );
     }
 
@@ -69,14 +79,14 @@ class ComponentToolHeader extends ComponentHelperClass<IPageProps, IPageState> {
             <section className={`header-section container-fluid ${isHomePage ? "home" : ""}`} id="header">
                 {
                     this.props.backgroundImage || this.props.pageData.page?.contents?.image
-                        ? <this.BackgroundImage />
-                        : <this.BackgroundVideo />
+                        ? <this.BackgroundImage/>
+                        : <this.BackgroundVideo/>
                 }
                 <div className="mask"></div>
                 {
                     isHomePage
-                        ? <this.HomePageContent />
-                        : <this.PageContent />
+                        ? <this.HomePageContent/>
+                        : <this.PageContent/>
                 }
             </section>
         );

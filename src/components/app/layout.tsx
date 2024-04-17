@@ -15,6 +15,7 @@ type PageProps = {
     pageTitle?: string
     headerBgImage?: string
     headerContent?: string
+    headerButtons?: JSX.Element
 } & IPagePropCommon;
 
 export default class ComponentAppLayout extends Component<PageProps, PageState> {
@@ -40,7 +41,14 @@ export default class ComponentAppLayout extends Component<PageProps, PageState> 
                         <div className="page-content">
                             {
                                 videoHeaderComponent
-                                    ? <ComponentToolHeader component={videoHeaderComponent} {...this.props} title={this.props.pageTitle} backgroundImage={this.props.headerBgImage} content={this.props.headerContent} />
+                                    ? <ComponentToolHeader
+                                        {...this.props}
+                                        component={videoHeaderComponent}
+                                        title={this.props.pageTitle}
+                                        backgroundImage={this.props.headerBgImage}
+                                        content={this.props.headerContent}
+                                        buttons={this.props.headerButtons}
+                                    />
                                     : null
                             }
                             <ProviderNoFound {...this.props}>
