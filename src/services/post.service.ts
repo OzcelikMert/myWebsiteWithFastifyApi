@@ -3,7 +3,7 @@ import {
     IPostGetCountParamService,
     IPostGetManyParamService,
     IPostGetManyResultService,
-    IPostGetOneResultService,
+    IPostGetOneResultService, IPostGetPrevNextParamService, IPostGetPrevNextResultService,
     IPostGetWithURLParamService,
     IPostUpdateViewWithIdParamService,
 } from "types/services/post.service";
@@ -26,6 +26,14 @@ const getMany = (params: IPostGetManyParamService) => {
     }).get<IPostGetManyResultService[]>();
 }
 
+const getPrevNextWithId = (params: IPostGetPrevNextParamService) => {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.POST_WITH.GET_PREV_NEXT_WITH_ID(params._id),
+        data: params
+    }).get<{prev?: IPostGetPrevNextResultService, next?: IPostGetPrevNextResultService}>();
+}
+
 const getCount = (params: IPostGetCountParamService) => {
     return new ApiRequest({
         apiUrl: PathUtil.getApiURL(),
@@ -44,6 +52,7 @@ const updateViewWithId = (params: IPostUpdateViewWithIdParamService) =>  {
 
 export const PostService = {
     getWithURL: getWithURL,
+    getPrevNextWithId: getPrevNextWithId,
     getMany: getMany,
     getCount: getCount,
     updateViewWithId: updateViewWithId,

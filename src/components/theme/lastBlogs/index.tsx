@@ -7,10 +7,10 @@ import {PostService} from "@services/post.service";
 import {PostTypeId} from "@constants/postTypes";
 import {StatusId} from "@constants/status";
 import ComponentBlog from "@components/elements/blog";
+import ComponentLoadingButton from "@components/elements/button/loadingButton";
 
 type IPageState = {
     lastBlogs: IPostGetManyResultService[]
-    isLoadingShowMoreButton: boolean
     isActiveShowMoreButton: boolean
 };
 
@@ -27,37 +27,29 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
         super(props);
         this.state = {
             lastBlogs: this.props.component.customData?.lastBlogs ?? [],
-            isLoadingShowMoreButton: false,
             isActiveShowMoreButton: true
         }
     }
 
     async onClickShowMore() {
         if(!this.state.isActiveShowMoreButton) return false;
-        this.setState({
-            isLoadingShowMoreButton: true
-        }, async () => {
-            this.pageNumber += 1;
-            let serviceResult = await PostService.getMany({
-                langId: this.props.appData.selectedLangId,
-                typeId: [PostTypeId.Blog],
-                statusId: StatusId.Active,
-                count: perPageBlogCount,
-                page: this.pageNumber
-            });
-            if(serviceResult.status && serviceResult.data){
-                this.setState({
-                    lastBlogs: [...this.state.lastBlogs, ...serviceResult.data]
-                }, () => {
-                    this.setState({
-                        isActiveShowMoreButton: (this.props.component.customData?.maxBlogCount ?? 0) > this.state.lastBlogs.length
-                    })
-                })
-            }
+        this.pageNumber += 1;
+        let serviceResult = await PostService.getMany({
+            langId: this.props.appData.selectedLangId,
+            typeId: [PostTypeId.Blog],
+            statusId: StatusId.Active,
+            count: perPageBlogCount,
+            page: this.pageNumber
+        });
+        if(serviceResult.status && serviceResult.data){
             this.setState({
-                isLoadingShowMoreButton: false
+                lastBlogs: [...this.state.lastBlogs, ...serviceResult.data]
+            }, () => {
+                this.setState({
+                    isActiveShowMoreButton: (this.props.component.customData?.maxBlogCount ?? 0) > this.state.lastBlogs.length
+                })
             })
-        })
+        }
     }
 
     render() {
@@ -78,10 +70,8 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
                     <div className="w-100 pt-5 text-center show-more">
                         {
                             this.state.isActiveShowMoreButton
-                                ? <button className="btn btn-outline-primary btn-lg" onClick={event => this.onClickShowMore()} disabled={this.state.isLoadingShowMoreButton}>
-                                        {this.state.isLoadingShowMoreButton ? (<i className="fa fa-spinner fa-spin me-1"></i>) : null}
-                                        <span>{this.getComponentElementContents("buttonText")?.content}</span>
-                                </button> : null
+                                ? <ComponentLoadingButton text={this.props.t("showMore")} onClick={() => this.onClickShowMore()} />
+                                : null
                         }
                     </div>
                 </div>

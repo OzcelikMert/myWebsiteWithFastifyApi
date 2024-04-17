@@ -35,8 +35,6 @@ export type IPostGetOneResultService = {
         })[]
     })
     components?: IComponentModel[]
-    prev?: IPostGetManyResultService,
-    next?: IPostGetManyResultService
 } & Omit<IPostModel, "contents"|"categories"|"tags"|"eCommerce"|"authorId"|"lastAuthorId"|"components"|"authors">
 
 export type IPostGetManyResultService = {
@@ -49,13 +47,18 @@ export type IPostGetManyResultService = {
     components?: IPostModel["components"]
 } & Omit<IPostGetOneResultService, "eCommerce"|"components">
 
+export interface IPostGetPrevNextResultService {
+    _id: string
+    contents?: IPostContentModel
+    createdAt: string
+}
+
 export interface IPostGetWithURLParamService {
     typeId: PostTypeId,
     url: string
     pageTypeId?: PageTypeId
     langId?: string
     statusId?: StatusId
-    isIncludePrevAndNext?: boolean
 }
 
 export interface IPostGetManyParamService {
@@ -69,7 +72,19 @@ export interface IPostGetManyParamService {
     page?: number
     ignorePostId?: string[]
     title?: string
+    authorId?: string
     categories?: string[]
+    tags?: string[]
+}
+
+export interface IPostGetPrevNextParamService {
+    _id: string
+    typeId: PostTypeId,
+    statusId?: StatusId
+    langId?: string
+    categories?: string[]
+    tags?: string[]
+    authorId?: string
 }
 
 export interface IPostGetCountParamService {

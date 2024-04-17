@@ -5,7 +5,7 @@ import {PageUtil} from "@utils/page.util";
 import {PostService} from "@services/post.service";
 import {PostTypeId} from "@constants/postTypes";
 import {StatusId} from "@constants/status";
-import {IPostGetOneResultService} from "types/services/post.service";
+import {IPostGetOneResultService, IPostGetPrevNextResultService} from "types/services/post.service";
 import HTMLReactParser from "html-react-parser";
 import ComponentAppLayout from "@components/app/layout";
 import {IPostTermPopulateService} from "types/services/postTerm.service";
@@ -18,7 +18,12 @@ import {DateMask} from "@library/variable/date";
 
 type PageState = {};
 
-type PageProps = {} & IPagePropCommon<{ blog?: IPostGetOneResultService, url?: string }>;
+type PageProps = {} & IPagePropCommon<{
+    blog?: IPostGetOneResultService,
+    prevBlog?: IPostGetPrevNextResultService,
+    nextBlog?: IPostGetPrevNextResultService
+    url?: string
+}>;
 
 export default class PageBlogURL extends Component<PageProps, PageState> {
     constructor(props: PageProps) {
@@ -81,7 +86,7 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
     }
 
     PrevBlog = () => {
-        let blog = this.props.pageData.blog?.prev;
+        let blog = this.props.pageData.prevBlog!;
         let blogURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(blog?.contents?.url)});
         let date = new Date(blog?.createdAt ?? "");
         return (
@@ -116,7 +121,7 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
     }
 
     NextBlog = () => {
-        let blog = this.props.pageData.blog?.next;
+        let blog = this.props.pageData.nextBlog!;
         let blogURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(blog?.contents?.url)});
         let date = new Date(blog?.createdAt ?? "");
         return (
@@ -190,10 +195,10 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-6 text-start">
-                                        {this.props.pageData.blog?.prev ? <this.PrevBlog /> : null}
+                                        {this.props.pageData.prevBlog ? <this.PrevBlog /> : null}
                                     </div>
                                     <div className="col-md-6 text-end">
-                                        {this.props.pageData.blog?.next ? <this.NextBlog /> : null}
+                                        {this.props.pageData.nextBlog ? <this.NextBlog /> : null}
                                     </div>
                                 </div>
                             </div>
@@ -216,8 +221,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         typeId: PostTypeId.Blog,
         url: url,
         langId: req.appData.selectedLangId,
-        statusId: StatusId.Active,
-        isIncludePrevAndNext: true
+        statusId: StatusId.Active
     });
 
     if (serviceResultBlog.status && serviceResultBlog.data) {
@@ -233,6 +237,22 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         if (serviceResultBlog.data.tags && serviceResultBlog.data.tags.length > 0) {
             req.pageData.page!.tags = serviceResultBlog.data.tags;
         }
+
+        let serviceResultBlogPrevNext = await PostService.getPrevNextWithId({
+            _id: serviceResultBlog.data._id,
+            typeId: serviceResultBlog.data.typeId,
+            langId: req.appData.selectedLangId,
+            statusId: StatusId.Active,
+        });
+
+        if(serviceResultBlogPrevNext.status && serviceResultBlogPrevNext.data){
+            req.pageData.prevBlog = serviceResultBlogPrevNext.data.prev;
+            req.pageData.nextBlog = serviceResultBlogPrevNext.data.next;
+        }
+
+        /*let serviceResultBlogs = await PostService.getMany({
+           _id: serviceResultBlog.data.
+        });*/
     }
 
     return {

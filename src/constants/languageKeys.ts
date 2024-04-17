@@ -4,5 +4,7 @@ export const languageKeys = [
     "categories",
     "authors",
     "previous",
-    "next"
+    "next",
+    "blogFoundMessage",
+    "showMore"
 ] as const;

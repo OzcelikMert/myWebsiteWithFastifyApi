@@ -10,22 +10,37 @@ import {PostTermTypeId} from "@constants/postTermTypes";
 import {PostTypeId} from "@constants/postTypes";
 import {StatusId} from "@constants/status";
 import {IPostTermGetResultService} from "types/services/postTerm.service";
+import {PostService} from "@services/post.service";
+import {IPostGetManyResultService} from "types/services/post.service";
+import ComponentBlog from "@components/elements/blog";
+import ComponentLoadingButton from "@components/elements/button/loadingButton";
 
-export interface IBlogsPagePropsParams {
-    search?: string
-    page: number
-}
-
-type PageState = {};
+type PageState = {
+    blogs: IPostGetManyResultService[]
+    isActiveShowMoreButton: boolean
+};
 
 type PageProps = {} & IPagePropCommon<{
+    blogs?: IPostGetManyResultService[],
+    maxBlogCount?: number
     category?: IPostTermGetResultService
-    params: IBlogsPagePropsParams
+    params: {
+        search?: string
+        page: number
+    }
 }>;
 
+const perPageBlogCount = 9;
+
 export default class PageBlogs extends Component<PageProps, PageState> {
+    pageNumber = 1;
+
     constructor(props: PageProps) {
         super(props);
+        this.state = {
+            blogs: this.props.pageData.blogs ?? [],
+            isActiveShowMoreButton: (this.props.pageData.maxBlogCount || 0) > (this.props.pageData.blogs?.length || 0)
+        }
     }
 
     getPageTitle() {
@@ -33,11 +48,34 @@ export default class PageBlogs extends Component<PageProps, PageState> {
             ? this.props.pageData.category.contents!.title!
             : this.props.pageData.params.search ?? "";
 
-        if(this.props.pageData.params.page > 1){
+        if (this.props.pageData.params.page > 1) {
             title = `${title.length > 0 ? "- " : ""}${this.props.pageData.params.page}`;
         }
 
         return `${this.props.pageData.page?.contents?.title} ${title.length > 0 ? `- ${title}` : ""}`;
+    }
+
+    async onClickShowMore() {
+        if (!this.state.isActiveShowMoreButton) return false;
+        this.pageNumber += 1;
+        let serviceResult = await PostService.getMany({
+            langId: this.props.appData.selectedLangId,
+            typeId: [PostTypeId.Blog],
+            statusId: StatusId.Active,
+            count: perPageBlogCount,
+            page: this.pageNumber,
+            ...(this.props.pageData.category ? {categories: [this.props.pageData.category._id]} : {}),
+            ...(this.props.pageData.params.search ? {title: this.props.pageData.params.search} : {})
+        });
+        if (serviceResult.status && serviceResult.data) {
+            this.setState({
+                blogs: [...this.state.blogs, ...serviceResult.data]
+            }, () => {
+                this.setState({
+                    isActiveShowMoreButton: (this.props.pageData.maxBlogCount || 0) > this.state.blogs.length
+                })
+            })
+        }
     }
 
     render() {
@@ -52,7 +90,25 @@ export default class PageBlogs extends Component<PageProps, PageState> {
                                         <p className="section-content">{this.props.pageData.category.contents?.shortContent}</p>
                                     ) : null
                             }
-                            <ComponentThemeSelectedComponents {...this.props} />
+                            <div className="blogs">
+                                <h5>{this.props.t("blogFoundMessage").replace("{{blogsCount}}", this.props.pageData.maxBlogCount?.toString() || "0")}</h5>
+                                <div className="row">
+                                    {
+                                        this.state.blogs.map((item, index) =>
+                                            <ComponentBlog {...this.props}
+                                                           className={`col-md-4 mt-4 mt-md-0 ${index > 2 ? "mt-md-4" : ""}`}
+                                                           item={item} index={index}/>
+                                        )
+                                    }
+                                </div>
+                            </div>
+                            <div className="w-100 pt-5 text-center show-more">
+                                {
+                                    this.state.isActiveShowMoreButton
+                                        ? <ComponentLoadingButton text={this.props.t("showMore")} onClick={() => this.onClickShowMore()} />
+                                        : null
+                                }
+                            </div>
                         </div>
                     </section>
                 </div>
@@ -73,7 +129,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     req.pageData.params.page = page;
     req.pageData.params.categoryURL = categoryURL;
 
-    if(categoryURL){
+    if (categoryURL) {
         let serviceResultCategory = await PostTermService.getWithURL({
             typeId: PostTermTypeId.Category,
             postTypeId: PostTypeId.Blog,
@@ -82,7 +138,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             url: categoryURL
         });
 
-        if(serviceResultCategory.status && serviceResultCategory.data){
+        if (serviceResultCategory.status && serviceResultCategory.data) {
             req.pageData.category = serviceResultCategory.data;
             categoryId = serviceResultCategory.data._id;
         }
@@ -96,7 +152,22 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     });
 
     if (req.pageData.page && req.pageData.page.pageTypeId == PageTypeId.Blogs) {
+        req.pageData.blogs = (await PostService.getMany({
+            langId: req.appData.selectedLangId,
+            typeId: [PostTypeId.Blog],
+            statusId: StatusId.Active,
+            count: perPageBlogCount,
+            page: page,
+            ...(search ? {title: search} : {}),
+            ...(categoryId ? {categories: [categoryId]} : {})
+        })).data;
 
+        req.pageData.maxBlogCount = (await PostService.getCount({
+            typeId: PostTypeId.Blog,
+            statusId: StatusId.Active,
+            ...(search ? {title: search} : {}),
+            ...(categoryId ? {categories: [categoryId]} : {})
+        })).data;
     }
 
     return {
