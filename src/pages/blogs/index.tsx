@@ -3,7 +3,6 @@ import {GetServerSidePropsContext} from "next";
 import {PageUtil} from "@utils/page.util";
 import {IPagePropCommon} from "types/pageProps";
 import {PageTypeId} from "@constants/pageTypes";
-import ComponentThemeSelectedComponents from "@components/theme/selectedComponents";
 import ComponentAppLayout from "@components/app/layout";
 import {PostTermService} from "@services/postTerm.service";
 import {PostTermTypeId} from "@constants/postTermTypes";
@@ -95,9 +94,7 @@ export default class PageBlogs extends Component<PageProps, PageState> {
                                 <div className="row">
                                     {
                                         this.state.blogs.map((item, index) =>
-                                            <ComponentBlog {...this.props}
-                                                           className={`col-md-4 mt-4 mt-md-0 ${index > 2 ? "mt-md-4" : ""}`}
-                                                           item={item} index={index}/>
+                                            <ComponentBlog {...this.props} className={`col-md-4 mt-4`} item={item} index={index}/>
                                         )
                                     }
                                 </div>

@@ -5,7 +5,11 @@ import {PageUtil} from "@utils/page.util";
 import {PostService} from "@services/post.service";
 import {PostTypeId} from "@constants/postTypes";
 import {StatusId} from "@constants/status";
-import {IPostGetOneResultService, IPostGetPrevNextResultService} from "types/services/post.service";
+import {
+    IPostGetManyResultService,
+    IPostGetOneResultService,
+    IPostGetPrevNextResultService
+} from "types/services/post.service";
 import HTMLReactParser from "html-react-parser";
 import ComponentAppLayout from "@components/app/layout";
 import {IPostTermPopulateService} from "types/services/postTerm.service";
@@ -15,6 +19,7 @@ import {IUserPopulateService} from "types/services/user.service";
 import Image from "next/image";
 import {ImageSourceUtil} from "@utils/imageSource.util";
 import {DateMask} from "@library/variable/date";
+import ComponentBlog from "@components/elements/blog";
 
 type PageState = {};
 
@@ -22,6 +27,7 @@ type PageProps = {} & IPagePropCommon<{
     blog?: IPostGetOneResultService,
     prevBlog?: IPostGetPrevNextResultService,
     nextBlog?: IPostGetPrevNextResultService
+    blogsMightLike?: IPostGetManyResultService[]
     url?: string
 }>;
 
@@ -190,8 +196,8 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
                             </article>
                             <div className="prev-next mt-5 blogs">
                                 <div className="title border-bottom">
-                                    <h6 className="d-inline-block w-50">Previous</h6>
-                                    <h6 className="d-inline-block w-50 text-end">Next</h6>
+                                    <h6 className="d-inline-block w-50">{this.props.t("previous")}</h6>
+                                    <h6 className="d-inline-block w-50 text-end">{this.props.t("next")}</h6>
                                 </div>
                                 <div className="row">
                                     <div className="col-md-6 text-start">
@@ -200,6 +206,18 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
                                     <div className="col-md-6 text-end">
                                         {this.props.pageData.nextBlog ? <this.NextBlog /> : null}
                                     </div>
+                                </div>
+                            </div>
+                            <div className="blogs mt-5">
+                                <div className="title border-bottom">
+                                    <h6>{this.props.t("blogsYouMightLike")}</h6>
+                                </div>
+                                <div className="row">
+                                    {
+                                        this.props.pageData.blogsMightLike?.map((item, index) =>
+                                            <ComponentBlog {...this.props} className={`col-md-4 mt-4`} item={item} index={index} />
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -250,9 +268,22 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             req.pageData.nextBlog = serviceResultBlogPrevNext.data.next;
         }
 
-        /*let serviceResultBlogs = await PostService.getMany({
-           _id: serviceResultBlog.data.
-        });*/
+        let serviceResultBlogsMightLike = await PostService.getMany({
+            typeId: [serviceResultBlog.data.typeId],
+            categories: serviceResultBlog.data.categories?.map(category => category._id),
+            langId: req.appData.selectedLangId,
+            statusId: StatusId.Active,
+            count: 3,
+            ignorePostId: [
+                serviceResultBlog.data._id,
+                ...(serviceResultBlogPrevNext.data?.next ? [serviceResultBlogPrevNext.data.next._id] : []),
+                ...(serviceResultBlogPrevNext.data?.prev ? [serviceResultBlogPrevNext.data.prev._id] : [])
+            ]
+        });
+
+        if(serviceResultBlogsMightLike.status && serviceResultBlogsMightLike.data){
+            req.pageData.blogsMightLike = serviceResultBlogsMightLike.data;
+        }
     }
 
     return {

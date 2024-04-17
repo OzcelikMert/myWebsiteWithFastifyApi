@@ -52,7 +52,7 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
                         <div className="row">
                             {
                                 items.map((item, index) => (
-                                    <ComponentBlog {...this.props} className="col-md-12" item={item} index={index} hideAuthorImage={true} hideShortContent={true} />
+                                    <ComponentBlog {...this.props} className="col-md-12 mt-4" item={item} index={index} hideAuthorImage={true} hideShortContent={true} hideCategories={true} />
                                 ))
                             }
                         </div>

@@ -6,7 +6,7 @@ export interface ISubscriberGetWithEmailParamService {
     email: string
 }
 
-export type ISubscriberAddParamService = {} & Omit<ISubscriberModel, "_id">
+export type ISubscriberAddParamService = {} & Omit<ISubscriberModel, "_id"|"createdAt"|"updatedAt">
 
 export interface ISubscriberDeleteWithEmailParamService {
     email: string

@@ -4,8 +4,14 @@ import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {IComponentGetResultService} from "types/services/component.service";
 import Image from "next/image";
 import {ImageSourceUtil} from "@utils/imageSource.util";
+import ComponentLoadingButton from "@components/elements/button/loadingButton";
+import {HandleFormLibrary} from "@library/react/handles/form";
+import {SubscriberService} from "@services/subscriber.service";
 
-type IPageState = {};
+type IPageState = {
+    isSubscribed: boolean
+    email: string
+};
 
 type IPageProps = {
     component: IComponentGetResultService;
@@ -14,13 +20,59 @@ type IPageProps = {
 class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {
         super(props);
+        this.state = {
+            isSubscribed: false,
+            email: ""
+        }
+    }
+
+    async onClickSubscribe() {
+        let serviceResult = await SubscriberService.add({email: this.state.email});
+        this.setState({
+            isSubscribed: true
+        })
+    }
+
+    SubscribeSuccessMessage = () => {
+        return (
+            <div className="subscribe-success mt-3">
+                <h5 className="animate__animated animate__fadeInUp">{this.getComponentElementContents("subscribeSuccessMessage")?.content?.replace("{{subscriberEmail}}", this.state.email)}</h5>
+            </div>
+        );
+    }
+
+    Subscribe = () => {
+        return (
+            <div className="subscribe row mt-3 text-center justify-content-center">
+                <div className="col-md-10">
+                    <input
+                        type="email"
+                        className="form-control"
+                        placeholder="email@email.com"
+                        value={this.state.email}
+                        name="email"
+                        onChange={event => HandleFormLibrary.onChangeInput(event, this)}
+                    />
+                    <div
+                        className="form-text text-light">{this.getComponentElementContents("weWillNeverShareYourEmail")?.content}</div>
+                </div>
+                <div className="col-md-8 mt-2">
+                    <ComponentLoadingButton
+                        text={this.getComponentElementContents("buttonText")?.content}
+                        className="btn btn-warning"
+                        onClick={() => this.onClickSubscribe()}
+                    />
+                </div>
+            </div>
+        );
     }
 
     render() {
         return (
             <section className="subscribe-section">
                 <div className="container">
-                    <div className="content" style={{backgroundImage: `url(${ImageSourceUtil.getUploadedImageSrc(this.getComponentElementContents("bgImage")?.content)})`}}>
+                    <div className="content"
+                         style={{backgroundImage: `url(${ImageSourceUtil.getUploadedImageSrc(this.getComponentElementContents("bgImage")?.content)})`}}>
                         <div className="subscribe-mask"></div>
                         <div className="card main-card">
                             <div className="card-body">
@@ -78,7 +130,11 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
                                         className="col-md-7 mt-4 mt-md-0 d-flex flex-column align-items-center align-items-md-start justify-content-center pe-md-5 mb-3 mb-md-0 text-center text-md-start">
                                         <h1 className="card-title text-light">{this.getComponentElementContents("title")?.content}</h1>
                                         <p className="card-text text-light pe-md-5">{this.getComponentElementContents("describe")?.content}</p>
-                                        <a href="#" className="btn btn-warning mt-3"><span>{this.getComponentElementContents("buttonText")?.content}</span></a>
+                                        {
+                                            this.state.isSubscribed
+                                                ? <this.SubscribeSuccessMessage/>
+                                                : <this.Subscribe/>
+                                        }
                                     </div>
                                 </div>
                             </div>

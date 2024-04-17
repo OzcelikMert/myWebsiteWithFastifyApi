@@ -6,7 +6,8 @@ type IPageState = {
 
 type IPageProps = {
     text?: string
-    onClick?: () => void;
+    onClick?: () => void
+    className?: string
 };
 
 export default class ComponentLoadingButton extends Component<IPageProps, IPageState> {
@@ -18,6 +19,7 @@ export default class ComponentLoadingButton extends Component<IPageProps, IPageS
     }
 
     async onClick() {
+        if(this.state.isLoading) return false;
         this.setState({
             isLoading: true
         }, async () => {
@@ -32,8 +34,11 @@ export default class ComponentLoadingButton extends Component<IPageProps, IPageS
 
     render () {
         return (
-            <button type="button" className="btn btn-outline-primary btn-lg"
-                    onClick={event => this.onClick()}>
+            <button
+                type="button" className={`${this.props.className ?? "btn btn-outline-primary btn-lg"}`}
+                onClick={event => this.onClick()}
+                disabled={this.state.isLoading}
+            >
                 <span>{this.props.text}</span>
                 {
                     this.state.isLoading

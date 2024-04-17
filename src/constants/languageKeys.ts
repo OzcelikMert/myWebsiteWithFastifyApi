@@ -6,5 +6,8 @@ export const languageKeys = [
     "previous",
     "next",
     "blogFoundMessage",
-    "showMore"
+    "showMore",
+    "blogsYouMightLike",
+    "subscribeSuccessMessage",
+    "weWillNeverShareYourEmail"
 ] as const;

@@ -62,7 +62,7 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
                         <div className="row">
                             {
                                 this.state.lastBlogs.map((item, index) =>
-                                    <ComponentBlog {...this.props} className={`col-md-4 mt-4 mt-md-0 ${index > 2 ? "mt-md-4" : ""}`} item={item} index={index} />
+                                    <ComponentBlog {...this.props} className={`col-md-4 mt-4 mt-md-0`} item={item} index={index} />
                                 )
                             }
                         </div>
