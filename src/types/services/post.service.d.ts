@@ -99,4 +99,5 @@ export type IPostUpdateViewWithIdParamService = {
     _id: string,
     typeId: PostTypeId
     langId?: string
+    url?: string
 }

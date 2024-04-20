@@ -247,12 +247,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         req.pageData.page = {} as any;
         req.pageData.blog = serviceResultBlog.data;
 
-        await PostService.updateViewWithId({
-            _id: serviceResultBlog.data._id,
-            typeId: serviceResultBlog.data.typeId,
-            langId: req.appData.selectedLangId
-        });
-
         if (serviceResultBlog.data.tags && serviceResultBlog.data.tags.length > 0) {
             req.pageData.page!.tags = serviceResultBlog.data.tags;
         }
@@ -285,6 +279,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         if(serviceResultBlogsMightLike.status && serviceResultBlogsMightLike.data){
             req.pageData.blogsMightLike = serviceResultBlogsMightLike.data;
         }
+
+        await PostService.updateViewWithId({
+            _id: serviceResultBlog.data._id,
+            typeId: serviceResultBlog.data.typeId,
+            langId: req.appData.selectedLangId,
+            url: url
+        });
     }
 
     return {

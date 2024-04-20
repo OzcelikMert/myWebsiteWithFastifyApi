@@ -6,7 +6,6 @@ import {IPageGetParamUtil} from "types/utils/page.util";
 import {ComponentService} from "@services/component.service";
 import {ComponentTypeId} from "@constants/componentTypes";
 import {ComponentHelperClass} from "@classes/componentHelper.class";
-import {PageTypeId} from "@constants/pageTypes";
 
 const initProps = async (params: IPageGetParamUtil) => {
     let serviceResultPage = await PostService.getWithURL({
@@ -20,11 +19,12 @@ const initProps = async (params: IPageGetParamUtil) => {
     if (serviceResultPage.status && serviceResultPage.data) {
         params.req.pageData.page = serviceResultPage.data;
 
-        if (params.increaseView && serviceResultPage.data.pageTypeId != PageTypeId.ErrorPage404) {
+        if (params.increaseView) {
             await PostService.updateViewWithId({
                 _id: serviceResultPage.data._id,
                 typeId: serviceResultPage.data.typeId,
-                langId: params.req.appData.selectedLangId ?? ""
+                langId: params.req.appData.selectedLangId ?? "",
+                url: params.url
             });
         }
 
