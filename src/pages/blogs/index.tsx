@@ -111,14 +111,8 @@ export default class PageBlogs extends Component<PageProps, PageState> {
                 <div className="page page-blogs">
                     <section className="page-blogs">
                         <div className="container">
-                            {
-                                this.props.pageData.category
-                                    ? (
-                                        <p className="section-content">{}</p>
-                                    ) : null
-                            }
                             <div className="blogs">
-                                <h5>{this.props.t("blogFoundMessage").replace("{{blogsCount}}", this.props.pageData.maxBlogCount?.toString() || "0")}</h5>
+                                <h5 className="animate__animated animate__fadeInLeft animate__fast">{this.props.t("blogFoundMessage").replace("{{blogsCount}}", this.props.pageData.maxBlogCount?.toString() || "0")}</h5>
                                 <div className="row">
                                     {
                                         this.state.blogs.map((item, index) =>

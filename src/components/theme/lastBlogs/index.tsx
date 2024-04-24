@@ -8,6 +8,7 @@ import {PostTypeId} from "@constants/postTypes";
 import {StatusId} from "@constants/status";
 import ComponentBlog from "@components/elements/blog";
 import ComponentLoadingButton from "@components/elements/button/loadingButton";
+import {AnimationOnScroll} from "react-animation-on-scroll";
 
 type IPageState = {
     lastBlogs: IPostGetManyResultService[]
@@ -32,7 +33,7 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
     }
 
     async onClickShowMore() {
-        if(!this.state.isActiveShowMoreButton) return false;
+        if (!this.state.isActiveShowMoreButton) return false;
         this.pageNumber += 1;
         let serviceResult = await PostService.getMany({
             langId: this.props.appData.selectedLangId,
@@ -41,7 +42,7 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
             count: perPageBlogCount,
             page: this.pageNumber
         });
-        if(serviceResult.status && serviceResult.data){
+        if (serviceResult.status && serviceResult.data) {
             this.setState({
                 lastBlogs: [...this.state.lastBlogs, ...serviceResult.data]
             }, () => {
@@ -56,24 +57,32 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
         return (
             <section className="blogs-section">
                 <div className="container">
-                    <h2 className="section-header">{this.getComponentElementContents("title")?.content}</h2>
-                    <p className="section-content">{this.getComponentElementContents("describe")?.content}</p>
-                    <div className="blogs">
-                        <div className="row">
+                    <AnimationOnScroll animateIn="animate__fadeInDown" animateOnce={true}>
+                        <h2 className="section-header">{this.getComponentElementContents("title")?.content}</h2>
+                    </AnimationOnScroll>
+                    <AnimationOnScroll animateIn="animate__fadeInDown" delay={200} animateOnce={true}>
+                        <p className="section-content">{this.getComponentElementContents("describe")?.content}</p>
+                    </AnimationOnScroll>
+                    <AnimationOnScroll animateIn="animate__fadeInRight" delay={400} animateOnce={true}>
+                        <div className="blogs">
+                            <div className="row">
+                                {
+                                    this.state.lastBlogs.map((item, index) =>
+                                        <ComponentBlog {...this.props} className={`col-md-4 mt-4 mt-md-0`} item={item}
+                                                       index={index}/>
+                                    )
+                                }
+                            </div>
+                        </div>
+                        <div className="w-100 pt-5 text-center show-more">
                             {
-                                this.state.lastBlogs.map((item, index) =>
-                                    <ComponentBlog {...this.props} className={`col-md-4 mt-4 mt-md-0`} item={item} index={index} />
-                                )
+                                this.state.isActiveShowMoreButton
+                                    ? <ComponentLoadingButton text={this.props.t("showMore")}
+                                                              onClick={() => this.onClickShowMore()}/>
+                                    : null
                             }
                         </div>
-                    </div>
-                    <div className="w-100 pt-5 text-center show-more">
-                        {
-                            this.state.isActiveShowMoreButton
-                                ? <ComponentLoadingButton text={this.props.t("showMore")} onClick={() => this.onClickShowMore()} />
-                                : null
-                        }
-                    </div>
+                    </AnimationOnScroll>
                 </div>
             </section>
         );

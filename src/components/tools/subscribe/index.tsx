@@ -7,6 +7,7 @@ import {ImageSourceUtil} from "@utils/imageSource.util";
 import ComponentLoadingButton from "@components/elements/button/loadingButton";
 import {HandleFormLibrary} from "@library/react/handles/form";
 import {SubscriberService} from "@services/subscriber.service";
+import {AnimationOnScroll} from "react-animation-on-scroll";
 
 type IPageState = {
     isSubscribed: boolean
@@ -43,27 +44,29 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
 
     Subscribe = () => {
         return (
-            <div className="subscribe row mt-3 text-center justify-content-center">
-                <div className="col-md-10">
-                    <input
-                        type="email"
-                        className="form-control"
-                        placeholder="email@email.com"
-                        value={this.state.email}
-                        name="email"
-                        onChange={event => HandleFormLibrary.onChangeInput(event, this)}
-                    />
-                    <div
-                        className="form-text text-light">{this.getComponentElementContents("weWillNeverShareYourEmail")?.content}</div>
+            <AnimationOnScroll animateIn="animate__fadeInUp" delay={400} animateOnce={true}>
+                <div className="subscribe row mt-3 text-center justify-content-center">
+                    <div className="col-md-10">
+                        <input
+                            type="email"
+                            className="form-control"
+                            placeholder="email@email.com"
+                            value={this.state.email}
+                            name="email"
+                            onChange={event => HandleFormLibrary.onChangeInput(event, this)}
+                        />
+                        <div
+                            className="form-text text-light">{this.getComponentElementContents("weWillNeverShareYourEmail")?.content}</div>
+                    </div>
+                    <div className="col-md-8 mt-2">
+                        <ComponentLoadingButton
+                            text={this.getComponentElementContents("buttonText")?.content}
+                            className="btn btn-warning"
+                            onClick={() => this.onClickSubscribe()}
+                        />
+                    </div>
                 </div>
-                <div className="col-md-8 mt-2">
-                    <ComponentLoadingButton
-                        text={this.getComponentElementContents("buttonText")?.content}
-                        className="btn btn-warning"
-                        onClick={() => this.onClickSubscribe()}
-                    />
-                </div>
-            </div>
+            </AnimationOnScroll>
         );
     }
 
@@ -81,7 +84,7 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
                                         <div className="row">
                                             <div className="col-6 d-flex align-items-center ps-1">
                                                 <div className="row justify-content-end">
-                                                    <div className="col-12 mb-3">
+                                                    <AnimationOnScroll animateIn="animate__fadeInTopLeft" animateOnce={true} className="col-12 mb-3">
                                                         <Image
                                                             className="img-fluid"
                                                             src={ImageSourceUtil.getUploadedImageSrc(this.getComponentElementContents("image1")?.content)}
@@ -89,8 +92,8 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
                                                             width={250}
                                                             height={250}
                                                         />
-                                                    </div>
-                                                    <div className="col-11 mb-3">
+                                                    </AnimationOnScroll>
+                                                    <AnimationOnScroll animateIn="animate__fadeInBottomLeft" animateOnce={true} delay={200} className="col-11 mb-3">
                                                         <Image
                                                             className="img-fluid"
                                                             src={ImageSourceUtil.getUploadedImageSrc(this.getComponentElementContents("image2")?.content)}
@@ -98,12 +101,12 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
                                                             width={250}
                                                             height={250}
                                                         />
-                                                    </div>
+                                                    </AnimationOnScroll>
                                                 </div>
                                             </div>
                                             <div className="col-6 d-flex align-items-center ps-1">
                                                 <div className="row">
-                                                    <div className="col-10 mb-3">
+                                                    <AnimationOnScroll animateIn="animate__fadeInTopRight" animateOnce={true} delay={100} className="col-10 mb-3">
                                                         <Image
                                                             className="img-fluid"
                                                             src={ImageSourceUtil.getUploadedImageSrc(this.getComponentElementContents("image3")?.content)}
@@ -111,9 +114,8 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
                                                             width={250}
                                                             height={250}
                                                         />
-
-                                                    </div>
-                                                    <div className="col-11 mb-3">
+                                                    </AnimationOnScroll>
+                                                    <AnimationOnScroll animateIn="animate__fadeInBottomRight" delay={300} animateOnce={true} className="col-11 mb-3">
                                                         <Image
                                                             className="img-fluid"
                                                             src={ImageSourceUtil.getUploadedImageSrc(this.getComponentElementContents("image4")?.content)}
@@ -121,15 +123,20 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
                                                             width={250}
                                                             height={250}
                                                         />
-                                                    </div>
+                                                    </AnimationOnScroll>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div
                                         className="col-md-7 mt-4 mt-md-0 d-flex flex-column align-items-center align-items-md-start justify-content-center pe-md-5 mb-3 mb-md-0 text-center text-md-start">
-                                        <h1 className="card-title text-light">{this.getComponentElementContents("title")?.content}</h1>
-                                        <p className="card-text text-light pe-md-5">{this.getComponentElementContents("describe")?.content}</p>
+                                        <AnimationOnScroll animateIn="animate__fadeInDown" animateOnce={true}>
+                                            <h1 className="card-title text-light">{this.getComponentElementContents("title")?.content}</h1>
+                                        </AnimationOnScroll>
+                                        <AnimationOnScroll animateIn="animate__fadeInDown" delay={200}
+                                                           animateOnce={true}>
+                                            <p className="card-text text-light pe-md-5">{this.getComponentElementContents("describe")?.content}</p>
+                                        </AnimationOnScroll>
                                         {
                                             this.state.isSubscribed
                                                 ? <this.SubscribeSuccessMessage/>

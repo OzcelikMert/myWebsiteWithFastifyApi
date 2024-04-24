@@ -32,12 +32,12 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
     Authors = (props: IUserPopulateService[], createdAt: string) => {
         let date = new Date(createdAt);
         return (
-            <div key={this.props.item._id} className="meta">
+            <div className="meta">
                 <div className="meta-avatars">
                     {
                         this.props.hideAuthorImage ? null
                             : props.map(author => (
-                                <a href={URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(author.url)})} className="hover-top">
+                                <a key={author._id} href={URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(author.url)})} className="hover-top">
                                     <Image
                                         src={ImageSourceUtil.getUploadedImageSrc(author.image)}
                                         alt={author.name}
@@ -53,7 +53,7 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
                     <div className="meta-authors">
                         {this.props.t("by")} {
                             props.map((author, index) => (
-                                <span>
+                                <span key={author._id}>
                                     <a href={URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(author.url)})}><span>{author.name}</span></a>
                                     {index < props.length - 1 ? " & " : ""}
                                 </span>
@@ -73,14 +73,14 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
     Category = (props: IPostTermPopulateService, index: number) => {
         let categoryURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.CATEGORY(props.contents.url)});
         return (
-            <a href={categoryURL} className="btn btn-light"> <span>{props.contents.title}</span></a>
+            <a key={props._id} href={categoryURL} className="btn btn-light"> <span>{props.contents.title}</span></a>
         );
     }
 
     render() {
         let blogURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(this.props.item.contents?.url)});
         return (
-            <article className={this.props.className} title={this.props.item.contents?.title}>
+            <article key={this.props.item._id} className={this.props.className} title={this.props.item.contents?.title}>
                 <div className="card">
                     <div className="card-header hover-top">
                         <a href={blogURL} className="img-link">

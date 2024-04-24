@@ -23,9 +23,9 @@ class ComponentToolHeader extends ComponentHelperClass<IPageProps, IPageState> {
     HomePageContent = () => {
         return (
             <div className="content">
-                <h2>{this.props.appData.settings.seoContents?.title}</h2>
-                <p>{this.getComponentElementContents("content")?.content}</p>
-                <div className="buttons mt-3">
+                <h2 className="animate__animated animate__fadeInDown animate__fast">{this.props.appData.settings.seoContents?.title}</h2>
+                <p className="animate__animated animate__fadeInDown animate__delay-1s">{this.getComponentElementContents("content")?.content}</p>
+                <div className="buttons mt-3 animate__animated animate__fadeInDown animate__delay-2s">
                     <a href="#hero-section" className="btn btn-primary btn-lg">
                         <span>{this.getComponentElementContents("buttonText")?.content}</span>
                     </a>
@@ -37,15 +37,15 @@ class ComponentToolHeader extends ComponentHelperClass<IPageProps, IPageState> {
     PageContent = () => {
         return (
             <div className="content">
-                <h2>{this.props.title || this.props.pageData.page?.contents?.title}</h2>
+                <h2 className="animate__animated animate__fadeInDown animate__fast">{this.props.title || this.props.pageData.page?.contents?.title}</h2>
                 {
                     this.props.content
-                        ? <p>{this.props.content}</p>
+                        ? <p className="animate__animated animate__fadeInDown animate__delay-1s">{this.props.content}</p>
                         : null
                 }
                 {
                     this.props.buttons
-                        ? <div className="buttons mt-3">{this.props.buttons}</div>
+                        ? <div className="buttons mt-3 animate__animated animate__fadeInDown animate__delay-2s">{this.props.buttons}</div>
                         : null
                 }
             </div>

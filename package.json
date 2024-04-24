@@ -35,6 +35,7 @@
     "next-absolute-url": "^1.2.2",
     "node-html-parser": "^6.1.1",
     "react": "^18.2.0",
+    "react-animation-on-scroll": "^5.1.0",
     "react-before-after-slider-component": "^1.1.8",
     "react-bootstrap": "^2.10.2",
     "react-bootstrap-typeahead": "^6.3.2",

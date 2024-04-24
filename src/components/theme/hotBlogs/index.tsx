@@ -8,6 +8,7 @@ import {IncomingMessage} from "http";
 import {PostService} from "@services/post.service";
 import {PostTypeId} from "@constants/postTypes";
 import {StatusId} from "@constants/status";
+import {AnimationOnScroll} from "react-animation-on-scroll";
 
 type IPageState = {
     hotBlogs: IPostGetManyResultService[];
@@ -30,11 +31,18 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
         return (
             <section className="recent-blog-section">
                 <div className="container">
-                    <h2 className="section-header">{this.getComponentElementContents("hotTitle")?.content}</h2>
-                    <p className="section-content">{this.getComponentElementContents("hotDescribe")?.content}</p>
+                    <AnimationOnScroll animateIn="animate__fadeInDown" animateOnce={true}>
+                        <h2 className="section-header">{this.getComponentElementContents("hotTitle")?.content}</h2>
+                    </AnimationOnScroll>
+                    <AnimationOnScroll animateIn="animate__fadeInDown" delay={200} animateOnce={true}>
+                        <p className="section-content">{this.getComponentElementContents("hotDescribe")?.content}</p>
+                    </AnimationOnScroll>
                     <div className="d-flex blogs">
                         <div className="row">
-                            <ComponentBlog {...this.props} className="col-md-12" item={item} index={0} imageWidth={1000} imageHeight={500} />
+                            <AnimationOnScroll animateIn="animate__fadeInLeft" delay={200} animateOnce={true} className="col-md-12">
+                                <ComponentBlog {...this.props} item={item} index={0}
+                                               imageWidth={1000} imageHeight={500}/>
+                            </AnimationOnScroll>
                         </div>
                     </div>
                 </div>
@@ -47,12 +55,20 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
         return (
             <section className="featured-blogs-section">
                 <div className="container">
-                    <h2 className="section-header">{this.getComponentElementContents("hotsTitle")?.content}</h2>
+                    <AnimationOnScroll animateIn="animate__fadeInDown" animateOnce={true}>
+                        <h2 className="section-header">{this.getComponentElementContents("hotsTitle")?.content}</h2>
+                    </AnimationOnScroll>
                     <div className="blogs">
                         <div className="row">
                             {
                                 items.map((item, index) => (
-                                    <ComponentBlog {...this.props} className="col-md-12 mt-4" item={item} index={index} hideAuthorImage={true} hideShortContent={true} hideCategories={true} />
+                                    <AnimationOnScroll animateIn="animate__fadeInRight" delay={(index + 1) * 100}
+                                                       animateOnce={true} className="col-md-12 mt-4">
+                                        <ComponentBlog {...this.props} item={item}
+                                                       index={index}
+                                                       hideAuthorImage={true} hideShortContent={true}
+                                                       hideCategories={true}/>
+                                    </AnimationOnScroll>
                                 ))
                             }
                         </div>
@@ -63,15 +79,15 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
     }
 
     render() {
-        return this.state.hotBlogs.length < 2 ? null :  (
+        return this.state.hotBlogs.length < 2 ? null : (
             <section className="hot-blogs-section" id="hot-blogs">
                 <div className="container">
                     <div className="row d-flex">
                         <div className="col-lg-8">
-                            <this.HotBlog />
+                            <this.HotBlog/>
                         </div>
                         <div className="col-lg-4 ps-lg-5">
-                            <this.HotBlogs />
+                            <this.HotBlogs/>
                         </div>
                     </div>
                 </div>

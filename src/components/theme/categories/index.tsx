@@ -1,7 +1,6 @@
 import React from "react";
 import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
-import {ImageSourceUtil} from "@utils/imageSource.util";
 import {IPostTermGetResultService} from "types/services/postTerm.service";
 import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {PostTypeId} from "@constants/postTypes";
@@ -36,8 +35,8 @@ class ComponentThemeCategories extends ComponentHelperClass<IPageProps, IPageSta
         return (
             <section className="categories-section">
                 <div className="container">
-                    <h2 className="section-header">{this.getComponentElementContents("title")?.content}</h2>
-                    <p className="section-content">{this.getComponentElementContents("describe")?.content}</p>
+                    <h2 className="section-header animate__animated animate__fadeInDown animate__fast">{this.getComponentElementContents("title")?.content}</h2>
+                    <p className="section-content animate__animated animate__fadeInDown animate__delay-1s">{this.getComponentElementContents("describe")?.content}</p>
                     <div className="categories-container">
                         <div className="options">
                             {

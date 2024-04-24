@@ -72,8 +72,8 @@ class ComponentThemeAuthors extends ComponentHelperClass<IPageProps, IPageState>
         return (
             <section className="authors-section">
                 <div className="container">
-                    <h2 className="section-header">{this.getComponentElementContents("title")?.content}</h2>
-                    <p className="section-content">{this.getComponentElementContents("describe")?.content}</p>
+                    <h2 className="section-header animate__animated animate__fadeInDown animate__fast">{this.getComponentElementContents("title")?.content}</h2>
+                    <p className="section-content animate__animated animate__fadeInDown animate__delay-1s">{this.getComponentElementContents("describe")?.content}</p>
                     <div className="container d-flex flex-wrap justify-content-center">
                         {
                             this.props.component.customData?.authors?.map(((author, index) => this.Author(author, index)))
