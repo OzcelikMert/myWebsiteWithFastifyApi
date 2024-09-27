@@ -8,6 +8,7 @@ import ComponentLoadingButton from "@components/elements/button/loadingButton";
 import {HandleFormLibrary} from "@library/react/handles/form";
 import {SubscriberService} from "@services/subscriber.service";
 import {AnimationOnScroll} from "react-animation-on-scroll";
+import {VariableLibrary} from "@library/variable";
 
 type IPageState = {
     isSubscribed: boolean
@@ -28,6 +29,15 @@ class ComponentToolSubscribe extends ComponentHelperClass<IPageProps, IPageState
     }
 
     async onClickSubscribe() {
+        const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+        if(
+            VariableLibrary.isEmpty(this.state.email) ||
+            !this.state.email.match(isValidEmail)
+        ){
+            return null;
+        }
+
         let serviceResult = await SubscriberService.add({email: this.state.email});
         this.setState({
             isSubscribed: true
