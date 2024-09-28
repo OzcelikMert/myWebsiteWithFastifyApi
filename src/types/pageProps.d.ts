@@ -1,5 +1,5 @@
 import {AppProps} from "next/app";
-import {ILanguageKeys} from "types/constants/languageKeys";
+import {ILanguageKey} from "types/constants/languageKeys";
 import {IPostGetOneResultService} from "types/services/post.service";
 import {ISettingGetResultService} from "types/services/setting.service";
 import {ILanguageGetResultService} from "types/services/language.service";
@@ -7,7 +7,7 @@ import {IComponentGetResultService} from "types/services/component.service";
 
 export type IPagePropCommon<T = {[key: string]: any}> = {
     router: AppProps["router"],
-    t: (key: ILanguageKeys) => string
+    t: (key: ILanguageKey) => string
     appData: IAppData
     pageData: IPageData<T>
     cookies: ICookies
@@ -15,7 +15,6 @@ export type IPagePropCommon<T = {[key: string]: any}> = {
 }
 
 export interface IAppData {
-    toolComponents: IComponentGetResultService[]
     settings: ISettingGetResultService,
     languages: ILanguageGetResultService[],
     selectedLangId: string
@@ -25,6 +24,8 @@ export interface IAppData {
 
 export type IPageData<T> = {
     page?: IPostGetOneResultService | null,
+    publicComponents?: IComponentGetResultService[]
+    privateComponents?: IComponentGetResultService[]
 } & T
 
 export interface ICookies {

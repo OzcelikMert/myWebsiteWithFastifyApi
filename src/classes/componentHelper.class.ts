@@ -1,12 +1,12 @@
 import {Component} from "react";
 import {SocialMediaKey} from "@constants/socialMediaKeys";
 import {IPagePropCommon} from "types/pageProps";
-import {IComponentElementContentModel, IComponentModel} from "types/models/component.model";
+import {IComponentElementContentModel} from "types/models/component.model";
 import {IncomingMessage} from "http";
 import {IComponentGetResultService} from "types/services/component.service";
 
 type IPageProps = {
-    component?: IComponentModel | IComponentGetResultService;
+    component?: IComponentGetResultService;
 } & IPagePropCommon;
 
 export class ComponentHelperClass<P = {}, S = {}> extends Component<P & IPageProps, S> {
@@ -22,5 +22,5 @@ export class ComponentHelperClass<P = {}, S = {}> extends Component<P & IPagePro
         return this.props.appData.settings.socialMedia?.findSingle("key", key)?.url;
     }
 
-    static initComponentServersideProps?: (req: IncomingMessage, component: IComponentModel | IComponentGetResultService) => Promise<void>;
+    static initComponentServerSideProps?: (req: IncomingMessage, component: IComponentGetResultService) => Promise<void>;
 }

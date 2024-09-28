@@ -1,5 +1,4 @@
 import React from "react";
-import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
 import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {IPostGetManyResultService} from "types/services/post.service";
@@ -9,6 +8,7 @@ import {StatusId} from "@constants/status";
 import ComponentBlog from "@components/elements/blog";
 import ComponentLoadingButton from "@components/elements/button/loadingButton";
 import {AnimationOnScroll} from "react-animation-on-scroll";
+import {IComponentGetResultService} from "types/services/component.service";
 
 type IPageState = {
     lastBlogs: IPostGetManyResultService[]
@@ -16,7 +16,7 @@ type IPageState = {
 };
 
 type IPageProps = {
-    component: IComponentModel<{ lastBlogs?: IPostGetManyResultService[], maxBlogCount?: number }>;
+    component: IComponentGetResultService<{ lastBlogs?: IPostGetManyResultService[], maxBlogCount?: number }>;
 } & IPagePropCommon;
 
 const perPageBlogCount = 3;
@@ -89,7 +89,7 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
     }
 }
 
-ComponentThemeLastBlogs.initComponentServersideProps = async (req, component) => {
+ComponentThemeLastBlogs.initComponentServerSideProps = async (req, component) => {
     component.customData = {};
     component.customData.lastBlogs = (await PostService.getMany({
         langId: req.appData.selectedLangId,

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
 import {ComponentHelperClass} from "@classes/componentHelper.class";
+import {IComponentGetResultService} from "types/services/component.service";
 
 type IPageState = {};
 
@@ -12,7 +12,7 @@ export default class ComponentThemeSelectedComponents extends Component<IPagePro
         super(props);
     }
 
-    getElement = (component: IComponentModel) => {
+    getElement = (component: IComponentGetResultService) => {
         let element = (<div></div>);
 
          try {
@@ -24,6 +24,6 @@ export default class ComponentThemeSelectedComponents extends Component<IPagePro
     }
 
     render() {
-        return this.props.pageData?.page?.components?.map(component => this.getElement(component))
+        return this.props.pageData?.privateComponents?.map(component => this.getElement(component))
     }
 }

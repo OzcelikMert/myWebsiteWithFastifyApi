@@ -1,4 +1,4 @@
 export enum ComponentTypeId {
-    Tool = 1,
-    Theme
+    Public = 1,
+    Private
 }

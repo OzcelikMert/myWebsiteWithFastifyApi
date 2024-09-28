@@ -1,14 +1,14 @@
 import React from "react";
-import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
 import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {SocialMediaKey} from "@constants/socialMediaKeys";
 import {AnimationOnScroll} from "react-animation-on-scroll";
+import {IComponentGetResultService} from "types/services/component.service";
 
 type IPageState = {};
 
 type IPageProps = {
-    component: IComponentModel;
+    component: IComponentGetResultService;
 } & IPagePropCommon;
 
 export default class ComponentThemeFeatures extends ComponentHelperClass<IPageProps, IPageState> {

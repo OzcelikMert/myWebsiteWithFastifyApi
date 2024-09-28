@@ -4,7 +4,7 @@ import {SitemapFileDocument} from "types/pages/sitemaps";
 import {PostUtil} from "@utils/post.util";
 import {SitemapService} from "@services/sitemap.service";
 import {SitemapUtil} from "@utils/sitemap.util";
-import {PageUtil} from "@utils/page.util";
+import {PageSSRUtil} from "@utils/page.ssr.util";
 import {LanguageUtil} from "@utils/language.util";
 
 export default function PageSitemapsXML() {
@@ -69,6 +69,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     return {
-        props: PageUtil.getCommonProps(req)
+        props: PageSSRUtil.getProps(req)
     };
 }

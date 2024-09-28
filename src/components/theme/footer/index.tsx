@@ -160,7 +160,7 @@ class ComponentToolFooter extends ComponentHelperClass<IPageProps, IPageState> {
     }
 }
 
-ComponentToolFooter.initComponentServersideProps = async (req, component) => {
+ComponentToolFooter.initComponentServerSideProps = async (req, component) => {
     component.customData = {};
 
     component.customData.navigations = (await NavigationService.getMany({

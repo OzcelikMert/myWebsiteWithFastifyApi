@@ -1,4 +1,4 @@
-export const languageKeys = [
+export const LanguageKey = [
     "by",
     "blog",
     "categories",

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {GetServerSidePropsContext} from 'next'
 import {IPagePropCommon} from "types/pageProps";
-import {PageUtil} from "@utils/page.util";
+import {PageSSRUtil} from "@utils/page.ssr.util";
 import {PageTypeId} from "@constants/pageTypes";
 import {IPostGetManyResultService} from "types/services/post.service";
 import ComponentThemeSelectedComponents from "@components/theme/selectedComponents";
@@ -30,13 +30,13 @@ export default class PageHome extends Component<PageProps, PageState> {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     let req = context.req;
 
-    await PageUtil.initProps({req: req,
+    await PageSSRUtil.init({req: req,
         url: "homepage",
         typeId: PageTypeId.Home,
         increaseView: true
     });
 
     return {
-        props: PageUtil.getCommonProps(req),
+        props: PageSSRUtil.getProps(req),
     };
 }

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {GetServerSidePropsContext} from "next";
 import {IPagePropCommon} from "types/pageProps";
-import {PageUtil} from "@utils/page.util";
+import {PageSSRUtil} from "@utils/page.ssr.util";
 import {PostService} from "@services/post.service";
 import {PostTypeId} from "@constants/postTypes";
 import {StatusId} from "@constants/status";
@@ -289,6 +289,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     return {
-        props: PageUtil.getCommonProps(req),
+        props: PageSSRUtil.getProps(req),
     };
 }

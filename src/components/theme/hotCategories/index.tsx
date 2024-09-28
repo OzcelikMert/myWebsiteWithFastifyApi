@@ -1,5 +1,4 @@
 import React from "react";
-import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
 import {IPostTermGetResultService} from "types/services/postTerm.service";
 import {ComponentHelperClass} from "@classes/componentHelper.class";
@@ -9,13 +8,14 @@ import {PostTermService} from "@services/postTerm.service";
 import {PostTermTypeId} from "@constants/postTermTypes";
 import ComponentCategory from "@components/elements/category";
 import {AnimationOnScroll} from "react-animation-on-scroll";
+import {IComponentGetResultService} from "types/services/component.service";
 
 type IPageState = {
     selectedCategoryId: string
 };
 
 type IPageProps = {
-    component: IComponentModel<{ categories?: IPostTermGetResultService[] }>;
+    component: IComponentGetResultService<{ categories?: IPostTermGetResultService[] }>;
 } & IPagePropCommon;
 
 class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPageState> {
@@ -68,7 +68,7 @@ class ComponentThemeHotCategories extends ComponentHelperClass<IPageProps, IPage
     }
 }
 
-ComponentThemeHotCategories.initComponentServersideProps = async (req, component) => {
+ComponentThemeHotCategories.initComponentServerSideProps = async (req, component) => {
     component.customData = {};
     component.customData.categories = (await PostTermService.getMany({
         langId: req.appData.selectedLangId,

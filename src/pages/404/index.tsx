@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {IPagePropCommon} from "types/pageProps";
-import ComponentToolError404 from "@components/tools/error404";
+import ComponentToolError404 from "@components/theme/error404";
 import ComponentAppLayout from "@components/app/layout";
 import {ComponentKey} from "@constants/componentKeys";
 

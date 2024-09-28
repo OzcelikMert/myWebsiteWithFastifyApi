@@ -131,7 +131,7 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
     }
 }
 
-ComponentToolNavbar.initComponentServersideProps = async (req, component) => {
+ComponentToolNavbar.initComponentServerSideProps = async (req, component) => {
     component.customData = {};
 
     component.customData.navigations = (await NavigationService.getMany({

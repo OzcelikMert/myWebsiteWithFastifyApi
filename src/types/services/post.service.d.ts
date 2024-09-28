@@ -10,7 +10,6 @@ import {
 import {PostTypeId} from "@constants/postTypes";
 import {PageTypeId} from "@constants/pageTypes";
 import {StatusId} from "@constants/status";
-import {IComponentModel} from "types/models/component.model";
 import {PostSortTypeId} from "@constants/postSortTypes";
 
 export interface IPostAlternateService {
@@ -34,8 +33,7 @@ export type IPostGetOneResultService = {
             alternates?: IPostAlternateService[]
         })[]
     })
-    components?: IComponentModel[]
-} & Omit<IPostModel, "contents"|"categories"|"tags"|"eCommerce"|"authorId"|"lastAuthorId"|"components"|"authors">
+} & Omit<IPostModel, "contents"|"categories"|"tags"|"eCommerce"|"authorId"|"lastAuthorId"|"authors">
 
 export type IPostGetManyResultService = {
     eCommerce?: (Omit<IPostECommerceModel, "variations"> & {
@@ -44,8 +42,7 @@ export type IPostGetManyResultService = {
             alternates?: IPostAlternateService[]
         })[]
     })
-    components?: IPostModel["components"]
-} & Omit<IPostGetOneResultService, "eCommerce"|"components">
+} & Omit<IPostGetOneResultService, "eCommerce">
 
 export interface IPostGetPrevNextResultService {
     _id: string

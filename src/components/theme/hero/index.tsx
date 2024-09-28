@@ -1,16 +1,16 @@
 import React from "react";
 import Image from "next/image";
-import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
 import {ImageSourceUtil} from "@utils/imageSource.util";
 import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {TypeAnimation} from "react-type-animation";
 import {AnimationOnScroll} from 'react-animation-on-scroll';
+import {IComponentGetResultService} from "types/services/component.service";
 
 type IPageState = {};
 
 type IPageProps = {
-    component: IComponentModel;
+    component: IComponentGetResultService;
 } & IPagePropCommon;
 
 export default class ComponentThemeHero extends ComponentHelperClass<IPageProps, IPageState> {

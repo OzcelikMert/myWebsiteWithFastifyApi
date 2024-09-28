@@ -1,5 +1,4 @@
 import React from "react";
-import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
 import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {StatusId} from "@constants/status";
@@ -8,11 +7,12 @@ import {PermissionId} from "@constants/permissions";
 import {IUserGetResultService} from "types/services/user.service";
 import Image from "next/image";
 import {ImageSourceUtil} from "@utils/imageSource.util";
+import {IComponentGetResultService} from "types/services/component.service";
 
 type IPageState = {};
 
 type IPageProps = {
-    component: IComponentModel<{ authors?: IUserGetResultService[] }>;
+    component: IComponentGetResultService<{ authors?: IUserGetResultService[] }>;
 } & IPagePropCommon;
 
 class ComponentThemeAuthors extends ComponentHelperClass<IPageProps, IPageState> {
@@ -85,7 +85,7 @@ class ComponentThemeAuthors extends ComponentHelperClass<IPageProps, IPageState>
     }
 }
 
-ComponentThemeAuthors.initComponentServersideProps = async (req, component) => {
+ComponentThemeAuthors.initComponentServerSideProps = async (req, component) => {
     component.customData = {};
     component.customData.authors = (await UserService.getMany({
         statusId: StatusId.Active,

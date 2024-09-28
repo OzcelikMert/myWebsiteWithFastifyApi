@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {GetServerSidePropsContext} from "next";
-import {PageUtil} from "@utils/page.util";
+import {PageSSRUtil} from "@utils/page.ssr.util";
 import {IPagePropCommon} from "types/pageProps";
 import {PageTypeId} from "@constants/pageTypes";
 import ComponentAppLayout from "@components/app/layout";
@@ -177,7 +177,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         }
     }
 
-    await PageUtil.initProps({
+    await PageSSRUtil.init({
         req: req,
         url: "blogs",
         typeId: PageTypeId.Blogs,
@@ -206,6 +206,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     return {
-        props: PageUtil.getCommonProps(req),
+        props: PageSSRUtil.getProps(req),
     };
 }

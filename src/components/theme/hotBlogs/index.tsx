@@ -1,5 +1,4 @@
 import React from "react";
-import {IComponentModel} from "types/models/component.model";
 import {IPagePropCommon} from "types/pageProps";
 import {ComponentHelperClass} from "@classes/componentHelper.class";
 import {IPostGetManyResultService} from "types/services/post.service";
@@ -9,13 +8,14 @@ import {PostService} from "@services/post.service";
 import {PostTypeId} from "@constants/postTypes";
 import {StatusId} from "@constants/status";
 import {AnimationOnScroll} from "react-animation-on-scroll";
+import {IComponentGetResultService} from "types/services/component.service";
 
 type IPageState = {
     hotBlogs: IPostGetManyResultService[];
 };
 
 type IPageProps = {
-    component: IComponentModel<{ hotBlogs?: IPostGetManyResultService[] }>;
+    component: IComponentGetResultService<{ hotBlogs?: IPostGetManyResultService[] }>;
 } & IPagePropCommon;
 
 class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState> {
@@ -96,7 +96,7 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
     }
 }
 
-ComponentThemeHotBlogs.initComponentServersideProps = async (req: IncomingMessage, component) => {
+ComponentThemeHotBlogs.initComponentServerSideProps = async (req: IncomingMessage, component) => {
     component.customData = {};
     component.customData.hotBlogs = (await PostService.getMany({
         langId: req.appData.selectedLangId,

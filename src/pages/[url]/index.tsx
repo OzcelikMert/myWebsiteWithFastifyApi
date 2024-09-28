@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {GetServerSidePropsContext} from "next";
 import {IPagePropCommon} from "types/pageProps";
-import {PageUtil} from "@utils/page.util";
+import {PageSSRUtil} from "@utils/page.ssr.util";
 import {PageTypeId} from "@constants/pageTypes";
 import ComponentThemeSelectedComponents from "@components/theme/selectedComponents";
 import ComponentAppLayout from "@components/app/layout";
@@ -32,7 +32,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let url = context.params?.url as string || "";
     req.pageData.url = decodeURI(url);
 
-    await PageUtil.initProps({
+    await PageSSRUtil.init({
         req: req,
         url: url,
         typeId: PageTypeId.Default,
@@ -40,6 +40,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     });
 
     return {
-        props: PageUtil.getCommonProps(req),
+        props: PageSSRUtil.getProps(req),
     };
 }
