@@ -9,7 +9,7 @@ import ComponentAppLayout from "@components/app/layout";
 
 type PageState = {};
 
-type PageProps = {} & IPagePropCommon<{ sliders?: IPostGetManyResultService[] }>;
+type PageProps = {} & IPagePropCommon;
 
 export default class PageHome extends Component<PageProps, PageState> {
     constructor(props: PageProps) {

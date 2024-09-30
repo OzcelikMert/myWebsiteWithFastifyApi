@@ -60,6 +60,7 @@ class ComponentThemeCategories extends ComponentHelperClass<IPageProps, IPageSta
 
 ComponentThemeCategories.initComponentServerSideProps = async (req, component) => {
     component.customData = {};
+
     component.customData.categories = (await PostTermService.getMany({
         langId: req.appData.selectedLangId,
         typeId: [PostTermTypeId.Category],
