@@ -23,8 +23,9 @@ export interface IAppData {
 }
 
 export type IPageData<T> = {
+    isSitemap: boolean
     page?: IPostGetOneResultService | null,
-    publicComponents?: IComponentGetResultService[]
+    publicComponents: IComponentGetResultService[]
     privateComponents?: IComponentGetResultService[]
 } & T
 

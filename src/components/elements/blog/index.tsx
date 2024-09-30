@@ -5,7 +5,7 @@ import {IPostTermPopulateService} from "types/services/postTerm.service";
 import {IUserPopulateService} from "types/services/user.service";
 import {IPostGetManyResultService} from "types/services/post.service";
 import {IPagePropCommon} from "types/pageProps";
-import {URLUtil} from "@utils/url.util";
+import {UrlUtil} from "@utils/url.util";
 import {EndPoints} from "@constants/endPoints";
 import {DateMask} from "@library/variable/date";
 
@@ -37,7 +37,7 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
                     {
                         this.props.hideAuthorImage ? null
                             : props.map(author => (
-                                <a key={author._id} href={URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(author.url)})} className="hover-top">
+                                <a key={author._id} href={UrlUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(author.url)})} className="hover-top">
                                     <Image
                                         src={ImageSourceUtil.getUploadedImageSrc(author.image)}
                                         alt={author.name}
@@ -54,7 +54,7 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
                         {this.props.t("by")} {
                             props.map((author, index) => (
                                 <span key={author._id}>
-                                    <a href={URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(author.url)})}><span>{author.name}</span></a>
+                                    <a href={UrlUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(author.url)})}><span>{author.name}</span></a>
                                     {index < props.length - 1 ? " & " : ""}
                                 </span>
                             ))
@@ -71,14 +71,14 @@ export default class ComponentBlog extends Component<IPageProps, IPageState> {
     }
 
     Category = (props: IPostTermPopulateService, index: number) => {
-        let categoryURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.CATEGORY(props.contents.url)});
+        let categoryURL = UrlUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.CATEGORY(props.contents.url)});
         return (
             <a key={props._id} href={categoryURL} className="btn btn-light"> <span>{props.contents.title}</span></a>
         );
     }
 
     render() {
-        let blogURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(this.props.item.contents?.url)});
+        let blogURL = UrlUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(this.props.item.contents?.url)});
         return (
             <article key={this.props.item._id} className={this.props.className} title={this.props.item.contents?.title}>
                 <div className="card">

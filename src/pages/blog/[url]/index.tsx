@@ -13,7 +13,7 @@ import {
 import HTMLReactParser from "html-react-parser";
 import ComponentAppLayout from "@components/app/layout";
 import {IPostTermPopulateService} from "types/services/postTerm.service";
-import {URLUtil} from "@utils/url.util";
+import {UrlUtil} from "@utils/url.util";
 import {EndPoints} from "@constants/endPoints";
 import {IUserPopulateService} from "types/services/user.service";
 import Image from "next/image";
@@ -39,7 +39,7 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
     Author = (props: IUserPopulateService, index: number) => {
         let blog = this.props.pageData.blog;
         let date = new Date(blog?.createdAt ?? "");
-        let authorURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(props.url)});
+        let authorURL = UrlUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.AUTHOR(props.url)});
         return (
             <div className="author mt-2">
                 <div className="row">
@@ -83,7 +83,7 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
     }
 
     Category = (props: IPostTermPopulateService, index: number) => {
-        let categoryURL = URLUtil.createHref({
+        let categoryURL = UrlUtil.createHref({
             url: this.props.getURL,
             targetPath: EndPoints.BLOGS_WITH.CATEGORY(props.contents.url)
         });
@@ -94,7 +94,7 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
 
     PrevBlog = () => {
         let blog = this.props.pageData.prevBlog!;
-        let blogURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(blog?.contents?.url)});
+        let blogURL = UrlUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(blog?.contents?.url)});
         let date = new Date(blog?.createdAt ?? "");
         return (
             <article className="prev-blog" title={blog?.contents?.title}>
@@ -129,7 +129,7 @@ export default class PageBlogURL extends Component<PageProps, PageState> {
 
     NextBlog = () => {
         let blog = this.props.pageData.nextBlog!;
-        let blogURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(blog?.contents?.url)});
+        let blogURL = UrlUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOG(blog?.contents?.url)});
         let date = new Date(blog?.createdAt ?? "");
         return (
             <article className="next-blog" title={blog?.contents?.title}>

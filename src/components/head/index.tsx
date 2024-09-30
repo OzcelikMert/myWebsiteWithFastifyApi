@@ -3,7 +3,7 @@ import Head from 'next/head'
 import {IPagePropCommon} from "types/pageProps";
 import {ImageSourceUtil} from "@utils/imageSource.util";
 import {LanguageUtil} from "@utils/language.util";
-import {URLUtil} from "@utils/url.util";
+import {UrlUtil} from "@utils/url.util";
 import HTMLReactParser from "html-react-parser";
 
 type PageState = {};
@@ -51,7 +51,7 @@ export default class ComponentHead extends Component<PageProps, PageState> {
             let language = this.props.appData.languages.findSingle("_id", alternate.langId);
             if(language){
                 return (
-                    <link rel="alternate" hrefLang={LanguageUtil.getCode(language)} href={URLUtil.replaceLanguageCode({
+                    <link rel="alternate" hrefLang={LanguageUtil.getCode(language)} href={UrlUtil.replaceLanguageCode({
                         url: this.props.getURL,
                         newLanguage: language,
                         withBase: true

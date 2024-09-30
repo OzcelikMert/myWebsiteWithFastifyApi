@@ -14,7 +14,7 @@ export default class Page404 extends Component<PageProps, PageState> {
     }
 
     render() {
-        let component404 = this.props.appData.toolComponents.findSingle("key", ComponentKey.Error404);
+        let component404 = this.props.pageData.publicComponents.findSingle("key", ComponentKey.Error404);
         return (
             <ComponentAppLayout {...this.props} pageTitle={`404`}>
                 <div className="page page-404">

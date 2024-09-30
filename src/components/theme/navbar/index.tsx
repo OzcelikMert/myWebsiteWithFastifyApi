@@ -6,7 +6,7 @@ import {NavigationService} from "@services/navigation.service";
 import {StatusId} from "@constants/status";
 import {INavigationGetResultService} from "types/services/navigation.service";
 import {DropdownToggle, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {URLUtil} from "@utils/url.util";
+import {UrlUtil} from "@utils/url.util";
 
 type IPageState = {
     isNavbarSticky: boolean
@@ -62,7 +62,7 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
         return children.length > 0
             ? this.Dropdown(props, index)
             : (
-                <NavDropdown.Item key={props._id} href={URLUtil.createHref({url: this.props.getURL, targetPath: props.contents?.url})}>
+                <NavDropdown.Item key={props._id} href={UrlUtil.createHref({url: this.props.getURL, targetPath: props.contents?.url})}>
                     {props.contents?.title}
                 </NavDropdown.Item>
             )
@@ -97,7 +97,7 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
             ? this.Dropdown(props, index)
             : (
                 <Nav.Item key={props._id}>
-                    <Nav.Link href={URLUtil.createHref({url: this.props.getURL, targetPath: props.contents?.url})}>
+                    <Nav.Link href={UrlUtil.createHref({url: this.props.getURL, targetPath: props.contents?.url})}>
                         {props.contents?.title}
                     </Nav.Link>
                 </Nav.Item>
@@ -109,7 +109,7 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
             <div className={`navbar-section ${this.state.isNavbarSticky ? "scroll-on" : "start-style"}`} id="navbar-section">
                 <div className="container">
                     <Navbar expand="md" className="navbar-light">
-                        <Navbar.Brand href={URLUtil.createHref({url: this.props.getURL, targetPath: ""})}>
+                        <Navbar.Brand href={UrlUtil.createHref({url: this.props.getURL, targetPath: ""})}>
                             <h2>{this.props.appData.settings.seoContents?.title}</h2>
                         </Navbar.Brand>
                         <Navbar.Toggle aria-controls="#nav">

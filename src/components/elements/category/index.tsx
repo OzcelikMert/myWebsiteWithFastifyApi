@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {ImageSourceUtil} from "@utils/imageSource.util";
 import {IPostTermGetResultService} from "types/services/postTerm.service";
 import {IPagePropCommon} from "types/pageProps";
-import {URLUtil} from "@utils/url.util";
+import {UrlUtil} from "@utils/url.util";
 import {EndPoints} from "@constants/endPoints";
 
 type IPageState = {};
@@ -26,7 +26,7 @@ export default class ComponentCategory extends Component<IPageProps, IPageState>
     }
 
     render() {
-        let categoryURL = URLUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.CATEGORY(this.props.item.contents?.url)});
+        let categoryURL = UrlUtil.createHref({url: this.props.getURL, targetPath: EndPoints.BLOGS_WITH.CATEGORY(this.props.item.contents?.url)});
         return (
             <div key={this.props.item._id} className={`option ${this.props.isSelected ? "active" : ""}`} onMouseOver={event => this.onMouseOver()}>
                 <a href={categoryURL}>

@@ -1,5 +1,5 @@
 import {NextFetchEvent, type NextRequest, NextResponse} from "next/server";
-import {URLUtil} from "@utils/url.util";
+import {UrlUtil} from "@utils/url.util";
 import {LanguageService} from "@services/language.service";
 import {LanguageUtil} from "@utils/language.util";
 import {StatusId} from "@constants/status";
@@ -14,7 +14,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
     let langId = "";
 
-    let langCode = URLUtil.getLanguageCode(req.nextUrl.pathname);
+    let langCode = UrlUtil.getLanguageCode(req.nextUrl.pathname);
     if (langCode) {
         req.nextUrl.pathname = req.nextUrl.pathname.replace(`/${langCode}`, "");
 

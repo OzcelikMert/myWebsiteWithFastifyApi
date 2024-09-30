@@ -12,16 +12,17 @@ import "@library/variable/math"
 import ComponentApp from "@components/app";
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
-import {CookieUtil} from "@utils/cookie.util";
+import {CookieSSRUtil} from "@utils/cookie.ssr.util";
 import {LanguageUtil} from "@utils/language.util";
 import {PageSSRUtil} from "@utils/page.ssr.util";
 import {LanguageService} from "@services/language.service";
 import {StatusId} from "@constants/status";
 import {SettingService} from "@services/setting.service";
-import {URLUtil} from "@utils/url.util";
+import {UrlUtil} from "@utils/url.util";
 import {IComponentGetResultService} from "types/services/component.service";
 import {ComponentKey} from "@constants/componentKeys";
 import {LanguageSSRUtil} from "@utils/language.ssr.util";
+import {UrlSSRUtil} from "@utils/url.ssr.util";
 
 async function i18Init(staticContents: IComponentGetResultService) {
     const language = i18n.use(initReactI18next);
@@ -46,7 +47,7 @@ async function i18Init(staticContents: IComponentGetResultService) {
 }
 
 function App(props: AppProps) {
-    let componentStaticContents = props.pageProps.appData.toolComponents.findSingle("key", ComponentKey.StaticContents);
+    let componentStaticContents = props.pageProps.pageData.publicComponents.findSingle("key", ComponentKey.StaticContents);
     if(componentStaticContents){
         i18Init(componentStaticContents);
     }
@@ -62,11 +63,17 @@ App.getInitialProps = async (props: AppContext) => {
 
         req.pageData = {};
         req.appData = {};
-        req.getURL = URLUtil.get(req);
+        req.getURL = UrlSSRUtil.get(req);
         console.log(req.getURL);
 
+        req.pageData.isSitemap = req.getURL.asPath.includes("/sitemap.xml") ||  req.getURL.asPath.includes("/sitemaps/");
+
+        if(!req.pageData.isSitemap) {
+            await PageSSRUtil.initPublicComponents(req);
+        }
+
         let isLangInit = await LanguageSSRUtil.init(req, res);
-        if(!isLangInit){
+        if (!isLangInit) {
             return {};
         }
 

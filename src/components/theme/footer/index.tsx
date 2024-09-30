@@ -10,7 +10,7 @@ import {PostTypeId} from "@constants/postTypes";
 import {PostSortTypeId} from "@constants/postSortTypes";
 import {INavigationGetResultService} from "types/services/navigation.service";
 import {IPostGetManyResultService} from "types/services/post.service";
-import {URLUtil} from "@utils/url.util";
+import {UrlUtil} from "@utils/url.util";
 import Image from "next/image";
 import {ImageSourceUtil} from "@utils/imageSource.util";
 
@@ -39,7 +39,7 @@ class ComponentToolFooter extends ComponentHelperClass<IPageProps, IPageState> {
                     {
                         this.props.appData.languages.map((language, index) => (
                             <a
-                                href={language._id == this.props.appData.selectedLangId ? "#" : URLUtil.replaceLanguageCode({url: this.props.getURL, newLanguage: language})}
+                                href={language._id == this.props.appData.selectedLangId ? "#" : UrlUtil.replaceLanguageCode({url: this.props.getURL, newLanguage: language})}
                                 className={`ms-2 ${language._id == this.props.appData.selectedLangId ? "text-muted" : ""}`}
                             >
                                 <span>

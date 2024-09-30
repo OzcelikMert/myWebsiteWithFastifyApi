@@ -17,7 +17,7 @@ const deleteLangId = (req: IncomingMessage, res: ServerResponse<IncomingMessage>
     });
 }
 
-export const CookieUtil = {
+export const CookieSSRUtil = {
     setLangId: setLangId,
     deleteLangId: deleteLangId
 };
