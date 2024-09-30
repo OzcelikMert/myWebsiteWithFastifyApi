@@ -43,6 +43,7 @@ const initPrivateComponents = async (req: IncomingMessage) => {
             langId: req.appData.selectedLangId,
             typeId: ComponentTypeId.Private,
             withContent: true,
+            withCustomSort: true,
             _id: req.pageData.page.components
         });
 

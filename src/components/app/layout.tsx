@@ -2,11 +2,11 @@ import React, {Component} from "react";
 import ProviderNoFound from "@components/providers/noFound";
 import ComponentHead from "@components/head";
 import {IPagePropCommon} from "types/pageProps";
-import ComponentToolSubscribe from "@components/theme/subscribe";
+import ComponentThemeSubscribe from "@components/theme/subscribe";
 import {ComponentKey} from "@constants/componentKeys";
-import ComponentToolFooter from "@components/theme/footer";
-import ComponentToolNavbar from "@components/theme/navbar";
-import ComponentToolHeader from "@components/theme/header";
+import ComponentThemeFooter from "@components/theme/footer";
+import ComponentThemeNavbar from "@components/theme/navbar";
+import ComponentThemeHeader from "@components/theme/header";
 
 type PageState = {};
 
@@ -34,14 +34,14 @@ export default class ComponentAppLayout extends Component<PageProps, PageState> 
                 <ComponentHead {...this.props} title={this.props.pageTitle} />
                 {
                     navbarComponent
-                        ? <ComponentToolNavbar component={navbarComponent} {...this.props} />
+                        ? <ComponentThemeNavbar component={navbarComponent} {...this.props} />
                         : null
                 }
                 <div className="container-fluid main-section" id="main-section">
                         <div className="page-content">
                             {
                                 videoHeaderComponent
-                                    ? <ComponentToolHeader
+                                    ? <ComponentThemeHeader
                                         {...this.props}
                                         component={videoHeaderComponent}
                                         title={this.props.pageTitle}
@@ -57,12 +57,12 @@ export default class ComponentAppLayout extends Component<PageProps, PageState> 
                         </div>
                     {
                         subscribeComponent
-                            ? <ComponentToolSubscribe component={subscribeComponent} {...this.props} />
+                            ? <ComponentThemeSubscribe component={subscribeComponent} {...this.props} />
                             : null
                     }
                     {
                         footerComponent
-                            ? <ComponentToolFooter component={footerComponent} {...this.props} />
+                            ? <ComponentThemeFooter component={footerComponent} {...this.props} />
                             : null
                     }
                 </div>

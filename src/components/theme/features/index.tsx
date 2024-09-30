@@ -21,7 +21,7 @@ export default class ComponentThemeFeatures extends ComponentHelperClass<IPagePr
             <section className="property-section">
                 <div className="container">
                     <div className="row">
-                        <AnimationOnScroll animateIn="animate__fadeInLeft" animateOnce={true} className="col-lg-7 text-center cards">
+                        <AnimationOnScroll animateIn="animate__fadeInLeft" animateOnce={true} className="col-lg-7 text-center cards" animatePreScroll={false}>
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="card">
@@ -81,7 +81,7 @@ export default class ComponentThemeFeatures extends ComponentHelperClass<IPagePr
                                 </div>
                             </div>
                         </AnimationOnScroll>
-                        <AnimationOnScroll animateIn="animate__fadeInRight" animateOnce={true} className="col-lg-5 content ps-lg-5 mt-3 mt-lg-0 d-flex flex-column text-center">
+                        <AnimationOnScroll animateIn="animate__fadeInRight" animateOnce={true} className="col-lg-5 content ps-lg-5 mt-3 mt-lg-0 d-flex flex-column text-center" animatePreScroll={false}>
                             <div className="align-items-start">
                                 <h1 className="fw-bold">{this.getComponentElementContents("title")?.content}</h1>
                                 <p className="fs-6 opacity-75">

@@ -8,6 +8,7 @@ type IPageProps = {
     text?: string
     onClick?: () => void
     className?: string
+    type?: "button" | "submit"
 };
 
 export default class ComponentLoadingButton extends Component<IPageProps, IPageState> {
@@ -35,7 +36,8 @@ export default class ComponentLoadingButton extends Component<IPageProps, IPageS
     render () {
         return (
             <button
-                type="button" className={`${this.props.className ?? "btn btn-outline-primary btn-lg"}`}
+                type={this.props.type ?? "button"}
+                className={`${this.props.className ?? "btn btn-outline-primary btn-lg"}`}
                 onClick={event => this.onClick()}
                 disabled={this.state.isLoading}
             >

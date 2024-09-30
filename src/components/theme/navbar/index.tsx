@@ -18,7 +18,7 @@ type IPageProps = {
     }>;
 } & IPagePropCommon;
 
-class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
+class ComponentThemeNavbar extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {
         super(props);
         this.state = {
@@ -131,7 +131,7 @@ class ComponentToolNavbar extends ComponentHelperClass<IPageProps, IPageState> {
     }
 }
 
-ComponentToolNavbar.initComponentServerSideProps = async (req, component) => {
+ComponentThemeNavbar.initComponentServerSideProps = async (req, component) => {
     component.customData = {};
 
     component.customData.navigations = (await NavigationService.getMany({
@@ -141,4 +141,4 @@ ComponentToolNavbar.initComponentServerSideProps = async (req, component) => {
     })).data ?? [];
 }
 
-export default ComponentToolNavbar;
+export default ComponentThemeNavbar;

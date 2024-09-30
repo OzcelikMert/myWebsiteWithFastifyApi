@@ -31,15 +31,15 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
         return (
             <section className="recent-blog-section">
                 <div className="container">
-                    <AnimationOnScroll animateIn="animate__fadeInDown" animateOnce={true}>
+                    <AnimationOnScroll animateIn="animate__fadeInDown" animateOnce={true} animatePreScroll={false}>
                         <h2 className="section-header">{this.getComponentElementContents("hotTitle")?.content}</h2>
                     </AnimationOnScroll>
-                    <AnimationOnScroll animateIn="animate__fadeInDown" delay={200} animateOnce={true}>
+                    <AnimationOnScroll animateIn="animate__fadeInDown" delay={200} animateOnce={true} animatePreScroll={false}>
                         <p className="section-content">{this.getComponentElementContents("hotDescribe")?.content}</p>
                     </AnimationOnScroll>
                     <div className="d-flex blogs">
                         <div className="row">
-                            <AnimationOnScroll animateIn="animate__fadeInLeft" delay={200} animateOnce={true} className="col-md-12">
+                            <AnimationOnScroll animateIn="animate__fadeInLeft" delay={200} animateOnce={true} className="col-md-12" animatePreScroll={false}>
                                 <ComponentBlog {...this.props} item={item} index={0}
                                                imageWidth={1000} imageHeight={500}/>
                             </AnimationOnScroll>
@@ -55,7 +55,7 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
         return (
             <section className="featured-blogs-section">
                 <div className="container">
-                    <AnimationOnScroll animateIn="animate__fadeInDown" animateOnce={true}>
+                    <AnimationOnScroll animateIn="animate__fadeInDown" animateOnce={true} animatePreScroll={false}>
                         <h2 className="section-header">{this.getComponentElementContents("hotsTitle")?.content}</h2>
                     </AnimationOnScroll>
                     <div className="blogs">
@@ -63,7 +63,7 @@ class ComponentThemeHotBlogs extends ComponentHelperClass<IPageProps, IPageState
                             {
                                 items.map((item, index) => (
                                     <AnimationOnScroll animateIn="animate__fadeInRight" delay={(index + 1) * 100}
-                                                       animateOnce={true} className="col-md-12 mt-4">
+                                                       animateOnce={true} className="col-md-12 mt-4" animatePreScroll={false}>
                                         <ComponentBlog {...this.props} item={item}
                                                        index={index}
                                                        hideAuthorImage={true} hideShortContent={true}

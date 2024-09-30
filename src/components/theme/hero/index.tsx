@@ -22,7 +22,7 @@ export default class ComponentThemeHero extends ComponentHelperClass<IPageProps,
     render() {
         return (
             <section className="hero-section" id="hero-section">
-                <AnimationOnScroll animateIn="animate__fadeInRight" animateOnce={true}>
+                <AnimationOnScroll animateIn="animate__fadeInRight" animateOnce={true} animatePreScroll={false}>
                     <div className="container">
                         <div className="row d-flex">
                             <div className="col-lg-8 order-lg-2">

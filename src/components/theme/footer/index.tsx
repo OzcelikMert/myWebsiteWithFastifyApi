@@ -24,7 +24,7 @@ type IPageProps = {
     }>;
 } & IPagePropCommon;
 
-class ComponentToolFooter extends ComponentHelperClass<IPageProps, IPageState> {
+class ComponentThemeFooter extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {
         super(props);
     }
@@ -160,7 +160,7 @@ class ComponentToolFooter extends ComponentHelperClass<IPageProps, IPageState> {
     }
 }
 
-ComponentToolFooter.initComponentServerSideProps = async (req, component) => {
+ComponentThemeFooter.initComponentServerSideProps = async (req, component) => {
     component.customData = {};
 
     component.customData.navigations = (await NavigationService.getMany({
@@ -186,4 +186,4 @@ ComponentToolFooter.initComponentServerSideProps = async (req, component) => {
     })).data ?? [];
 }
 
-export default ComponentToolFooter;
+export default ComponentThemeFooter;

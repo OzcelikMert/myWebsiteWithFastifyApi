@@ -57,13 +57,13 @@ class ComponentThemeLastBlogs extends ComponentHelperClass<IPageProps, IPageStat
         return (
             <section className="blogs-section">
                 <div className="container">
-                    <AnimationOnScroll animateIn="animate__fadeInDown" animateOnce={true}>
+                    <AnimationOnScroll animateIn="animate__fadeInDown" animateOnce={true} animatePreScroll={false}>
                         <h2 className="section-header">{this.getComponentElementContents("title")?.content}</h2>
                     </AnimationOnScroll>
-                    <AnimationOnScroll animateIn="animate__fadeInDown" delay={200} animateOnce={true}>
+                    <AnimationOnScroll animateIn="animate__fadeInDown" delay={200} animateOnce={true} animatePreScroll={false}>
                         <p className="section-content">{this.getComponentElementContents("describe")?.content}</p>
                     </AnimationOnScroll>
-                    <AnimationOnScroll animateIn="animate__fadeInRight" delay={400} animateOnce={true}>
+                    <AnimationOnScroll animateIn="animate__fadeInRight" delay={400} animateOnce={true} animatePreScroll={false}>
                         <div className="blogs">
                             <div className="row">
                                 {

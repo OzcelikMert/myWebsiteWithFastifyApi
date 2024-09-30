@@ -9,7 +9,7 @@ type PageProps = {
     component: IComponentGetResultService
 } & IPagePropCommon;
 
-export default class ComponentToolError404 extends ComponentHelperClass<PageProps, PageState> {
+export default class ComponentThemeError404 extends ComponentHelperClass<PageProps, PageState> {
     constructor(props: PageProps) {
         super(props);
         this.state = {};

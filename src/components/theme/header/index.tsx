@@ -15,7 +15,7 @@ type IPageProps = {
     backgroundImage?: string
 } & IPagePropCommon;
 
-class ComponentToolHeader extends ComponentHelperClass<IPageProps, IPageState> {
+class ComponentThemeHeader extends ComponentHelperClass<IPageProps, IPageState> {
     constructor(props: IPageProps) {
         super(props);
     }
@@ -93,4 +93,4 @@ class ComponentToolHeader extends ComponentHelperClass<IPageProps, IPageState> {
     }
 }
 
-export default ComponentToolHeader;
+export default ComponentThemeHeader;

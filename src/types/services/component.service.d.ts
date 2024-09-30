@@ -30,4 +30,5 @@ export interface IComponentGetManyParamService {
     langId?: string
     typeId?: ComponentTypeId
     withContent?: boolean
+    withCustomSort?: boolean
 }

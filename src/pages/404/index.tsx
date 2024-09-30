@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {IPagePropCommon} from "types/pageProps";
-import ComponentToolError404 from "@components/theme/error404";
+import ComponentThemeError404 from "@components/theme/error404";
 import ComponentAppLayout from "@components/app/layout";
 import {ComponentKey} from "@constants/componentKeys";
 
@@ -20,7 +20,7 @@ export default class Page404 extends Component<PageProps, PageState> {
                 <div className="page page-404">
                     {
                         component404
-                            ? <ComponentToolError404 component={component404} {...this.props} />
+                            ? <ComponentThemeError404 component={component404} {...this.props} />
                             : null
                     }
                 </div>
