@@ -9,6 +9,7 @@ type IPageProps = {
     onClick?: () => void
     className?: string
     type?: "button" | "submit"
+    isLoading?: boolean
 };
 
 export default class ComponentLoadingButton extends Component<IPageProps, IPageState> {
@@ -20,7 +21,7 @@ export default class ComponentLoadingButton extends Component<IPageProps, IPageS
     }
 
     async onClick() {
-        if(this.state.isLoading) return false;
+        if(typeof this.props.isLoading != "undefined" || this.state.isLoading) return false;
         this.setState({
             isLoading: true
         }, async () => {
@@ -34,16 +35,17 @@ export default class ComponentLoadingButton extends Component<IPageProps, IPageS
     }
 
     render () {
+        let isLoading = typeof this.props.isLoading != "undefined" ? this.props.isLoading :  this.state.isLoading;
         return (
             <button
                 type={this.props.type ?? "button"}
                 className={`${this.props.className ?? "btn btn-outline-primary btn-lg"}`}
                 onClick={event => this.onClick()}
-                disabled={this.state.isLoading}
+                disabled={isLoading}
             >
                 <span>{this.props.text}</span>
                 {
-                    this.state.isLoading
+                    isLoading
                         ? (<i className="fa fa-spinner fa-spin ms-1"></i>)
                         : null
                 }
