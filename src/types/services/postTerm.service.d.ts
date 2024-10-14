@@ -60,3 +60,11 @@ export interface IPostTermGetManyParamService {
     withPostCount?: boolean
     ignoreDefaultLanguage?: boolean
 }
+
+export type IPostTermUpdateViewWithIdParamService = {
+    _id: string,
+    typeId: PostTermTypeId
+    postTypeId: PostTypeId
+    langId?: string
+    url?: string
+}

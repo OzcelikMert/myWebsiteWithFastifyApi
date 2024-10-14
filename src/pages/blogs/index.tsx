@@ -15,6 +15,7 @@ import ComponentBlog from "@components/elements/blog";
 import ComponentLoadingButton from "@components/elements/button/loadingButton";
 import {UserService} from "@services/user.service";
 import {IUserGetResultService} from "types/services/user.service";
+import {EndPoints} from "@constants/endPoints";
 
 type PageState = {
     blogs: IPostGetManyResultService[]
@@ -161,6 +162,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         if (serviceResultCategory.status && serviceResultCategory.data) {
             req.pageData.category = serviceResultCategory.data;
             categoryId = serviceResultCategory.data._id;
+
+            await PostTermService.updateViewWithId({
+                _id: serviceResultCategory.data._id,
+                typeId: serviceResultCategory.data.typeId,
+                postTypeId: serviceResultCategory.data.postTypeId,
+                langId: req.appData.selectedLangId,
+                url: EndPoints.BLOGS_WITH.CATEGORY(categoryURL)
+            });
         }
     }
 

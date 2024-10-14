@@ -2,7 +2,7 @@ import {ApiEndPoints} from "@constants/apiEndPoints";
 import {
     IPostTermGetResultService,
     IPostTermGetManyParamService,
-    IPostTermGetWithIdParamService, IPostTermGetWithURLParamService,
+    IPostTermGetWithIdParamService, IPostTermGetWithURLParamService, IPostTermUpdateViewWithIdParamService,
 } from "types/services/postTerm.service";
 import {ApiRequest} from "@library/api/request";
 import {PathUtil} from "@utils/path.util";
@@ -31,8 +31,17 @@ const getMany = (params: IPostTermGetManyParamService) => {
     }).get<IPostTermGetResultService[]>();
 }
 
+const updateViewWithId = (params: IPostTermUpdateViewWithIdParamService) =>  {
+    return new ApiRequest({
+        apiUrl: PathUtil.getApiURL(),
+        endPoint: ApiEndPoints.POST_TERM_WITH.UPDATE_VIEW_WITH_ID(params._id),
+        data: params
+    }).put();
+}
+
 export const PostTermService = {
     getWithId: getWithId,
     getWithURL: getWithURL,
     getMany: getMany,
+    updateViewWithId: updateViewWithId
 }
