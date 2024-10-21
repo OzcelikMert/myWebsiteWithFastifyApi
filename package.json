@@ -5,6 +5,7 @@
   "private": true,
   "author": "Mert ÖZÇELİK",
   "license": "ISC",
+  "repository": "OzcelikMert/myWebsiteWithFastifyApi",
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
