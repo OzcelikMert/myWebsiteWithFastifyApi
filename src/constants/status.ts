@@ -1,8 +1,8 @@
 export enum StatusId {
-    Active = 1,
-    InProgress,
-    Pending,
-    Disabled,
-    Banned,
-    Deleted
+  Active = 1,
+  InProgress,
+  Pending,
+  Disabled,
+  Banned,
+  Deleted,
 }

@@ -1,7 +1,7 @@
-import {AppDataDocument} from "types/pageProps";
+import { AppDataDocument } from 'types/pageProps';
 
 declare global {
-    interface Request {
-        appData: AppDataDocument
-    }
+  interface Request {
+    appData: AppDataDocument;
+  }
 }

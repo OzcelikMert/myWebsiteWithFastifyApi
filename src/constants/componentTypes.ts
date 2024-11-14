@@ -1,4 +1,4 @@
 export enum ComponentTypeId {
-    Public = 1,
-    Private
+  Public = 1,
+  Private,
 }

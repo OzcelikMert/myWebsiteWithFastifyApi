@@ -1,42 +1,42 @@
-import React, {Component} from "react";
-import {GetServerSidePropsContext} from 'next'
-import {IPagePropCommon} from "types/pageProps";
-import {PageSSRUtil} from "@utils/page.ssr.util";
-import {PageTypeId} from "@constants/pageTypes";
-import {IPostGetManyResultService} from "types/services/post.service";
-import ComponentThemeSelectedComponents from "@components/theme/selectedComponents";
-import ComponentAppLayout from "@components/app/layout";
+import React, { Component } from 'react';
+import { GetServerSidePropsContext } from 'next';
+import { IPagePropCommon } from 'types/pageProps';
+import { PageSSRUtil } from '@utils/page.ssr.util';
+import { PageTypeId } from '@constants/pageTypes';
+import ComponentThemeSelectedComponents from '@components/theme/selectedComponents';
+import ComponentAppLayout from '@components/app/layout';
 
 type PageState = {};
 
 type PageProps = {} & IPagePropCommon;
 
 export default class PageHome extends Component<PageProps, PageState> {
-    constructor(props: PageProps) {
-        super(props);
-    }
+  constructor(props: PageProps) {
+    super(props);
+  }
 
-    render() {
-        return (
-            <ComponentAppLayout {...this.props}>
-                <div className="page page-home">
-                    <ComponentThemeSelectedComponents {...this.props} />
-                </div>
-            </ComponentAppLayout>
-        );
-    }
+  render() {
+    return (
+      <ComponentAppLayout {...this.props}>
+        <div className="page page-home">
+          <ComponentThemeSelectedComponents {...this.props} />
+        </div>
+      </ComponentAppLayout>
+    );
+  }
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    let req = context.req;
+  const req = context.req;
 
-    await PageSSRUtil.init({req: req,
-        url: "homepage",
-        typeId: PageTypeId.Home,
-        increaseView: true
-    });
+  await PageSSRUtil.init({
+    req: req,
+    url: 'homepage',
+    typeId: PageTypeId.Home,
+    increaseView: true,
+  });
 
-    return {
-        props: PageSSRUtil.getProps(req),
-    };
+  return {
+    props: PageSSRUtil.getProps(req),
+  };
 }

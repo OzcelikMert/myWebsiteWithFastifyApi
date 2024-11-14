@@ -1,10 +1,10 @@
 export interface IApiRequestParam {
-    endPoint?: string,
-    apiUrl: string
-    data?: object,
-    processData?: boolean,
-    contentType?: string | false
-    onUploadProgress?: (e: any, percent: number) => void
+  endPoint?: string;
+  apiUrl: string;
+  data?: object;
+  processData?: boolean;
+  contentType?: string | false;
+  onUploadProgress?: (e: any, percent: number) => void;
 }
 
-export type IApiRequestParamMethod = "GET" | "POST" | "PUT" | "DELETE";
+export type IApiRequestParamMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';

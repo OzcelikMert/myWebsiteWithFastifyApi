@@ -1,6 +1,9 @@
-import {IPostECommercePricingModel, IPostECommerceVariationContentModel} from "types/models/post.model";
+import {
+  IPostECommercePricingModel,
+  IPostECommerceVariationContentModel,
+} from 'types/models/post.model';
 
 export interface IProductDataForProductsResultUtil {
-    contents?: IPostECommerceVariationContentModel,
-    pricing: IPostECommercePricingModel
+  contents?: IPostECommerceVariationContentModel;
+  pricing: IPostECommercePricingModel;
 }

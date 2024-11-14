@@ -1,4 +1,4 @@
 export enum AttributeTypeId {
-    Text = 1,
-    Image,
+  Text = 1,
+  Image,
 }
